@@ -20,3 +20,8 @@ import PakPrimes
 #print axioms PakPrimes.BorelStokesVandermonde.gHat_no_autonomous_ade
 #print axioms PakPrimes.Main.logReciprocal_algebraicIndependent
 #print axioms PakPrimes.Main.pak_conjecture_2_5b_of_pnt
+
+#check @PakPrimes.Main.primeCounting_and_indicator_independent
+#print axioms MediumPNT
+#print axioms PakPrimes.Main.pntAllOrders
+#print axioms PakPrimes.Main.primeCounting_and_indicator_independent

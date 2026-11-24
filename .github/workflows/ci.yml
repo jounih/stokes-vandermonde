@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -rnE '\b(sorry|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean; then
+          if grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean PNTIntegration/ vendor/PrimeNumberTheoremAnd/; then
             echo "Forbidden escape hatch found"
             exit 1
           fi
@@ -37,6 +37,9 @@ jobs:
               "PakPrimes.BorelStokesVandermonde.gHat_no_autonomous_ade",
               "PakPrimes.Main.logReciprocal_algebraicIndependent",
               "PakPrimes.Main.pak_conjecture_2_5b_of_pnt",
+              "MediumPNT",
+              "PakPrimes.Main.pntAllOrders",
+              "PakPrimes.Main.primeCounting_and_indicator_independent",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"

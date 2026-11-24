@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "0.1.0"
+version = "1.1.0"
 defaultTargets = ["PakPrimes"]
 
 [[require]]
@@ -10,3 +10,19 @@ rev = "fc4f59e577feb1a4956671bc04ac18aaaf8cd842"
 [[lean_lib]]
 name = "PakPrimes"
 roots = ["PakPrimes", "PakPrimes.BorelStokesVandermonde", "PakPrimes.AutonomousTransfer", "PakPrimes.MainTheorem", "PakPrimes.GeneralTheorem2"]
+
+[[lean_lib]]
+name = "PNTIntegration"
+roots = ["PNTIntegration.Final", "PNTIntegration.PrimeCountingFromPsi"]
+
+[[lean_lib]]
+name = "Architect"
+srcDir = "vendor"
+
+[[lean_lib]]
+name = "PrimeNumberTheoremAnd"
+srcDir = "vendor"
+
+[lean_lib.leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false

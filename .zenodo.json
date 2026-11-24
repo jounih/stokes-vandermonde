@@ -5,10 +5,10 @@
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of the general meromorphic Borel–Stokes–Vandermonde criterion for differential transcendence, together with an unconditional proof that the logarithmic reciprocal series sum_{n>=2} q^n / log(n) satisfies no algebraic differential equation over C(q), and a machine-checked proof of the prime-counting half of Igor Pak's ICM 2018 Conjecture 2.5 (for both sum_{p prime} q^p and sum_{n>=0} pi(n) q^n) assuming only the classical all-orders error term of the prime number theorem (PNTAllOrders). Google Gemini, OpenAI Codex, and Anthropic Claude provided substantial assistance with the mathematical investigation, auditing, manuscript drafting, and Lean formalization. Independent specialist review is welcome.",
+  "description": "Lean 4 formalization of a meromorphic Borel–Stokes–Vandermonde criterion and its applications to differential transcendence. The prime-indicator series and the generating function of the prime-counting sequence each satisfy no algebraic differential equation over C(q), proving the prime-counting part of Pak’s Conjecture 2.5. Version 1.1.0 discharges the quantitative prime number theorem hypothesis using the PNT+ project’s MediumPNT theorem and a transfer to the prime-counting function. The theorem for the logarithmic reciprocal series sum over n ≥ 2 of q^n/log(n) is also included. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "keywords": [
     "Lean 4",
     "formal verification",
