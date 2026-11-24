@@ -1,5 +1,9 @@
-import PNTIntegration.PrimeCountingFromPsi
-import PrimeNumberTheoremAnd.MediumPNT
+module
+
+public import PNTIntegration.PrimeCountingFromPsi
+public import PrimeNumberTheoremAnd.MediumPNT
+
+public section
 
 namespace PakPrimes.Main
 

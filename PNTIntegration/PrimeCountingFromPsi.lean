@@ -1,7 +1,11 @@
-import PakPrimes.MainTheorem
-import Mathlib.NumberTheory.Chebyshev
-import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
-import Mathlib.Tactic
+module
+
+public import PakPrimes.MainTheorem
+public import Mathlib.NumberTheory.Chebyshev
+public import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
+public import Mathlib.Tactic
+
+public section
 
 /-!
 # From the quantitative prime number theorem for ψ to the prime-counting ADE obstruction
@@ -112,7 +116,7 @@ private theorem theta_integral_allOrders (M : ℕ)
     (fun x : ℝ => ∫ t in (2 : ℝ)..x, (Chebyshev.theta t - t)/(t*(log t)^2))
       =O[atTop] (fun x : ℝ => x/(log x)^M) := by
   obtain ⟨C,hC,hbound⟩ := h.exists_pos
-  obtain ⟨A,hA⟩ := eventually_atTop.mp hbound
+  obtain ⟨A,hA⟩ := eventually_atTop.mp (isBigOWith_iff.mp hbound)
   let B : ℝ := (log 4 + 1) / (log 2)^2
   have hB : 0 ≤ B := by dsimp [B]; positivity
   refine IsBigO.of_bound (B + C * (2:ℝ)^M) ?_
@@ -236,7 +240,7 @@ theorem pntAllOrders_of_mediumPsi (hpsi : ∃ c : ℝ, 0 < c ∧
   have herr := ((hdiv.trans htheta).add hconst).add hintegral
   obtain ⟨C, hC, hbound⟩ := herr.exists_pos
   refine ⟨C, hC, ?_⟩
-  filter_upwards [hbound, eventually_ge_atTop (2 : ℝ)] with x hb hx
+  filter_upwards [isBigOWith_iff.mp hbound, eventually_ge_atTop (2 : ℝ)] with x hb hx
   rw [primeCounting_sub_li_eq hx]
   have hx0 : 0 ≤ x := by linarith
   have hxlog : 0 < log x := log_pos (by linarith)
