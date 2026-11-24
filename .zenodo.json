@@ -1,20 +1,24 @@
 {
-  "title": "The Stokes–Vandermonde criterion and differential transcendence of prime-counting series: a Lean 4 formalization",
+  "title": "Formal Resurgence and Differential Transcendence in Lean 4 (stokes-vandermonde)",
   "creators": [
     {
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of a meromorphic Borel–Stokes–Vandermonde criterion and its applications to differential transcendence. The prime-indicator series and the generating function of the prime-counting sequence each satisfy no algebraic differential equation over C(q), proving the prime-counting part of Pak’s Conjecture 2.5. The quantitative prime number theorem input is discharged using the MediumPNT theorem from the PrimeNumberTheoremAnd (PNT+) project by Alex Kontorovich, Terence Tao, and contributors, together with a transfer to the prime-counting function. Version 1.1.1 adds explicit fresh leanchecker kernel replay for all PNTIntegration modules in CI and prominent PNT+ attribution. The theorem for the logarithmic reciprocal series sum over n ≥ 2 of q^n/log(n) is also included. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
+  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion (both autonomous and non-autonomous over C(u) with rotated rays and arbitrary finite pole orders) and unconditional machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mock modular forms. Version 2.0.0 adds: Hölder's theorem (1887) directly on Mathlib's Complex.Gamma and Real.Gamma; Hilbert (1900) / Ostrowski's theorem (1920) directly on Mathlib's riemannZeta; all even divisor-sum series L_{2m}(q), L_0(q), and the literal MacMahon plane-partition Euler product M(q) = ∏ (1 - q^n)^{-n}; meromorphic EGF-to-OGF transcendence (Pak–Yeliussizov families); unconditional differential transcendence of partitions into primes (OEIS A000607) and distinct-prime partitions (OEIS A000586) in literal Euler-product form via MediumPNT from the PrimeNumberTheoremAnd (PNT+) project by Alex Kontorovich, Terence Tao, and contributors; and weight-1 mock modular / Eichler integrals over C(u) including KRY/Duke–Li E_1(τ; χ_{-3}) and the cusp shadow η(τ)η(23τ). All 44 audited declarations depend strictly on [propext, Classical.choice, Quot.sound] and pass fresh leanchecker replay. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "keywords": [
     "Lean 4",
     "formal verification",
     "differential transcendence",
     "Borel-Laplace summation",
     "Stokes phenomenon",
-    "prime counting function"
+    "Holder theorem",
+    "Ostrowski theorem",
+    "MacMahon plane partitions",
+    "prime partitions",
+    "mock modular forms"
   ]
 }

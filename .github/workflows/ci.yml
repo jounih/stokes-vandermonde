@@ -27,7 +27,7 @@ jobs:
           set -euo pipefail
           lake env lean Verify.lean | tee verify.log
           python3 - <<'PY'
-          import re, sys
+          import re
           text = open("verify.log").read()
           flat = re.sub(r"\s+", " ", text)
           expected = [
@@ -42,6 +42,39 @@ jobs:
               "PakPrimes.Main.primeCounting_and_indicator_independent",
               "PakPrimes.Main.primeCounting_and_indicator_no_polynomialADE",
               "PakPrimes.Main.primeCounting_and_indicator_no_rationalADE",
+              "PakPrimes.HigherOrderStokes.higher_order_stokes_vandermonde_no_ade",
+              "PakPrimes.HigherOrderStokes.higher_order_stokes_vandermonde_no_rat_ade",
+              "PakPrimes.HigherOrderStokes.no_rat_ade_of_higher_order_borel",
+              "PakPrimes.HolderGamma.trigamma_no_rat_ade",
+              "PakPrimes.HolderGamma.holder_gamma_no_ade",
+              "PakPrimes.HolderGamma.holder_gamma_no_rat_ade",
+              "PakPrimes.HolderGamma.holder_realGamma_no_ade",
+              "PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_complex_ade",
+              "PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_ade",
+              "PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_rat_ade",
+              "PakPrimes.DivisorAndMacMahon.sigmaEvenSeries_algebraicIndependent",
+              "PakPrimes.DivisorAndMacMahon.divisorSeries_algebraicIndependent",
+              "PakPrimes.DivisorAndMacMahon.macmahonSeries_algebraicIndependent",
+              "PakPrimes.DivisorAndMacMahon.hasProd_macmahonEulerProduct",
+              "PakPrimes.DivisorAndMacMahon.macmahonEulerProduct_algebraicIndependent",
+              "PakPrimes.PakYeliussizovEGF.ogf_algebraicIndependent_of_higherOrderBorel",
+              "PakPrimes.PakYeliussizovEGF.bernOGF_algebraicIndependent",
+              "PakPrimes.PakYeliussizovEGF.tanOGF_algebraicIndependent",
+              "PakPrimes.PakYeliussizovEGF.secOGF_algebraicIndependent",
+              "PakPrimes.PakYeliussizovEGF.sec2OGF_algebraicIndependent",
+              "PakPrimes.PakYeliussizovEGF.ratExpOGF_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.hasProd_partitionPrimesEulerProduct",
+              "PakPrimes.PartitionsIntoPrimes.hasProd_distinctPrimesEulerProduct",
+              "PakPrimes.PartitionsIntoPrimes.partLogDeriv_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.partitionPrimes_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.partitionPrimesEulerProduct_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.distinctLogDeriv_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.distinctPrimes_algebraicIndependent",
+              "PakPrimes.PartitionsIntoPrimes.distinctPrimesEulerProduct_algebraicIndependent",
+              "PakPrimes.MockModularWeightOne.eichlerWeightOne_no_rat_ade",
+              "PakPrimes.MockModularWeightOne.eichlerWeightOne_integral_no_rat_ade",
+              "PakPrimes.MockModularWeightOne.kryEisenstein_no_rat_ade",
+              "PakPrimes.MockModularWeightOne.cuspG23_no_rat_ade",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -54,8 +87,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          ulimit -s 65520
           lake env leanchecker --fresh PNTIntegration.PrimeCountingFromPsi
           lake env leanchecker --fresh PNTIntegration.Final
           lake env leanchecker --fresh PNTIntegration.ExplicitADE
           lake env leanchecker --fresh PNTIntegration.ExplicitRat
+          lake env leanchecker --fresh PNTIntegration.PrimePartitions
           lake env leanchecker --fresh PakPrimes
+          lake env leanchecker --fresh PakPrimes.HigherOrderStokes
+          lake env leanchecker --fresh PakPrimes.HolderGamma
+          lake env leanchecker --fresh PakPrimes.OstrowskiZeta
+          lake env leanchecker --fresh PakPrimes.DivisorAndMacMahon
+          lake env leanchecker --fresh PakPrimes.MacMahonEulerProduct
+          lake env leanchecker --fresh PakPrimes.PakYeliussizovEGF
+          lake env leanchecker --fresh PakPrimes.PartitionsIntoPrimes
+          lake env leanchecker --fresh PakPrimes.PrimeEulerProduct
+          lake env leanchecker --fresh PakPrimes.MockModularWeightOne

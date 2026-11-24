@@ -1,52 +1,54 @@
-# The Stokes–Vandermonde criterion and prime-counting series
+# Formal Resurgence and Differential Transcendence in Lean 4 (`stokes-vandermonde`)
 
-This Lean 4 development proves that each of two ordinary generating functions satisfies no nonzero algebraic differential equation over $\mathbb C(q)$. They are the prime-indicator series $\sum_{p\ \mathrm{prime}}q^p$ and the prime-counting series $\sum_{n\ge0}\pi(n)q^n$. Their differential transcendence is equivalent because multiplication by $1-q$ takes the second series to the first. This settles the prime-counting part of Conjecture 2.5 in Igor Pak’s survey. The part about the generating function of the $n$th prime remains open here. [Pak’s survey](https://arxiv.org/abs/1803.06636)
+This Lean 4 library (`v2.0.0`) formalizes the **Borel–Stokes–Vandermonde criterion** for differential transcendence—both autonomous and non-autonomous over $\mathbb{C}(u)$ with rotated Stokes rays and arbitrary finite pole orders—and applies it to prove **unconditional, zero-hypothesis differential transcendence** for a broad suite of classical and modern generating functions, special functions, and mock modular Eichler integrals.
 
-## The prime theorem
+All **44 audited theorems** depend strictly on the three standard Lean axioms `[propext, Classical.choice, Quot.sound]`, with zero `sorry`, zero custom axioms, zero `native_decide`, and independent kernel replay via `lake env leanchecker --fresh`.
 
-The theorem below is in namespace `PakPrimes.Main`. Its statement takes no hypotheses.
+## Summary of Kernel-Verified Theorems (`v2.0.0`)
 
-```lean
-theorem primeCounting_and_indicator_independent :
-    AlgebraicIndependent ℂ PrimeNome.indicatorCoordinates ∧
-      AlgebraicIndependent ℂ PrimeNome.piCoordinates
-```
+| Area | Mathematical Result | Main Lean 4 Declarations | Module |
+| :--- | :--- | :--- | :--- |
+| **General Engine (Wave 1)** | Autonomous Borel–Stokes–Vandermonde criterion for simple poles on $[0,\infty)$ | `borel_stokes_vandermonde_no_autonomous_ade`, `no_autonomous_ade_of_meromorphic_borel` | [GeneralTheorem2.lean](PakPrimes/GeneralTheorem2.lean) |
+| **General Engine (Wave 2)** | Full non-autonomous $\mathbb{C}(u)$ criterion on rotated rays $e^{i\theta_0}$ with arbitrary finite pole orders $m_k \ge 1$ | `higher_order_stokes_vandermonde_no_rat_ade`, `no_rat_ade_of_higher_order_borel` | [HigherOrderStokes.lean](PakPrimes/HigherOrderStokes.lean) |
+| **Hölder's Theorem (1887)** | $\Gamma(z)$ satisfies no nonzero ADE over $\mathbb{C}(z)$ (nor $\Gamma(x)$ over $\mathbb{R}[x]$); $\psi_1(u)$ D-transcendental | `holder_gamma_no_rat_ade`, `holder_gamma_no_ade`, `holder_realGamma_no_ade`, `trigamma_no_rat_ade` | [HolderGamma.lean](PakPrimes/HolderGamma.lean) |
+| **Hilbert (1900) / Ostrowski (1920)** | $\zeta(s)$ satisfies no nonzero ADE over $\mathbb{C}(s)$ directly on Mathlib's `riemannZeta` | `ostrowski_riemannZeta_no_rat_ade`, `ostrowski_riemannZeta_no_complex_ade` | [OstrowskiZeta.lean](PakPrimes/OstrowskiZeta.lean) |
+| **Prime Counting (Pak Conj. 2.5b)** | $\sum_p q^p$, $\sum_{n \ge 0}\pi(n)q^n$, and $\sum_{n \ge 2} q^n/\log n$ are D-transcendental over $\mathbb{C}(q)$ | `primeCounting_and_indicator_independent`, `primeCounting_and_indicator_no_rationalADE`, `logReciprocal_algebraicIndependent` | [Final.lean](PNTIntegration/Final.lean), [ExplicitRat.lean](PNTIntegration/ExplicitRat.lean), [MainTheorem.lean](PakPrimes/MainTheorem.lean) |
+| **Prime Partitions (A000607 & A000586)** | Unconditional D-transcendence of literal Euler products $\prod_p (1-q^p)^{-1}$ and $\prod_p (1+q^p)$ via `PNT+` | `partitionPrimesEulerProduct_algebraicIndependent`, `distinctPrimesEulerProduct_algebraicIndependent`, `hasProd_partitionPrimesEulerProduct`, `hasProd_distinctPrimesEulerProduct` | [PrimePartitions.lean](PNTIntegration/PrimePartitions.lean), [PrimeEulerProduct.lean](PakPrimes/PrimeEulerProduct.lean) |
+| **Divisor Sums & MacMahon $M(q)$** | All even divisor sums $L_{2m}(q) = \sum \sigma_{2m}(n)q^n$ (incl. $L_0(q) = \sum d(n)q^n$) & literal MacMahon product $\prod_{n\ge 1}(1-q^n)^{-n}$ | `sigmaEvenSeries_algebraicIndependent`, `divisorSeries_algebraicIndependent`, `hasProd_macmahonEulerProduct`, `macmahonEulerProduct_algebraicIndependent` | [DivisorAndMacMahon.lean](PakPrimes/DivisorAndMacMahon.lean), [MacMahonEulerProduct.lean](PakPrimes/MacMahonEulerProduct.lean) |
+| **Meromorphic EGF $\to$ OGF** | General EGF-to-OGF bridge & concrete witnesses (Bernoulli, $\tan$, $\sec$, $\sec^2$, $(1 - c e^{\lambda\xi})^{-p}$) | `ogf_algebraicIndependent_of_higherOrderBorel`, `bernOGF_algebraicIndependent`, `tanOGF_algebraicIndependent`, `secOGF_algebraicIndependent`, `ratExpOGF_algebraicIndependent` | [PakYeliussizovEGF.lean](PakPrimes/PakYeliussizovEGF.lean) |
+| **Weight-1 Mock Modular / Eichler** | Split Stieltjes / Eichler integrals over $\mathbb{C}(u)$, incl. KRY/Duke–Li $E_1(\tau;\chi_{-3})$ and cusp shadow $\eta(\tau)\eta(23\tau)$ | `eichlerWeightOne_no_rat_ade`, `eichlerWeightOne_integral_no_rat_ade`, `kryEisenstein_no_rat_ade`, `cuspG23_no_rat_ade` | [MockModularWeightOne.lean](PakPrimes/MockModularWeightOne.lean) |
 
-For a power series $F$, `seriesCoordinates F` contains $q,F,F',F'',\dots$ in $\mathbb C[[q]]$. Algebraic independence over $\mathbb C$ rules out every algebraic differential equation over $\mathbb C(q)$ after clearing denominators. The conjunction makes a separate independence assertion for each series. [Definitions](PakPrimes/AutonomousTransfer.lean) · [Theorem](PNTIntegration/Final.lean)
+*(Note: The complementary $n$-th prime generating function $\sum p_n q^n$ in Pak's Conjecture 2.5 remains open. A separate companion repository [pak-cubic-theta](https://doi.org/10.5281/zenodo.24492865) formalizes the cubic theta series $\sum q^{n^3}$ of Chowla–Chowla 1984 / Lipshitz–Rubel 1991 / Pak Conjecture 2.6.)*
 
-The direct theorem `primeCounting_and_indicator_no_rationalADE` accepts any order $r$ and any nonzero polynomial in $r+1$ variables with coefficients in `RatFunc ℂ`. It asserts that substituting the ordinary derivatives through order $r$ of either generating function gives a nonzero element of `LaurentSeries ℂ`. There is a companion statement for polynomial coefficients, with values in `PowerSeries ℂ`. [Polynomial coefficient theorem](PNTIntegration/ExplicitADE.lean) · [Rational coefficient theorem](PNTIntegration/ExplicitRat.lean)
+## Unconditional `PNT+` Integration
 
-The version 1.0.1 manuscript gives the analytic argument and records the formalization as it stood at that release. The Lean prime theorem then took `PNTAllOrders` as a hypothesis. This is the estimate $\pi(x)-\int_2^x dt/\log t=O_M(x/(\log x)^M)$ for every natural $M$. The original manuscript and source remain available in that archive. [Manuscript](paper/main.pdf) · [Version 1.0.1](https://doi.org/10.5281/zenodo.24500832)
+The unconditional prime-counting and prime-partition theorems discharge `PNTAllOrders` (`|π(x) - li(x)| = O_M(x / (log x)^M)` for all `M`) directly from the quantitative Chebyshev-$\psi$ prime number theorem `MediumPNT` of the **PrimeNumberTheoremAnd (PNT+)** project led by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors** ([PNT+ repository](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd) · [Transfer proof](PNTIntegration/PrimeCountingFromPsi.lean) · [Third-party credits](vendor/README.md)).
 
-Version 1.1.0 proves `PNTAllOrders` inside Lean by building directly on the `MediumPNT` theorem of the **PrimeNumberTheoremAnd (PNT+)** project led by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors**. `MediumPNT` bounds the error for Chebyshev’s $\psi$ by $O(x\exp(-c(\log x)^{1/10}))$ for some $c>0$. A bound for the prime-power contribution transfers the estimate to $\theta$. Abel summation then transfers it to $\pi$. Splitting the integral at $\sqrt x$ gives the required bound for every $M$. The earlier theorem `pak_conjecture_2_5b_of_pnt` applies to this proved estimate. Another development proves a stretched-exponential remainder for $\pi$ on Lean 4.28. [Transfer proof](PNTIntegration/PrimeCountingFromPsi.lean) · [PNT+ repository](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd) · [PNT+ source and attribution](vendor/README.md) · [Erdős 768 proof](https://github.com/ericlisg/erdos768-lean/blob/e46ab245f1e5eb2d1f0b184874c4e32e02ad16c9/RequestProject/PNT.lean#L321-L324)
+## Reproduce the Check
 
-## Other results in the development
-
-- `borel_stokes_vandermonde_no_autonomous_ade` gives a criterion for ruling out autonomous algebraic differential equations for the formal Laplace series of a meromorphic Borel transform. The hypotheses on the wedge, poles, residues and exponential growth are explicit in `MeromorphicBorelData`. The chapter also instantiates the criterion for $\Gamma(1-\xi)$. [General criterion](PakPrimes/GeneralTheorem2.lean)
-- `logReciprocal_algebraicIndependent` gives differential transcendence over $\mathbb C(q)$ for $\sum_{n\ge2}q^n/\log n$. [Main theorem file](PakPrimes/MainTheorem.lean)
-- A separate companion repository contains the Lean proof for the cubic theta series in Conjecture 2.6. [Cubic theta release](https://doi.org/10.5281/zenodo.24492865)
-
-## Reproduce the check
-
-Use Lean 4.36.0. The Lake manifest pins Mathlib to `fc4f59e577feb1a4956671bc04ac18aaaf8cd842`. The source files for the two additional upstream libraries are included in the release.
+Use Lean `v4.36.0` (Mathlib commit `fc4f59e577feb1a4956671bc04ac18aaaf8cd842`):
 
 ```bash
 lake exe cache get
 lake build
 lake env lean Verify.lean
-lake env leanchecker --fresh PNTIntegration.PrimeCountingFromPsi
-lake env leanchecker --fresh PNTIntegration.Final
-lake env leanchecker --fresh PNTIntegration.ExplicitADE
-lake env leanchecker --fresh PNTIntegration.ExplicitRat
-lake env leanchecker --fresh PakPrimes
 ```
 
-On macOS run the `leanchecker` commands with a larger stack if necessary, using `(ulimit -s 65520 && lake env leanchecker --fresh ...)`. The expected axiom line is
+For independent kernel replay (use `ulimit -s 65520` on macOS/Linux for large modules):
 
-```text
-'PakPrimes.Main.primeCounting_and_indicator_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+```bash
+ulimit -s 65520
+for mod in \
+  PNTIntegration.PrimeCountingFromPsi PNTIntegration.Final PNTIntegration.ExplicitADE \
+  PNTIntegration.ExplicitRat PNTIntegration.PrimePartitions PakPrimes \
+  PakPrimes.HigherOrderStokes PakPrimes.HolderGamma PakPrimes.OstrowskiZeta \
+  PakPrimes.DivisorAndMacMahon PakPrimes.MacMahonEulerProduct \
+  PakPrimes.PakYeliussizovEGF PakPrimes.PartitionsIntoPrimes \
+  PakPrimes.PrimeEulerProduct PakPrimes.MockModularWeightOne; do
+  lake env leanchecker --fresh "$mod"
+done
 ```
 
-## Credits and license
+## Credits and License
 
-The unconditional prime-counting theorem relies centrally on the `MediumPNT` formalization from the **PrimeNumberTheoremAnd (PNT+)** project by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors**, as well as **LeanArchitect**. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the mathematical investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome. [License](LICENSE) · [Third-party credits and licenses](vendor/README.md)
+The unconditional prime-counting and prime-partition theorems build directly on the `MediumPNT` formalization from the **PrimeNumberTheoremAnd (PNT+)** project by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors**, as well as **LeanArchitect**. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the mathematical investigation, adversarial auditing, drafting, and Lean 4 formalization. Independent specialist review is welcome. [License](LICENSE) · [Third-party credits and licenses](vendor/README.md)
