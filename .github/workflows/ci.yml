@@ -1,0 +1,52 @@
+name: Build and check axioms
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: "true"
+          use-mathlib-cache: "true"
+          use-github-cache: "false"
+      - name: Check for escape hatches
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -rnE '\b(sorry|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean; then
+            echo "Forbidden escape hatch found"
+            exit 1
+          fi
+      - name: Verify theorems and axiom lists
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean Verify.lean | tee verify.log
+          python3 - <<'PY'
+          import re, sys
+          text = open("verify.log").read()
+          flat = re.sub(r"\s+", " ", text)
+          expected = [
+              "PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade",
+              "PakPrimes.GeneralTheorem2.no_autonomous_ade_of_meromorphic_borel",
+              "PakPrimes.GeneralTheorem2.gHat_no_autonomous_ade_via_general_theorem_2",
+              "PakPrimes.BorelStokesVandermonde.gHat_no_autonomous_ade",
+              "PakPrimes.Main.logReciprocal_algebraicIndependent",
+              "PakPrimes.Main.pak_conjecture_2_5b_of_pnt",
+          ]
+          for thm in expected:
+              needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
+              assert needle in flat, f"Missing exact axiom line: {needle}"
+          for bad in ("sorryAx", "Lean.ofReduceBool", "Lean.trustCompiler"):
+              assert bad not in text, f"Forbidden axiom present: {bad}"
+          print(f"Verified all {len(expected)} theorems with strictly [propext, Classical.choice, Quot.sound].")
+          PY
+      - name: Independent kernel check (leanchecker)
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env leanchecker --fresh PakPrimes

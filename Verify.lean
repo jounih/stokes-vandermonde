@@ -1,0 +1,22 @@
+import PakPrimes
+
+#check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
+#check @PakPrimes.GeneralTheorem2.no_autonomous_ade_of_meromorphic_borel
+#check @PakPrimes.GeneralTheorem2.gHat_no_autonomous_ade_via_general_theorem_2
+#check @PakPrimes.Main.logReciprocal_algebraicIndependent
+#check @PakPrimes.Main.pak_conjecture_2_5b_of_pnt
+
+#print PakPrimes.GeneralTheorem2.MeromorphicBorelData
+#print PakPrimes.PrimeNome.I_prime
+#print PakPrimes.PrimeNome.Pi_series
+#print PakPrimes.PrimeNome.logReciprocalSeries
+#print PakPrimes.PrimeNome.seriesCoordinates
+#print PakPrimes.Main.li
+#print PakPrimes.Main.PNTAllOrders
+
+#print axioms PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
+#print axioms PakPrimes.GeneralTheorem2.no_autonomous_ade_of_meromorphic_borel
+#print axioms PakPrimes.GeneralTheorem2.gHat_no_autonomous_ade_via_general_theorem_2
+#print axioms PakPrimes.BorelStokesVandermonde.gHat_no_autonomous_ade
+#print axioms PakPrimes.Main.logReciprocal_algebraicIndependent
+#print axioms PakPrimes.Main.pak_conjecture_2_5b_of_pnt
