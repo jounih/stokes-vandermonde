@@ -1,0 +1,105 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{Balser1994}
+Werner Balser, \emph{From divergent power series to analytic functions: Theory
+  and application of multisummable power series}, Lecture Notes in Mathematics,
+  vol. 1582, Springer-Verlag, Berlin, 1994.
+
+\bibitem{ChowlaChowla1984II}
+P.~Chowla and S.~Chowla, \emph{On algebraic differential equations satisfied by
+  some elliptic functions {II}}, Hardy-Ramanujan Journal \textbf{7} (1984),
+  Article 107.
+
+\bibitem{ChowlaChowla1984I}
+\bysame, \emph{On the algebraic differential equations satisfied by some
+  elliptic function {I}}, Hardy-Ramanujan Journal \textbf{7} (1984), Article
+  106.
+
+\bibitem{Cipolla1902}
+Michele Cipolla, \emph{La determinazione asintotica dell'$n^{\mathrm{imo}}$
+  numero primo}, Rendiconto dell'Accademia delle Scienze Fisiche e Matematiche
+  (Napoli) \textbf{8} (1902), 132--166.
+
+\bibitem{Costin1998}
+Ovidiu Costin, \emph{On {B}orel summation and {S}tokes phenomena for rank-$1$
+  nonlinear systems of ordinary differential equations}, Duke Mathematical
+  Journal \textbf{93} (1998), no.~2, 289--344.
+
+\bibitem{Costin2009}
+\bysame, \emph{Asymptotics and {B}orel summability}, Chapman \& Hall/CRC
+  Monographs and Surveys in Pure and Applied Mathematics, vol. 141, CRC Press,
+  Boca Raton, FL, 2009.
+
+\bibitem{delaValleePoussin1899}
+Charles-Jean de~la Vall{\'e}e~Poussin, \emph{Sur la fonction $\zeta(s)$ de
+  {R}iemann et le nombre des nombres premiers inf{\'e}rieurs {\`a} une limite
+  donn{\'e}e}, M{\'e}moires couronn{\'e}s et autres m{\'e}moires publi{\'e}s
+  par l'Acad{\'e}mie Royale des Sciences, des Lettres et des Beaux-Arts de
+  Belgique \textbf{59} (1899), 1--74.
+
+\bibitem{Ecalle1981}
+Jean {\'E}calle, \emph{Les fonctions r{\'e}surgentes}, Publications
+  Math{\'e}matiques d'Orsay, vol. 81-05, 81-06, 85-05, Universit{\'e} de
+  Paris-Sud, Orsay, 1981--1985.
+
+\bibitem{FlajoletGerholdSalvy2005}
+Philippe Flajolet, Stefan Gerhold, and Bruno Salvy, \emph{On the non-holonomic
+  character of logarithms, powers, and the $n$-th prime function}, Electronic
+  Journal of Combinatorics \textbf{11} (2005), no.~2, Research Paper A1, 16 pp.
+
+\bibitem{Helminen2026CubicTheta}
+Jouni Helminen, \emph{A {S}tokes obstruction for the cubic theta series (paper
+  and {L}ean 4 formalization, v1.0.1)}, Zenodo, 2026,
+  \url{https://doi.org/10.5281/zenodo.24492865}.
+
+\bibitem{Helminen2026StokesVandermonde}
+\bysame, \emph{stokes-vandermonde: {L}ean 4 formalization of the
+  {S}tokes--{V}andermonde criterion and prime-counting differential
+  transcendence}, GitHub repository, 2026,
+  \url{https://github.com/jounih/stokes-vandermonde}.
+
+\bibitem{Holder1887}
+Otto H{\"o}lder, \emph{Ueber die {E}igenschaft der {G}ammafunction keiner
+  algebraischen {D}ifferentialgleichung zu gen{\"u}gen}, Mathematische Annalen
+  \textbf{28} (1887), 1--13.
+
+\bibitem{Kolchin1973}
+E.~R. Kolchin, \emph{Differential algebra and algebraic groups}, Pure and
+  Applied Mathematics, vol.~54, Academic Press, New York, 1973.
+
+\bibitem{PrimeNumberTheoremAnd}
+Alex Kontorovich, Terence Tao, and contributors, \emph{{PrimeNumberTheoremAnd}:
+  a {L}ean 4 formalization project for the prime number theorem and related
+  analytic number theory}, GitHub repository, 2024--2026,
+  \url{https://github.com/AlexKontorovich/PrimeNumberTheoremAnd}.
+
+\bibitem{LipshitzRubel1991}
+L.~Lipshitz and L.~A. Rubel, \emph{A gap theorem for differentially algebraic
+  power series}, Number Theory (New York, 1989--1990) (D.~V. Chudnovsky, G.~V.
+  Chudnovsky, and M.~B. Nathanson, eds.), Springer, New York, 1991,
+  pp.~211--214.
+
+\bibitem{Ostrowski1920}
+Alexander Ostrowski, \emph{{\"U}ber {D}irichletsche {R}eihen und algebraische
+  {D}ifferentialgleichungen}, Mathematische Zeitschrift \textbf{8} (1920),
+  no.~3--4, 241--298.
+
+\bibitem{Pak2018}
+Igor Pak, \emph{Complexity problems in enumerative combinatorics}, Proceedings
+  of the International Congress of Mathematicians (Rio de Janeiro, 2018), vol.
+  III, World Scientific, 2018, Expanded version at arXiv:1803.06636,
+  pp.~3153--3180.
+
+\bibitem{Sauzin2016}
+David Sauzin, \emph{Introduction to $1$-summability and resurgence}, Divergent
+  Series, Summability and Resurgence {I}: Monodromy and Resurgence, Lecture
+  Notes in Mathematics, vol. 2153, Springer, 2016, pp.~120--294.
+
+\end{thebibliography}

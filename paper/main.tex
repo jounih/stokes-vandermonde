@@ -1,0 +1,598 @@
+\documentclass[10pt,reqno]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage[expansion=false]{microtype}
+\usepackage[margin=0.95in]{geometry}
+\usepackage[shortlabels]{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\def\UrlBreaks{\do\/\do\_\do\-}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!50!black,
+    citecolor=blue!50!black,
+    urlcolor=blue!50!black
+}
+
+\numberwithin{equation}{section}
+\allowdisplaybreaks[1]
+\raggedbottom
+
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{corollary}[proposition]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[proposition]{Definition}
+\newtheorem{remark}[proposition]{Remark}
+\newtheorem{example}[proposition]{Example}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cR}{\mathcal{R}}
+\DeclareMathOperator{\RePart}{Re}
+\DeclareMathOperator{\ImPart}{Im}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\li}{li}
+\DeclareMathOperator{\Ei}{Ei}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\trdeg}{tr.deg}
+\renewcommand{\Re}{\RePart}
+\renewcommand{\Im}{\ImPart}
+
+\title[The Stokes--Vandermonde Criterion and Prime-Counting Series]{The Stokes--Vandermonde Criterion and Differential Transcendence of Prime-Counting Series}
+\author{Jouni Helminen}
+\address{Independent researcher}
+\date{November 24, 2026}
+
+\subjclass[2020]{11N05, 34M30, 12H05 (Primary); 05A15, 40G10, 68V20 (Secondary)}
+\keywords{Differential transcendence, Borel--Laplace summation, Stokes phenomenon, prime-counting function, Pak's Conjecture~2.5, Lean~4 formalization}
+
+\begin{document}
+
+\begin{abstract}
+We establish a self-contained Borel--Laplace obstruction to algebraic differential equations---the Stokes--Vandermonde criterion---and resolve the prime-counting half of Pak's ICM~2018 Conjecture~2.5. Suppose a formal series $\widehat{g}(u) = \sum_{k=0}^\infty a_k u^{-k-1}$ has a Borel transform $\phi(\xi) = \sum_{k=0}^\infty a_k \xi^k / k!$ analytic on an open wedge containing $[0,\infty)$ away from a strictly increasing unbounded sequence of positive simple poles $0 < \omega_1 < \omega_2 < \cdots$ with nonzero residues, and of exponential type along two flanking rays $e^{\pm i\theta}$. Using finite triangular contour cuts, strong induction on pole locations to eliminate nonlinear additive collisions, and a Vandermonde rank collapse, we prove that $\widehat{g}(u)$ satisfies no nonzero algebraic differential equation over $\mathbb{C}(u)$. Combining this criterion with an autonomous polynomial transfer lemma and all-orders logarithmic-integral asymptotics yields unconditional differential transcendence over $\mathbb{C}(q)$ of $\sum_{n \ge 2} q^n / \log n$ and, via de la Vall\'ee Poussin's quantitative prime number theorem, of both $\sum_{p\text{ prime}} q^p$ and $\sum_{n \ge 0} \pi(n) q^n$. The companion Lean~4 library \texttt{stokes-vandermonde} formally verifies the autonomous criterion, the unconditional theorem for $\sum_{n \ge 2} q^n/\log n$, and the prime-counting theorem assuming only an all-orders prime number theorem remainder. We conclude with an outlook on the $n$-th prime half of Pak's Conjecture~2.5, presenting an exact log-Borel factorization, a D-algebraic control at the leading Stokes scale, and two open analytic hypotheses.
+\end{abstract}
+
+\maketitle
+
+% ============================================================================
+\section{Introduction and Main Results}\label{sec:intro}
+% ============================================================================
+
+A formal power series $F(q) \in \C[[q]]$ is \emph{differentially algebraic} (or \emph{D-algebraic}) over $\C(q)$ if there exist an integer $m \ge 0$ and a nonzero polynomial $Q \in \C[x, y_0, \dots, y_m] \setminus \{0\}$ such that
+\[
+  Q\bigl(q,\, F(q),\, F'(q),\, \dots,\, F^{(m)}(q)\bigr) = 0 \qquad \text{in } \C[[q]],
+\]
+where $F' = \frac{d}{dq} F$; otherwise $F(q)$ is \emph{differentially transcendental} (or \emph{hypertranscendental}) over $\C(q)$. Since $q \in \C(q)^\times$, D-algebraicity with respect to $\frac{d}{dq}$ is equivalent to D-algebraicity with respect to the Euler operator $q\frac{d}{dq}$.
+
+The problem of deciding whether arithmetic or combinatorial generating functions satisfy nonlinear algebraic differential equations has a long lineage, beginning with H\"older's theorem for $\Gamma(z)$~\cite{Holder1887} and Ostrowski's theorem for Dirichlet series~\cite{Ostrowski1920}. For power series with lacunary or arithmetic exponents, P.~Chowla and S.~Chowla~\cite{ChowlaChowla1984I,ChowlaChowla1984II} conjectured that $\sum_{n \ge 1} q^{n^k}$ is differentially transcendental for every integer $k > 2$, Lipshitz and Rubel~\cite{LipshitzRubel1991} posed the cubic case alongside gap theorems for D-algebraic series, and Flajolet, Gerhold, and Salvy~\cite{FlajoletGerholdSalvy2005} proved non-holonomicity (failure of linear differential equations over $\C(q)$) for logarithms, powers, and the $n$-th prime function while emphasizing the wider boundary of nonlinear algebraic differential equations. In his 2018 ICM survey~\cite[Conjecture~2.5]{Pak2018}, Pak conjectured that the generating functions of both the prime-counting function $\pi(n) = \#\{p \le n : p\text{ prime}\}$ and the $n$-th prime $p_n$ are differentially transcendental over $\C(q)$. (In a companion study~\cite{Helminen2026CubicTheta}, we treat the cubic theta series $\sum_{n \ge 0} q^{n^3}$ of Chowla--Chowla, Lipshitz--Rubel, and Pak's Conjecture~2.6 by a separate Stokes/Airy method.)
+
+In \'Ecalle's theory of resurgence~\cite{Ecalle1981} and Costin's analysis of rank-$1$ nonlinear differential systems~\cite{Costin1998,Costin2009} (see also~\cite{Balser1994,Sauzin2016}), it is a fundamental principle that a finite-order differential equation restricts the Borel-plane singularities of a formal solution to the additive semigroup generated by finitely many linearized eigenvalues. In particular, an infinite discrete sequence of simple poles with nonzero residues along a single Stokes ray cannot arise from any finite-order algebraic differential equation.
+
+Our first goal is to distill this resurgence obstruction into a short, completely self-contained criterion---the \emph{Stokes--Vandermonde criterion}---that requires only meromorphic continuation in a punctured wedge and exponential type along two flanking rays, with no global cross-cut or residue-summability assumptions, and to accompany it with what appears to be the first end-to-end Lean~4 formalization of Borel--Laplace Stokes transcendence~\cite{Helminen2026StokesVandermonde}.
+
+For $0 < \theta_0 < \pi/2$ and $\varepsilon > 0$, define the open Borel wedge around $[0,\infty)$ by
+\begin{equation}\label{eq:borel-wedge}
+  W_{\theta_0,\varepsilon} := \{\xi \in \C : |\xi| < \varepsilon\} \cup \{\xi \in \C : \Re\xi > 0,\ |\Im\xi| < (\tan\theta_0)\Re\xi\}.
+\end{equation}
+
+\begin{theorem}[The Stokes--Vandermonde Criterion]\label{thm:sv}
+Let $\widehat{g}(u) = \sum_{k=0}^\infty a_k u^{-k-1} \in u^{-1}\C[[1/u]]$ be a formal series whose Borel transform $\phi(\xi) := \sum_{k=0}^\infty \frac{a_k}{k!} \xi^k$ converges on a neighborhood of $0$ and extends analytically to a punctured open wedge $W_{\theta_0,\varepsilon} \setminus \{\omega_\ell : \ell \ge 1\}$ ($0 < \theta_0 < \pi/2$, $\varepsilon > 0$) with the following properties:
+\begin{enumerate}[(1)]
+  \item $0 < \omega_1 < \omega_2 < \cdots \to +\infty$ is a strictly increasing unbounded sequence of positive real numbers, and each $\omega_\ell$ is a simple pole of $\phi$ with nonzero residue
+  \[
+    r_\ell := \lim_{\xi \to \omega_\ell} (\xi - \omega_\ell)\phi(\xi) \neq 0;
+  \]
+  \item there exist an angle $\theta \in (0, \theta_0)$ and constants $C > 0$, $A \in \R$ such that
+  \[
+    |\phi(s e^{\pm i\theta})| \le C e^{A s} \qquad \text{for all } s \ge 0.
+  \]
+\end{enumerate}
+Then $\widehat{g}(u)$ satisfies no nonzero algebraic differential equation over $\C(u)$: for every $r \ge 0$ and every $P \in \C[u, X_0, \dots, X_r]$, the identity
+\[
+  P\bigl(u,\, \widehat{g}(u),\, \widehat{g}'(u),\, \dots,\, \widehat{g}^{(r)}(u)\bigr) = 0 \qquad \text{in } \C((1/u))
+\]
+implies $P = 0$.
+\end{theorem}
+
+The proof of Theorem~\ref{thm:sv} (Section~\ref{sec:sv}) uses three elementary ingredients: (i)~a lateral Laplace--convolution bridge transferring any polynomial relation from $\widehat{g}$ to both lateral sums $g_\pm$ along $e^{\pm i\theta}\R_{\ge 0}$; (ii)~Cauchy's residue theorem on finite triangles with vertical cuts at $R_n = (\omega_n + \omega_{n+1})/2$, yielding truncated Stokes expansions with error $O_{n,j}(e^{-R_n u})$ and zero $\cos\theta$ loss; and (iii)~strong induction on the pole index $m = 1, \dots, r+1$ eliminating every nonlinear additive collision $\omega_{\ell_1} + \dots + \omega_{\ell_k} \le \omega_m$ before collapsing the minimal annihilator via an invertible $(r+1)\times(r+1)$ Vandermonde system.
+
+Applying Theorem~\ref{thm:sv} to the Borel transform $\phi(\xi) = \Gamma(1 - \xi)$ (whose poles lie at $\omega_\ell = \ell \in \Z_{\ge 1}$ with residues $(-1)^\ell / (\ell-1)!$) together with an autonomous polynomial transfer lemma along $q = e^{-e^{-u}}$ and an all-orders $\li(x)$-approximation lemma yields two immediate applications.
+
+\begin{theorem}\label{thm:log-recip}
+The logarithmic-reciprocal generating function
+\[
+  L(q) := \sum_{n=2}^\infty \frac{q^n}{\log n}
+\]
+is differentially transcendental over $\C(q)$.
+\end{theorem}
+
+\begin{theorem}[Prime-counting half of Pak's Conjecture~2.5]\label{thm:primes}
+Both the prime indicator series and the prime-counting generating function,
+\[
+  I_{\mathrm{prime}}(q) := \sum_{p\text{ prime}} q^p, \qquad
+  \Pi(q) := \sum_{n=0}^\infty \pi(n) q^n,
+\]
+are differentially transcendental over $\C(q)$.
+\end{theorem}
+
+\subsection*{Verification status and organization}
+We state the logical status of each result precisely (see Table~\ref{tab:lean} for exact Lean~4 declarations):
+\begin{itemize}
+  \item \emph{Theorem~\ref{thm:sv}} is unconditional in mathematics (over $\C(u)$). Its autonomous form over $\C$---which is all that Theorems~\ref{thm:log-recip} and~\ref{thm:primes} require after Lemma~\ref{lem:transfer}---is machine-checked end-to-end in Lean~4 from genuine complex-analytic hypotheses, with zero intermediate assumptions and direct instantiation on $\Gamma(1-\xi)$.
+  \item \emph{Theorem~\ref{thm:log-recip}} is unconditional both in mathematics and in Lean~4 (zero hypotheses).
+  \item \emph{Theorem~\ref{thm:primes}} is unconditional in mathematics via de la Vall\'ee Poussin's quantitative prime number theorem~\cite{delaValleePoussin1899}. In Lean~4, it is machine-checked assuming only the all-orders prime number theorem remainder \texttt{PNTAllOrders} (Section~\ref{sec:lean}); discharging this hypothesis from the Kontorovich--Tao \texttt{PrimeNumberTheoremAnd} project~\cite{PrimeNumberTheoremAnd} will make the Lean proof unconditional.
+\end{itemize}
+
+Section~\ref{sec:sv} proves the Autonomous Polynomial Transfer Lemma and Theorem~\ref{thm:sv}. Section~\ref{sec:apps} derives a unified all-orders $\li$-asymptotic theorem and proves Theorems~\ref{thm:log-recip} and~\ref{thm:primes}. Section~\ref{sec:lean} documents the Lean~4 formalization~\cite{Helminen2026StokesVandermonde}. Section~\ref{sec:outlook} outlines the structural picture for the remaining $n$-th prime half of Pak's Conjecture~2.5, $\sum_{n \ge 1} p_n q^n$, presenting an unconditional log-Borel factorization, an explicit D-algebraic control showing why the leading $m=1$ Stokes jump cannot suffice alone, and a conditional reduction to two explicitly open analytic hypotheses.
+
+% ============================================================================
+\section{Autonomous Polynomial Transfer and the Stokes--Vandermonde Criterion}\label{sec:sv}
+% ============================================================================
+
+We first show how any algebraic differential equation over $\C(q)$ for a power series analytic on the unit disk transfers to an autonomous constant-coefficient polynomial differential equation in the double-logarithmic coordinate $u = -\log\log(1/q)$.
+
+\begin{lemma}[Autonomous Polynomial Transfer Lemma]\label{lem:transfer}
+Let $F(q) \in \C[[q]]$ converge on $\D = \{|q| < 1\}$, let $\alpha = a/b \in \Q_{>0}$ with $a,b \in \Z_{\ge 1}$, and define the real-analytic function
+\[
+  g(u) := e^{-\alpha u}\, F\bigl(e^{-e^{-u}}\bigr) \qquad (u \in \R).
+\]
+If $F(q)$ is differentially algebraic over $\C(q)$, then there exist an integer $N \ge 1$ and a nonzero polynomial $P_0 \in \C[X_0, \dots, X_N] \setminus \{0\}$ such that
+\begin{equation}\label{eq:transfer-ode}
+  P_0\bigl(g(u),\, g'(u),\, \dots,\, g^{(N)}(u)\bigr) = 0 \qquad \text{for all } u \in \R.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Clearing denominators in a putative algebraic differential equation over $\C(q)$ produces a nonzero polynomial $Q \in \C[x, y_0, \dots, y_m] \setminus \{0\}$ such that $Q(q, F(q), \dots, F^{(m)}(q)) = 0$ in $\C[[q]]$, hence analytically on $\D$ and in particular on $(0,1)$. Choose such a $Q$ of minimal total degree in $(x, y_0, \dots, y_m)$. Because $q$ is nonconstant on $(0,1)$, $Q$ cannot lie in $\C[x]$; let $k \in \{0, \dots, m\}$ be the largest index with $S := \partial_{y_k} Q \not\equiv 0$. Since $\operatorname{char}\C = 0$, we have $Q \in \C[x, y_0, \dots, y_k]$ and $\deg_{\mathrm{tot}} S < \deg_{\mathrm{tot}} Q$. By minimality of $Q$, the real-analytic function $q \mapsto S(q, F(q), \dots, F^{(k)}(q))$ does not vanish identically on $(0,1)$, so we may pick a nonempty open interval $J \subset \R$ on which $S(e^{-e^{-u}}, F(e^{-e^{-u}}), \dots, F^{(k)}(e^{-e^{-u}})) \neq 0$.
+
+On $J$, define the $N := k + 4$ real-analytic functions
+\begin{align*}
+  s(u) &:= e^{-u/b}, & q(u) &:= e^{-s(u)^b} = e^{-e^{-u}}, \\
+  v_j(u) &:= F^{(j)}(q(u)) \ (0 \le j \le k), & w(u) &:= \frac{1}{S(q(u), v_0(u), \dots, v_k(u))}.
+\end{align*}
+With $' = \frac{d}{du}$, we have $s' = -\frac{1}{b} s$ and $q' = s^b q$. Differentiating $v_j$ and $Q(q, v_0, \dots, v_k) = 0$ on $J$ yields
+\begin{align*}
+  v_j' &= s^b q\, v_{j+1} \qquad (0 \le j < k), \\
+  v_k' &= -w \left((\partial_x Q)\, s^b q + \sum_{j=0}^{k-1} (\partial_{y_j} Q)\, s^b q\, v_{j+1}\right), \\
+  w' &= -w^2 \left((\partial_x S)\, s^b q + \sum_{j=0}^{k} (\partial_{y_j} S)\, v_j'\right).
+\end{align*}
+Hence the $\C$-algebra $R := \C[s, q, v_0, \dots, v_k, w]$ is closed under $\frac{d}{du}$, and $g = s^a v_0 \in R$. Since $J$ is a connected open interval, the ring $\cO^\omega(J)$ of real-analytic functions on $J$ is an integral domain; inside its fraction field, the subfield $\C(s, q, v_0, \dots, v_k, w)$ has transcendence degree at most $N = k + 4$ over $\C$. Therefore the $N + 1$ elements $g, g', \dots, g^{(N)} \in R$ are algebraically dependent over $\C$. Clearing denominators yields a nonzero polynomial $P_0 \in \C[X_0, \dots, X_N] \setminus \{0\}$ satisfying~\eqref{eq:transfer-ode} on $J$, and by real-analyticity of $g$ on $\R$ the identity extends to all $u \in \R$.
+\end{proof}
+
+We now prove Theorem~\ref{thm:sv}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:sv}]
+Suppose for contradiction that $\widehat{g}(u) = \sum_{k=0}^\infty a_k u^{-k-1} \in u^{-1}\C[[1/u]]$ satisfies a nonzero algebraic differential equation over $\C(u)$. Clearing denominators in $\C[u]$, choose a nonzero polynomial $P \in \C[u, X_0, \dots, X_r] \setminus \{0\}$ (over all $r \ge 0$) of \emph{minimal total degree $D \ge 0$ in the jet variables $\mathbf{X} = (X_0, \dots, X_r)$} such that
+\begin{equation}\label{eq:P-hat-g-zero}
+  P\bigl(u,\, \widehat{g}(u),\, \widehat{g}'(u),\, \dots,\, \widehat{g}^{(r)}(u)\bigr) = 0 \qquad \text{in } \C((1/u)).
+\end{equation}
+If $D = 0$, then $P \in \C[u] \setminus \{0\}$ vanishes in $\C((1/u))$, impossible; hence $D \ge 1$. Write
+\[
+  P(u, X_0, \dots, X_r) = \sum_{\alpha, s} c_{\alpha, s}\, u^s X^\alpha,
+\]
+and let $M := \max\{s : \exists\,\alpha,\ c_{\alpha,s} \neq 0\} \ge 0$ be the $u$-degree of $P$. Put $\rho_0 := \min(\varepsilon, \omega_1) > 0$; since $\omega_\ell \ge \omega_1$ for all $\ell \ge 1$, the disk $\{|\xi| < \rho_0\}$ lies in $W_{\theta_0,\varepsilon} \setminus \{\omega_\ell\}$, so $\phi$ is holomorphic on $\{|\xi| < \rho_0\}$.
+
+\smallskip
+\noindent\textbf{Step 1 (Lateral Laplace sums, convolution transfer, and Watson's lemma).}
+Let $\cR_\pm := e^{\pm i\theta}\R_{\ge 0}$ be the two oriented rays from $0$ to $\infty e^{\pm i\theta}$, where $\theta \in (0, \theta_0)$ is given by hypothesis~(2). Set $A_0 := \max(A, 0)$. By hypothesis~(2), $|\phi(s e^{\pm i\theta})| \le C e^{A_0 s}$ for all $s \ge 0$, so the lateral Laplace integrals
+\[
+  g_\pm(u) := \int_{\cR_\pm} e^{-\xi u} \phi(\xi)\,d\xi
+\]
+converge absolutely and uniformly on compact subsets of $\{u \in \C : \Re(u e^{\pm i\theta}) > A_0\}$, and in particular for all real $u > A_0 / \cos\theta$. Differentiating under the integral sign gives
+\[
+  g_\pm^{(j)}(u) = \int_{\cR_\pm} e^{-\xi u} \phi_j(\xi)\,d\xi, \qquad \phi_j(\xi) := (-\xi)^j \phi(\xi) \qquad (j \ge 0).
+\]
+
+For functions $F, G$ continuous on $\cR_\pm$ of exponential type, define their Laplace convolution by
+\[
+  (F * G)(\xi) := \xi \int_0^1 F(v\xi)\, G\bigl((1-v)\xi\bigr)\,dv \qquad (\xi \in \cR_\pm).
+\]
+If $|F(s e^{\pm i\theta})| \le C_1 e^{B s}$ and $|G(s e^{\pm i\theta})| \le C_2 e^{B s}$, then $|(F * G)(s e^{\pm i\theta})| \le C_1 C_2 s e^{B s} \le C_1 C_2 e^{(B+1)s}$. Moreover, substituting $\zeta = s_1 e^{\pm i\theta}$, $\eta = s_2 e^{\pm i\theta}$, and $\xi = (s_1 + s_2)e^{\pm i\theta}$ in Fubini's theorem yields
+\[
+  \int_{\cR_\pm} e^{-\xi u} (F * G)(\xi)\,d\xi
+  = \left(\int_{\cR_\pm} e^{-\zeta u} F(\zeta)\,d\zeta\right)\left(\int_{\cR_\pm} e^{-\eta u} G(\eta)\,d\eta\right)
+\]
+for all real $u > (B + 1)/\cos\theta$. For each $0 \le s \le M$, set $K_s(\xi) := \xi^{M-s}/(M-s)!$. Rotating the ray $\cR_\pm$ to $[0,\infty)$ via Cauchy's theorem (valid since $|\theta| < \pi/2$) gives $\int_{\cR_\pm} e^{-\xi u} K_s(\xi)\,d\xi = u^{s - M - 1}$ for all $u > 0$. Now form the Borel convolution kernel
+\[
+  B_P := \sum_{\alpha, s} c_{\alpha, s}\, \bigl(K_s * \phi_0^{*\alpha_0} * \cdots * \phi_r^{*\alpha_r}\bigr),
+\]
+where the convolution for $\alpha = 0$ is simply $K_s$. Each $\phi_j$ and $K_s$ has exponential type along $\cR_\pm$, so there exists $A_P > A_0$ such that every summand has exponential type at most $A_P$ along $\cR_\pm$, and by iterated application of the product rule,
+\begin{equation}\label{eq:BP-laplace}
+  \int_{\cR_\pm} e^{-\xi u} B_P(\xi)\,d\xi = u^{-M-1} P\bigl(u,\, g_\pm(u),\, \dots,\, g_\pm^{(r)}(u)\bigr)
+  \qquad (u > A_P/\cos\theta).
+\end{equation}
+
+We next show that $B_P$ vanishes identically on $\cR_\pm$. Fix any $L > 0$ and let $I_L^\pm := \{s e^{\pm i\theta} : 0 \le s \le L\}$. Because $\omega_\ell \to +\infty$ and $I_L^\pm \cap \R_{>0} = \emptyset$, the compact segment $I_L^\pm$ lies inside the open set $\Omega := W_{\theta_0,\varepsilon} \setminus \{\omega_\ell : \ell \ge 1\}$. Choose $\delta \in (0, \min(\rho_0, \dist(I_L^\pm, \C \setminus \Omega)))$. Then the open tube
+\[
+  U_L^\pm := \{z \in \C : \dist(z, I_L^\pm) < \delta\} \subset \Omega
+\]
+is convex and contains $0$. Consequently, for every $z \in U_L^\pm$ and $v \in [0,1]$, both $vz$ and $(1-v)z$ lie in $U_L^\pm$, so convolution $(F, G) \mapsto z \int_0^1 F(vz) G((1-v)z)\,dv$ preserves holomorphy on $U_L^\pm$. Thus $B_P$ extends holomorphically to the connected open set $U_L^\pm$. Near $0$ (on $\{|z| < \delta\}$), the beta-integral identity
+\[
+  \left(\frac{z^a}{a!} * \frac{z^b}{b!}\right) = \frac{z^{a+b+1}}{a!\,b!}\int_0^1 v^a (1-v)^b\,dv = \frac{z^{a+b+1}}{(a+b+1)!}
+\]
+together with $\phi_j(z) = \sum_{k=0}^\infty (-1)^j \frac{(k+j)!}{k!} a_k \frac{z^{k+j}}{(k+j)!}$ shows that the Taylor series of $B_P$ at $z = 0$ is term-by-term the formal Borel transform of $u^{-M-1} P(u, \widehat{g}, \dots, \widehat{g}^{(r)}) \in u^{-1}\C[[1/u]]$. By~\eqref{eq:P-hat-g-zero}, every Taylor coefficient of $B_P$ at $0$ vanishes. By the identity theorem on $U_L^\pm$, $B_P \equiv 0$ on $I_L^\pm$. Since $L > 0$ was arbitrary, $B_P \equiv 0$ on $\cR_\pm$, and~\eqref{eq:BP-laplace} yields
+\begin{equation}\label{eq:lateral-ode}
+  P\bigl(u,\, g_+(u),\, \dots,\, g_+^{(r)}(u)\bigr) = P\bigl(u,\, g_-(u),\, \dots,\, g_-^{(r)}(u)\bigr) = 0
+  \qquad (u > A_P/\cos\theta).
+\end{equation}
+
+We also record Watson's lemma along $\cR_+$. Fix $\rho \in (0, \rho_0)$, $j \ge 0$, and $K \ge 1$. On $\{|\xi| \le \rho\}$, write $\phi(\xi) = \sum_{k=0}^{K-1} \frac{a_k}{k!}\xi^k + R_K(\xi)$ with $|R_K(\xi)| \le C_K |\xi|^K$. Splitting $\int_{\cR_+} = \int_0^{\rho e^{i\theta}} + \int_{\rho e^{i\theta}}^{\infty e^{i\theta}}$: for real $u \ge 2(A_0 + 1)/\cos\theta$, the tail satisfies
+\[
+  \left|\int_{\rho e^{i\theta}}^{\infty e^{i\theta}} e^{-\xi u} (-\xi)^j \phi(\xi)\,d\xi\right|
+  \le C \int_\rho^\infty s^j e^{A_0 s - s u \cos\theta}\,ds = O_{j,\rho}\bigl(e^{-\frac{1}{2}\rho u \cos\theta}\bigr);
+\]
+the remainder on $[0, \rho e^{i\theta}]$ is bounded by $C_K \int_0^\infty s^{K+j} e^{-s u \cos\theta}\,ds = O_{j,K}(u^{-K-j-1})$; and for each $0 \le k \le K-1$, completing the polynomial integral to $\cR_+$ and rotating to $[0,\infty)$ leaves an $O_{j,k,\rho}(e^{-\frac{1}{2}\rho u \cos\theta})$ tail. Hence
+\begin{equation}\label{eq:watson}
+  g_+^{(j)}(u) = \sum_{k=0}^{K-1} (-1)^j \frac{(k+j)!}{k!} \frac{a_k}{u^{k+j+1}} + O_{j,K}\bigl(u^{-K-j-1}\bigr)
+  \qquad (u \to +\infty)
+\end{equation}
+for all $j \ge 0$ and $K \ge 1$; in particular, $g_+^{(j)}(u) = O_j(1)$ as $u \to +\infty$.
+
+\smallskip
+\noindent\textbf{Step 2 (Finite triangular contour cuts and truncated Stokes jump).}
+Set $u_0 := \max(A_P, A_0 + 1)/\cos\theta$ and define the Stokes jump
+\[
+  h(u) := g_-(u) - g_+(u) \qquad (u > u_0).
+\]
+Fix any integer $n \ge 1$ and put $R_n := \frac{1}{2}(\omega_n + \omega_{n+1}) \in (\omega_n, \omega_{n+1})$. Let $\Delta_n$ be the positively (counterclockwise) oriented closed triangle with vertices $0$, $R_n(1 - i\tan\theta)$, and $R_n(1 + i\tan\theta)$. Because $0 < \theta < \theta_0 < \pi/2$, the triangle $\Delta_n$ lies entirely in $W_{\theta_0,\varepsilon}$. Since $0 < \omega_1 < \dots < \omega_n < R_n < \omega_{n+1} < \cdots$, the poles of $\phi$ in $\Delta_n$ are precisely the simple poles $\omega_1, \dots, \omega_n$ in its interior, with no poles on $\partial\Delta_n$. By Cauchy's residue theorem, for every $j \ge 0$ and $u \in \R$,
+\[
+  \int_{\partial\Delta_n} e^{-\xi u} (-\xi)^j \phi(\xi)\,d\xi
+  = \sum_{\ell=1}^n c_\ell (-\omega_\ell)^j e^{-\omega_\ell u},
+  \qquad c_\ell := 2\pi i\, r_\ell \neq 0.
+\]
+Writing $\partial\Delta_n$ as the lower slanted edge $[0, R_n(1-i\tan\theta)]$ (the segment of $\cR_-$ with $0 \le s \le R_n/\cos\theta$), the vertical segment $V_n := \{R_n + iy : |y| \le R_n\tan\theta\}$ oriented upwards, and the reversed upper slanted edge $[R_n(1+i\tan\theta), 0]$, we express $h^{(j)}(u) = g_-^{(j)}(u) - g_+^{(j)}(u)$ as
+\begin{equation}\label{eq:tri-decomp}
+  h^{(j)}(u) = \sum_{\ell=1}^n c_\ell (-\omega_\ell)^j e^{-\omega_\ell u}
+  - i \int_{-R_n\tan\theta}^{R_n\tan\theta} e^{-(R_n+iy)u} \phi_j(R_n + iy)\,dy
+  + T_{n,j}^-(u) - T_{n,j}^+(u),
+\end{equation}
+where $T_{n,j}^\pm(u) := \int_{R_n/\cos\theta}^\infty e^{-s e^{\pm i\theta} u} \phi_j(s e^{\pm i\theta}) e^{\pm i\theta}\,ds$. We bound the three remainder terms for $u > u_0$:
+\begin{itemize}
+  \item Along the compact vertical segment $V_n$, $\phi_j$ is continuous and hence bounded by a constant $M_{n,j}$, while $|e^{-(R_n+iy)u}| = e^{-R_n u}$. Thus the vertical integral has modulus at most $2 R_n (\tan\theta) M_{n,j} e^{-R_n u}$, which is $O_{n,j}(e^{-R_n u})$.
+  \item Along the slanted tails $\cR_\pm$ for $s \ge R_n/\cos\theta$, we have $|e^{-s e^{\pm i\theta} u}| = e^{-s u \cos\theta}$, which starts at $e^{-R_n u}$ with no $\cos\theta$ loss. Putting $s = R_n/\cos\theta + \tau$ ($\tau \ge 0$) and using $u\cos\theta \ge A_0 + 1$,
+  \begin{align*}
+    |T_{n,j}^\pm(u)|
+    &\le C \int_{R_n/\cos\theta}^\infty s^j e^{A_0 s - s u \cos\theta}\,ds \\
+    &\le C e^{A_0 R_n/\cos\theta}\, e^{-R_n u} \int_0^\infty \left(\frac{R_n}{\cos\theta} + \tau\right)^j e^{-\tau}\,d\tau
+    = O_{n,j}\bigl(e^{-R_n u}\bigr).
+  \end{align*}
+\end{itemize}
+Setting $h_n^{(j)}(u) := \sum_{\ell=1}^n c_\ell (-\omega_\ell)^j e^{-\omega_\ell u}$ and $E_n^{(j)}(u) := h^{(j)}(u) - h_n^{(j)}(u)$, \eqref{eq:tri-decomp} gives the truncated Stokes expansion
+\begin{equation}\label{eq:trunc-stokes}
+  h^{(j)}(u) = h_n^{(j)}(u) + E_n^{(j)}(u), \qquad E_n^{(j)}(u) = O_{n,j}\bigl(e^{-R_n u}\bigr) \qquad (u \to +\infty)
+\end{equation}
+for every $n \ge 1$ and $j \ge 0$.
+
+\smallskip
+\noindent\textbf{Step 3 (Strong induction on pole locations and Vandermonde collapse).}
+For each $\omega \in \R_{>0}$, define the constant-coefficient differential operator on $\C[u, X_0, \dots, X_r]$:
+\[
+  D_\omega := \sum_{j=0}^r (-\omega)^j \frac{\partial}{\partial X_j}.
+\]
+The operators $D_\omega$ commute with one another, act trivially on $\C[u]$, and satisfy $\deg_{\mathbf{X}}(D_\omega Q) \le \deg_{\mathbf{X}}(Q) - 1$ for every nonzero $Q$ with $\deg_{\mathbf{X}}(Q) \ge 1$.
+
+We prove by strong induction on $m = 1, 2, \dots, r + 1$ that $D_{\omega_m} P \equiv 0$ identically in $\C[u, X_0, \dots, X_r]$. Fix $m \in \{1, \dots, r+1\}$ and assume $D_{\omega_1} P \equiv \dots \equiv D_{\omega_{m-1}} P \equiv 0$ (vacuous for $m = 1$). Write $\mathbf{g}_+(u) := (g_+(u), \dots, g_+^{(r)}(u))$, $\mathbf{h}(u) := (h(u), \dots, h^{(r)}(u))$, and similarly $\mathbf{h}_m(u)$ and $\mathbf{E}_m(u)$ from~\eqref{eq:trunc-stokes} with $n = m$. By~\eqref{eq:lateral-ode}, for all $u > u_0$,
+\begin{equation}\label{eq:split-P}
+  0 = \Bigl[P\bigl(u, \mathbf{g}_+ + \mathbf{h}_m + \mathbf{E}_m\bigr) - P\bigl(u, \mathbf{g}_+ + \mathbf{h}_m\bigr)\Bigr]
+  + \Bigl[P\bigl(u, \mathbf{g}_+ + \mathbf{h}_m\bigr) - P\bigl(u, \mathbf{g}_+\bigr)\Bigr].
+\end{equation}
+Since $\mathbf{g}_+(u) = O(1)$ by~\eqref{eq:watson}, $\mathbf{h}_m(u) = O_m(1)$, and $\mathbf{E}_m(u) = O_m(e^{-R_m u})$ by~\eqref{eq:trunc-stokes}, expanding the first bracket in powers of $\mathbf{E}_m$ shows that every term contains at least one factor $E_m^{(j)}(u)$ and a $u$-polynomial of degree at most $M$, so the first bracket is $O_m((1+u)^M e^{-R_m u})$.
+
+For the second bracket, substituting $\sum_{j=0}^r h_m^{(j)}(u)\partial_{X_j} = \sum_{\ell=1}^m c_\ell e^{-\omega_\ell u} D_{\omega_\ell}$ into the finite degree-$D$ multivariable Taylor expansion gives
+\begin{equation}\label{eq:finite-taylor}
+  P\bigl(u, \mathbf{g}_+ + \mathbf{h}_m\bigr) - P\bigl(u, \mathbf{g}_+\bigr)
+  = \sum_{k=1}^D \frac{1}{k!} \sum_{\ell_1, \dots, \ell_k = 1}^m c_{\ell_1} \cdots c_{\ell_k}\,
+  e^{-(\omega_{\ell_1} + \dots + \omega_{\ell_k}) u}\,
+  \bigl(D_{\omega_{\ell_1}} \cdots D_{\omega_{\ell_k}} P\bigr)\bigl(u, \mathbf{g}_+(u)\bigr).
+\end{equation}
+Consider every tuple $(k; \ell_1, \dots, \ell_k)$ in this finite sum with $\Omega := \omega_{\ell_1} + \dots + \omega_{\ell_k} \le \omega_m$:
+\begin{itemize}
+  \item If $k \ge 2$, strict positivity $\omega_{\ell_i} > 0$ forces $\omega_{\ell_k} < \omega_m$, hence $\ell_k \le m - 1$. By the induction hypothesis, $D_{\omega_{\ell_k}} P \equiv 0$, and by commutativity of the operators $D_\omega$, $D_{\omega_{\ell_1}} \cdots D_{\omega_{\ell_k}} P \equiv 0$.
+  \item If $k = 1$ and $\ell_1 < m$, then again $D_{\omega_{\ell_1}} P \equiv 0$.
+\end{itemize}
+Thus $(k, \ell_1) = (1, m)$ is the unique surviving tuple with $\Omega \le \omega_m$. All remaining tuples in~\eqref{eq:finite-taylor} satisfy $\Omega > \omega_m$; because there are only finitely many such tuples, their minimum excess $\eta_m' := \min\{\Omega - \omega_m > 0\}$ is strictly positive (taking $\eta_m' = +\infty$ if none occur). Setting $\delta_m := \min(R_m - \omega_m, \eta_m') > 0$ (as $R_m - \omega_m = \frac{1}{2}(\omega_{m+1} - \omega_m) > 0$), \eqref{eq:split-P} and~\eqref{eq:finite-taylor} reduce to
+\[
+  0 = c_m\, (D_{\omega_m} P)\bigl(u, \mathbf{g}_+(u)\bigr)\, e^{-\omega_m u} + O_m\bigl((1+u)^M e^{-(\omega_m + \delta_m) u}\bigr)
+  \qquad (u \to +\infty).
+\]
+Dividing by $c_m e^{-\omega_m u} \neq 0$ yields
+\[
+  (D_{\omega_m} P)\bigl(u, \mathbf{g}_+(u)\bigr) = O_m\bigl((1+u)^M e^{-\delta_m u}\bigr) = O_{m,K}\bigl(u^{-K}\bigr)
+  \qquad \text{for every } K \ge 1.
+\]
+By Watson's lemma~\eqref{eq:watson}, the Laurent expansion of $(D_{\omega_m} P)(u, \mathbf{g}_+(u))$ as $u \to +\infty$ coincides to every order $u^{-K}$ with the formal series $(D_{\omega_m} P)(u, \widehat{\mathbf{g}}(u)) \in \C((1/u))$, where $\widehat{\mathbf{g}}(u) := (\widehat{g}(u), \dots, \widehat{g}^{(r)}(u))$. Hence $(D_{\omega_m} P)(u, \widehat{\mathbf{g}}(u)) = 0$ in $\C((1/u))$. Since $\deg_{\mathbf{X}}(D_{\omega_m} P) \le D - 1 < D$, minimality of $D$ forces $D_{\omega_m} P \equiv 0$, completing the induction.
+
+Applying $D_{\omega_m} P \equiv 0$ for $m = 1, \dots, r + 1$ gives the homogeneous linear system
+\[
+  \sum_{j=0}^r (-\omega_m)^j \frac{\partial P}{\partial X_j} \equiv 0 \qquad (1 \le m \le r + 1).
+\]
+Because $\omega_1 < \omega_2 < \dots < \omega_{r+1}$ are distinct, the $(r+1)\times(r+1)$ Vandermonde matrix with $(m, j)$-entry $(-\omega_m)^j$ ($1 \le m \le r+1$, $0 \le j \le r$) is invertible over $\C$, forcing $\frac{\partial P}{\partial X_j} \equiv 0$ for all $0 \le j \le r$. Hence $P \in \C[u]$, contradicting $D \ge 1$.
+\end{proof}
+
+\begin{corollary}[Asymptotic Transfer]\label{cor:asymp-transfer}
+Let $\widehat{g}(u) = \sum_{k=0}^\infty a_k u^{-k-1}$ satisfy the hypotheses of Theorem~\ref{thm:sv}. If $g : (u_0, \infty) \to \C$ is a smooth function whose derivatives satisfy
+\[
+  g^{(j)}(u) = \sum_{k=0}^{K-1} (-1)^j \frac{(k+j)!}{k!} \frac{a_k}{u^{k+j+1}} + O_{j,K}\bigl(u^{-K-j-1}\bigr)
+  \qquad (u \to +\infty)
+\]
+for all $j \ge 0$ and $K \ge 1$, then $g$ satisfies no nonzero algebraic differential equation over $\C(u)$.
+\end{corollary}
+
+\begin{proof}
+If $P \in \C[u, X_0, \dots, X_r]$ satisfies $P(u, g(u), \dots, g^{(r)}(u)) = 0$ for all sufficiently large $u$, then substituting the all-orders asymptotic expansions of $g^{(j)}(u)$ shows that every Laurent coefficient of $P(u, \widehat{g}(u), \dots, \widehat{g}^{(r)}(u))$ vanishes in $\C((1/u))$. Theorem~\ref{thm:sv} forces $P = 0$.
+\end{proof}
+
+% ============================================================================
+\section{Applications to Logarithmic-Reciprocal and Prime-Counting Series}\label{sec:apps}
+% ============================================================================
+
+Both Theorem~\ref{thm:log-recip} and Theorem~\ref{thm:primes} follow from a single asymptotic proposition for power series whose coefficient summatory function approximates the logarithmic integral $\li(x) := \int_2^x \frac{dv}{\log v}$ to all logarithmic powers.
+
+\begin{proposition}[All-orders $\li$-asymptotics]\label{prop:li-asymp}
+Let $F(q) = \sum_{n=2}^\infty b_n q^n \in \R[[q]]$ have summatory function $B(x) := \sum_{2 \le n \le x} b_n$ satisfying:
+\begin{enumerate}[(a)]
+  \item $|B(x)| \le C_0 x$ for all $x \ge 2$ (for some constant $C_0 > 0$);
+  \item for every integer $M \ge 1$, $|B(x) - \li(x)| = O_M\bigl(x / (\log x)^M\bigr)$ as $x \to +\infty$.
+\end{enumerate}
+Then $F(q)$ converges on $\D$, and $g(u) := e^{-u} F(e^{-e^{-u}})$ ($u \in \R$) satisfies, for every $j \ge 0$ and $K \ge 1$,
+\begin{equation}\label{eq:li-asymp}
+  g^{(j)}(u) = \sum_{k=0}^{K-1} (-1)^{k+j} \frac{(k+j)!}{k!} \frac{\Gamma^{(k)}(1)}{u^{k+j+1}} + O_{j,K}\bigl(u^{-K-j-1}\bigr)
+  \qquad (u \to +\infty).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By~(a), $|b_n| \le |B(n)| + |B(n-1)| \le 2 C_0 n$, so $F(q)$ converges on $\D$. Set $t := e^{-u} > 0$, so that $\frac{d}{du} = -t\frac{d}{dt}$. Abel summation (Stieltjes integration by parts) gives
+\[
+  g(u) = t \sum_{n=2}^\infty b_n e^{-tn} = t^2 \int_2^\infty B(x) e^{-tx}\,dx \qquad (u \in \R).
+\]
+Define polynomials $Q_j(y)$ recursively by $Q_0(y) := 1$ and $Q_{j+1}(y) := (y - 2)Q_j(y) - y Q_j'(y)$, so $\deg Q_j = j$ and $-t\frac{d}{dt}(t^2 Q_j(tx) e^{-tx}) = t^2 Q_{j+1}(tx) e^{-tx}$. Differentiating under the integral sign (justified by $|B(x)| \le C_0 x$ and exponential decay of $e^{-tx}$) gives
+\begin{equation}\label{eq:gj-moment}
+  g^{(j)}(u) = t^2 \int_2^\infty B(x)\, Q_j(tx)\, e^{-tx}\,dx \qquad (\forall\, j \ge 0,\ u \in \R).
+\end{equation}
+
+Write $B(x) = \li(x) + E(x)$, where $|E(x)| \le |B(x)| + \li(x) \le C_1 x$ for all $x \ge 2$ (using $\li(x) \le x/\log 2$). Fix $j \ge 0$ and $K \ge 1$, and set $M := K + j + 1$. By~(b), there exist $x_0 \ge 2$ and $C_M > 0$ such that $|E(x)| \le C_M x / (\log x)^M$ for all $x \ge x_0$. For $u$ large enough that $e^{u/2} \ge x_0$, split the error integral in~\eqref{eq:gj-moment} at $x = e^{u/2} = t^{-1/2}$:
+\begin{itemize}
+  \item On $[2, e^{u/2}]$, we have $tx \le t^{1/2} \le 1$, so $|Q_j(tx)| \le C_j'$ and
+  \[
+    \left|t^2 \int_2^{e^{u/2}} E(x)\, Q_j(tx)\, e^{-tx}\,dx\right|
+    \le C_1 C_j' t^2 \int_0^{t^{-1/2}} x\,dx = \frac{1}{2} C_1 C_j' e^{-u} = O_{j,K}\bigl(u^{-K-j-1}\bigr).
+  \]
+  \item On $[e^{u/2}, \infty)$, we have $\log x \ge u/2$, so $|E(x)| \le C_M x (2/u)^M$, and substituting $y = tx$ yields
+  \[
+    \left|t^2 \int_{e^{u/2}}^\infty E(x)\, Q_j(tx)\, e^{-tx}\,dx\right|
+    \le C_M \left(\frac{2}{u}\right)^M \int_0^\infty y |Q_j(y)| e^{-y}\,dy = O_{j,K}\bigl(u^{-K-j-1}\bigr).
+  \]
+\end{itemize}
+
+It remains to expand the main term $g_{\mathrm{main}}(u) := t^2 \int_2^\infty \li(x) e^{-tx}\,dx$. Integrating by parts (using $\li(2) = 0$ and $\li'(x) = 1/\log x$) gives $g_{\mathrm{main}}(u) = t \int_2^\infty \frac{e^{-tx}}{\log x}\,dx$. Substitute the exact identity
+\[
+  \frac{1}{\log x} = \int_0^{1/2} x^{-\xi}\,d\xi + \frac{x^{-1/2}}{\log x} \qquad (x > 1).
+\]
+Since $t x^{-\xi} e^{-tx} \ge 0$ on $[2,\infty) \times [0, 1/2]$, Tonelli's theorem and the change of variables $v = tx$ (followed by $v = e^{-u} w$ on $[0, 2t]$) yield
+\begin{equation}\label{eq:gmain-decomp}
+  g_{\mathrm{main}}(u)
+  = \int_0^{1/2} e^{-\xi u} \Gamma(1 - \xi)\,d\xi
+  - e^{-u} \int_0^{1/2}\!\int_0^2 w^{-\xi} e^{-e^{-u} w}\,dw\,d\xi
+  + t \int_2^\infty \frac{x^{-1/2} e^{-tx}}{\log x}\,dx.
+\end{equation}
+We differentiate~\eqref{eq:gmain-decomp} $j$ times with respect to $u$:
+\begin{itemize}
+  \item In the second term, $\frac{d^j}{du^j}(e^{-u} e^{-e^{-u} w})$ is a finite linear combination of $e^{-(m+1)u} w^m e^{-e^{-u} w}$ ($0 \le m \le j$), and $w^{m-\xi} \le \max(w^{-1/2}, 2^m)$ is integrable on $(0,2) \times (0, 1/2)$; hence every $u$-derivative is $O_j(e^{-u})$.
+  \item In the third term, applying $\frac{d}{du} = -t\frac{d}{dt}$ $j$ times produces $t \int_2^\infty \frac{\widetilde{Q}_j(tx) e^{-tx}}{x^{1/2}\log x}\,dx$ for a polynomial $\widetilde{Q}_j$ of degree $j$. Using $\log x \ge \log 2$ and substituting $y = tx$ bounds this by $\frac{t^{1/2}}{\log 2} \int_0^\infty y^{-1/2} |\widetilde{Q}_j(y)| e^{-y}\,dy = O_j(e^{-u/2})$.
+  \item In the first term, differentiating $j$ times gives $\int_0^{1/2} e^{-\xi u}(-\xi)^j \Gamma(1-\xi)\,d\xi$. Expanding the analytic series $\Gamma(1-\xi) = \sum_{k=0}^\infty \frac{(-1)^k \Gamma^{(k)}(1)}{k!}\xi^k$ to order $K$ on $[0, 1/2]$ and completing each monomial integral to $[0, \infty)$ (with $O_{j,k}(e^{-u/2})$ tail) gives the right-hand side of~\eqref{eq:li-asymp}.
+\end{itemize}
+Combining the main and error estimates proves~\eqref{eq:li-asymp}.
+\end{proof}
+
+Next we verify that $\phi(\xi) = \Gamma(1 - \xi)$ satisfies Theorem~\ref{thm:sv}.
+
+\begin{proposition}\label{prop:gamma-sv}
+The formal series $\widehat{g}_\Gamma(u) := \sum_{k=0}^\infty \frac{(-1)^k \Gamma^{(k)}(1)}{u^{k+1}}$ satisfies the hypotheses of Theorem~\ref{thm:sv} with Borel transform $\phi(\xi) = \Gamma(1 - \xi)$, poles $\omega_\ell = \ell \in \Z_{\ge 1}$, and residues $r_\ell = (-1)^\ell / (\ell - 1)!$.
+\end{proposition}
+
+\begin{proof}
+The Taylor expansion of $\Gamma(1 - \xi)$ at $\xi = 0$ is $\sum_{k=0}^\infty \frac{(-1)^k \Gamma^{(k)}(1)}{k!}\xi^k$, so $\phi(\xi) = \Gamma(1 - \xi)$ is indeed the Borel transform of $\widehat{g}_\Gamma(u)$. It extends meromorphically to $\C$ with poles exclusively at $\omega_\ell = \ell \in \Z_{\ge 1}$. Using $\Gamma(1 - \xi) = \Gamma(\ell + 1 - \xi) / \prod_{m=1}^\ell (m - \xi)$, each $\omega_\ell = \ell$ is a simple pole with nonzero residue
+\[
+  r_\ell = \lim_{\xi \to \ell} (\xi - \ell)\Gamma(1 - \xi)
+  = \frac{-\Gamma(1)}{\prod_{m=1}^{\ell - 1}(m - \ell)} = \frac{(-1)^\ell}{(\ell - 1)!} \neq 0.
+\]
+Choose $\theta_0 = \frac{3\pi}{8}$, $\theta = \frac{\pi}{4}$, and $\varepsilon = \frac{1}{2}$. Along the rays $\xi = s e^{\pm i\pi/4} = \frac{s}{\sqrt{2}}(1 \pm i)$ ($s \ge 1$), Euler's reflection formula $\Gamma(1-\xi) = \frac{\pi}{\sin(\pi\xi)\Gamma(\xi)}$ gives $|\sin(\pi\xi)| \ge \sinh(\pi s/\sqrt{2}) \gg e^{\pi s/\sqrt{2}}$, while Stirling's formula in the sector $|\arg\xi| \le \pi/4$ gives $|\Gamma(\xi)|^{-1} \ll s^{1/2 - s/\sqrt{2}} e^{(1 + \pi/4)s/\sqrt{2}}$. Hence
+\[
+  \bigl|\Gamma\bigl(1 - s e^{\pm i\pi/4}\bigr)\bigr| \ll s^{1/2 - s/\sqrt{2}} e^{(1 - 3\pi/4)s/\sqrt{2}},
+\]
+which decays super-exponentially as $s \to \infty$. By continuity on $[0, 1] e^{\pm i\pi/4}$, $|\phi(s e^{\pm i\pi/4})|$ is uniformly bounded for all $s \ge 0$, verifying hypothesis~(2) of Theorem~\ref{thm:sv} with $A = 0$.
+\end{proof}
+
+\begin{remark}
+For $\phi(\xi) = \Gamma(1-\xi)$, the residue series converges absolutely for every $u \in \R$ and yields the exact closed-form Stokes jump $g_-(u) - g_+(u) = 2\pi i \sum_{\ell=1}^\infty \frac{(-1)^\ell}{(\ell-1)!} e^{-\ell u} = -2\pi i\, e^{-u} \exp(-e^{-u})$.
+\end{remark}
+
+\begin{proof}[Proof of Theorem~\ref{thm:log-recip}]
+For $L(q) = \sum_{n=2}^\infty \frac{q^n}{\log n}$, the summatory function is $B(x) = \sum_{2 \le n \le x} \frac{1}{\log n}$. Because $v \mapsto 1/\log v$ is positive and decreasing on $[2,\infty)$, setting $N := \lfloor x \rfloor \ge 2$ gives
+\[
+  \li(x) = \sum_{n=2}^{N-1} \int_n^{n+1} \frac{dv}{\log v} + \int_N^x \frac{dv}{\log v}
+  \le \sum_{n=2}^{N-1} \frac{1}{\log n} + \frac{x - N}{\log N} \le B(x),
+\]
+and likewise $\li(x) \ge \sum_{n=2}^{N-1} \frac{1}{\log(n+1)} = B(x) - \frac{1}{\log 2}$. Thus $0 \le B(x) - \li(x) \le (\log 2)^{-1}$ and $0 \le B(x) \le x/\log 2$ for all $x \ge 2$. In particular, $L(q)$ satisfies hypotheses~(a) and~(b) of Proposition~\ref{prop:li-asymp}.
+
+Suppose for contradiction that $L(q)$ is D-algebraic over $\C(q)$. By Lemma~\ref{lem:transfer} ($\alpha = 1$), $g(u) := e^{-u} L(e^{-e^{-u}})$ satisfies a nonzero autonomous algebraic ODE over $\C$ on $\R$. By Proposition~\ref{prop:li-asymp}, $g^{(j)}(u)$ matches the derivatives of $\widehat{g}_\Gamma(u)$ to all polynomial orders in $1/u$, contradicting Proposition~\ref{prop:gamma-sv} and Corollary~\ref{cor:asymp-transfer}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:primes}]
+For $|q| < 1$, Fubini's theorem on $\pi(n) = \sum_{p \le n} 1$ gives
+\[
+  \Pi(q) = \sum_{n=0}^\infty \pi(n) q^n = \sum_{p\text{ prime}} \sum_{n=p}^\infty q^n = \frac{I_{\mathrm{prime}}(q)}{1 - q}.
+\]
+Because $1 - q \in \C(q)^\times$, the differential subfields $\C(q)\langle \Pi \rangle$ and $\C(q)\langle I_{\mathrm{prime}} \rangle$ of $\C((q))$ coincide~\cite{Kolchin1973}; explicitly, each $\Pi^{(j)}$ is a $\C(q)$-linear combination of $I_{\mathrm{prime}}, \dots, I_{\mathrm{prime}}^{(j)}$ and conversely. Hence it suffices to show that $I_{\mathrm{prime}}(q)$ is differentially transcendental over $\C(q)$.
+
+The summatory function of $I_{\mathrm{prime}}(q)$ is $B(x) = \pi(x) \le x$. By de la Vall\'ee Poussin's quantitative prime number theorem~\cite{delaValleePoussin1899}, there exist constants $C, c > 0$ such that $|\pi(x) - \li(x)| \le C x e^{-c\sqrt{\log x}}$ for all $x \ge 2$; in particular, $|\pi(x) - \li(x)| = O_M(x/(\log x)^M)$ for every integer $M \ge 1$. Thus $I_{\mathrm{prime}}(q)$ satisfies Proposition~\ref{prop:li-asymp}. If $I_{\mathrm{prime}}(q)$ were D-algebraic over $\C(q)$, then Lemma~\ref{lem:transfer} ($\alpha = 1$) would give a nonzero autonomous algebraic ODE for $g(u) := e^{-u} I_{\mathrm{prime}}(e^{-e^{-u}})$, contradicting Proposition~\ref{prop:li-asymp}, Proposition~\ref{prop:gamma-sv}, and Corollary~\ref{cor:asymp-transfer}.
+\end{proof}
+
+% ============================================================================
+\section{Machine-Checked Formalization in Lean~4}\label{sec:lean}
+% ============================================================================
+
+The proofs in Sections~\ref{sec:sv} and~\ref{sec:apps} are accompanied by a complete Lean~4 formalization in the public repository \texttt{stokes-vandermonde}~\cite{Helminen2026StokesVandermonde} (Lean~\texttt{v4.36.0}, Mathlib commit \texttt{fc4f59e5}, comprising approximately $10{,}500$ lines across four modules). Every theorem listed in Table~\ref{tab:lean} is verified by both \texttt{lake build} and the independent kernel checker \texttt{lake env leanchecker --fresh PakPrimes} with zero \texttt{sorry}, zero custom axioms, and zero \texttt{native\_decide}, depending solely on the standard Lean axioms \texttt{[propext, Classical.choice, Quot.sound]}.
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.24}
+\begin{tabular}{@{} >{\raggedright\arraybackslash}p{4.1cm} >{\raggedright\arraybackslash}p{6.6cm} >{\raggedright\arraybackslash}p{4.3cm} @{}}
+\toprule
+\textbf{Paper result} & \textbf{Lean~4 declaration (module)} & \textbf{Hypotheses} \\
+\midrule
+Theorem~\ref{thm:sv} (autonomous over $\C$) &
+\texttt{borel\_\allowbreak stokes\_\allowbreak vandermonde\_\allowbreak no\_\allowbreak autonomous\_\allowbreak ade} (\texttt{GeneralTheorem2.lean}) &
+\texttt{MeromorphicBorelData} (zero intermediate hypotheses) \\
+Corollary~\ref{cor:asymp-transfer} (autonomous) &
+\texttt{no\_\allowbreak autonomous\_\allowbreak ade\_\allowbreak of\_\allowbreak meromorphic\_\allowbreak borel} (\texttt{GeneralTheorem2.lean}) &
+\texttt{MeromorphicBorelData} + all-orders asymptotics \\
+Proposition~\ref{prop:gamma-sv} (non-vacuity) &
+\texttt{gHat\_\allowbreak no\_\allowbreak autonomous\_\allowbreak ade\_\allowbreak via\_\allowbreak general\_\allowbreak theorem\_\allowbreak 2} (\texttt{GeneralTheorem2.lean}) &
+Unconditional (instantiates $\phi(\xi)=\Gamma(1-\xi)$) \\
+Lemma~\ref{lem:transfer} ($\alpha = 1$) &
+\texttt{autonomous\_\allowbreak transfer} (\texttt{AutonomousTransfer.lean}) &
+Unconditional (polynomial coeff.\ growth) \\
+Theorem~\ref{thm:log-recip} ($\sum_{n \ge 2} q^n/\log n$) &
+\texttt{logReciprocal\_\allowbreak algebraicIndependent} (\texttt{MainTheorem.lean}) &
+Unconditional (zero hypotheses) \\
+Theorem~\ref{thm:primes} ($\sum_p q^p$ \& $\sum \pi(n) q^n$) &
+\texttt{pak\_\allowbreak conjecture\_\allowbreak 2\_\allowbreak 5b\_\allowbreak of\_\allowbreak pnt} (\texttt{MainTheorem.lean}) &
+Assumes only \texttt{PNTAllOrders} \\
+\bottomrule
+\end{tabular}
+\vspace{4pt}
+\caption{Exact correspondence between the theorems in this paper and the kernel-checked declarations in \texttt{jounih/stokes-vandermonde}~\cite{Helminen2026StokesVandermonde}.}\label{tab:lean}
+\end{table}
+
+Two points of architecture deserve explicit note:
+\begin{enumerate}[(1)]
+  \item \emph{Direct complex-analytic specification for Theorem~\ref{thm:sv}.} In \texttt{PakPrimes/GeneralTheorem2.lean}, the structure \texttt{MeromorphicBorelData} packages precisely the genuine complex-analytic hypotheses of Theorem~\ref{thm:sv}: $0 < \theta < \theta_0 < \pi/2$, $\varepsilon > 0$, $0 < \omega_0 < \omega_1 < \cdots$, nonzero residues $r_m \neq 0$, analyticity on the punctured wedge $W_{\theta_0,\varepsilon} \setminus \{\omega_m\}$, the simple-pole limit $(z - \omega_m)\phi(z) \to r_m$, and exponential type along the two rays $e^{\pm i\theta}$. From these inputs alone, the library constructs the lateral Borel convolution algebra, proves Cauchy--Goursat and the $2\pi i$ simple-pole residue theorem on the finite triangles $\Delta_n$, derives the vertical-cut Stokes expansion~\eqref{eq:trunc-stokes}, and executes the strong-induction Vandermonde collapse. The Lean formalization proves the autonomous version over $\C$ (which is all that Lemma~\ref{lem:transfer} feeds into Theorems~\ref{thm:log-recip} and~\ref{thm:primes}), while Section~\ref{sec:sv} proves the non-autonomous statement over $\C(u)$.
+  \item \emph{Exact PNT boundary for Theorem~\ref{thm:primes}.} In \texttt{PakPrimes/MainTheorem.lean}, differential transcendence of $F(q) \in \C[[q]]$ over $\C(q)$ is stated as \texttt{AlgebraicIndependent} over $\C$ of the coordinate family $(q, F, F', F'', \dots)$ inside \texttt{PowerSeries $\C$}. For Theorem~\ref{thm:primes}, the sole external hypothesis is
+  \[
+    \texttt{PNTAllOrders} \;:=\; \forall M \in \mathbb{N},\ \exists C > 0,\ \forall^{\infty} x \in \R,\ \bigl|\pi(\lfloor x\rfloor) - \li(x)\bigr| \le \frac{C x}{(\log x)^M},
+  \]
+  which matches hypothesis~(b) of Proposition~\ref{prop:li-asymp}. Discharging \texttt{PNTAllOrders} from the Kontorovich--Tao \texttt{PrimeNumberTheoremAnd} project~\cite{PrimeNumberTheoremAnd} once its quantitative error term is integrated with current Mathlib will immediately yield an unconditional Lean~4 proof of Theorem~\ref{thm:primes}.
+\end{enumerate}
+
+% ============================================================================
+\section{Outlook: Towards the \texorpdfstring{$n$-th}{n-th} Prime Generating Function}\label{sec:outlook}
+% ============================================================================
+
+The complementary half of Pak's Conjecture~2.5~\cite{Pak2018} asks whether the ordinary generating function of the $n$-th prime,
+\[
+  P_{\mathrm{prime}}(q) := \sum_{n=1}^\infty p_n q^n,
+\]
+is differentially transcendental over $\C(q)$. We briefly record why Theorem~\ref{thm:sv} does not apply directly to $P_{\mathrm{prime}}(q)$, what structural pieces are already unconditional, and which two analytic problems remain genuinely open.
+
+\subsection{Log-transseries reduction and factorization}
+Set $h(u) := e^{-2u} P_{\mathrm{prime}}(e^{-e^{-u}})$. By Lemma~\ref{lem:transfer} ($\alpha = 2$), any algebraic ODE for $P_{\mathrm{prime}}(q)$ over $\C(q)$ transfers to an autonomous ODE $P(h, h', \dots, h^{(r)}) = 0$ over $\C$. By de la Vall\'ee Poussin's prime number theorem, $p_n = \li^{-1}(n) + O(n e^{-c\sqrt{\log n}})$. Combining Euler--Maclaurin summation with Cipolla's asymptotic expansion~\cite{Cipolla1902} of $f(u) := e^{-u}\li^{-1}(e^u)$ (which satisfies the autonomous ODE $f f'' + f f' - f - f' = 0$) yields an all-orders asymptotic expansion for every derivative $h^{(j)}(u)$ in the log-transseries ring $\cL := \C[u, Z][[1/u]]$ ($Z := \log u$, $\partial_u Z = 1/u$):
+\[
+  \widehat{h}(u, Z) := \Gamma(2 + \partial_u)\,\widehat{f}(u, Z) = u + Z - \gamma + \frac{Z - 1 - \gamma}{u} + \cdots,
+\]
+forcing $P(\widehat{h}, \dots, \widehat{h}^{(r)}) = 0$ in $\cL$.
+
+Because $\widehat{h}$ contains powers of $Z = \log u$, its Borel transform is no longer analytic at $\xi = 0$: under \'Ecalle's log-Borel transform $\cB_{\log}[u^{-m}(\log u)^j](\xi) := (-1)^j \partial_\alpha^j(\xi^{\alpha-1}/\Gamma(\alpha))|_{\alpha = m}$, the germ $\phi_{f'-1}(\xi) := \cB_{\log}[\widehat{f}' - 1](\xi)$ is ramified at $\xi = 0$. Remarkably, however, all logarithmic branching factors out in closed form.
+
+\begin{proposition}[Exact Log-Borel Factorization]\label{prop:log-factor}
+Let $S(w) := \sum_{n=0}^\infty n! w^{-n}$ be the asymptotic series of $w e^{-w}\Ei(w)$, and define polynomials $a_m(\xi) \in \Q[\xi]$ ($m \ge 1$) by the formal $w^{-1}$-expansion
+\[
+  \sum_{m=1}^\infty a_m(\xi)\, w^{-m} := S(w)^{\xi - 1}\!\left(w\bigl(1 - S(w)^{-1}\bigr) - 1\right).
+\]
+Then the log-Borel transforms of $\widehat{f}' - 1$ and $\widehat{h}' - 1$ factor as
+\begin{equation}\label{eq:log-factor}
+  \phi_{f'-1}(\xi) = \xi^\xi \psi_0(\xi), \qquad
+  \phi_{h'-1}(\xi) = \Gamma(2 - \xi)\, \xi^\xi\, \psi_0(\xi),
+\end{equation}
+where $\psi_0(\xi) := \sum_{m=1}^\infty \frac{a_m(\xi)}{\Gamma(\xi + m)} \xi^{m-1} \in \C[[\xi]]$ is a pure power series (free of $\log\xi$ terms) with $a_1(\xi) = 1$, $a_2(\xi) = \xi + 2$, and positive radius of convergence $1$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+From $e^u = \Ei(w) \sim \frac{e^w}{w} S(w)$ and $f = e^{w-u} = w / S(w)$, differentiation gives $e^u du = \frac{e^w}{w} dw$ and $f' - 1 = w - f - 1 = w(1 - S(w)^{-1}) - 1$. Substituting into the formal Bromwich integral gives
+\[
+  \frac{1}{2\pi i}\int_{\mathcal{H}} e^{\xi u} (f' - 1)\,du
+  = \frac{1}{2\pi i}\int_{\mathcal{H}} e^{\xi w} w^{-\xi} S(w)^{\xi-1}\!\left(w(1 - S(w)^{-1}) - 1\right) dw
+  = \sum_{m=1}^\infty a_m(\xi)\, \frac{\xi^{\xi + m - 1}}{\Gamma(\xi + m)}
+\]
+via Hankel's formula $\frac{1}{2\pi i}\int_{\mathcal{H}} e^{\xi w} w^{-\xi-m}\,dw = \xi^{\xi+m-1}/\Gamma(\xi+m)$. This pulls out the single factor $\xi^\xi$ and leaves the holomorphic germ $\psi_0(\xi)$, whose nearest singularity lies at $\xi = 1$ (from the $2\pi i$ monodromy of $\Ei(w) = e^u$). Applying $\Gamma(2 + \partial_u) \leftrightarrow \times \Gamma(2-\xi)$ yields the second identity in~\eqref{eq:log-factor}.
+\end{proof}
+
+\subsection{Why the leading \texorpdfstring{$m=1$}{m=1} Stokes jump cannot suffice alone}
+A second genuine obstacle separates $P_{\mathrm{prime}}(q)$ from Theorem~\ref{thm:sv}. For $f(u) = e^{-u}\li^{-1}(e^u)$, the lateral difference across $\xi = 1$ arises from shifting $\Ei(w) = e^u$ by $2\pi i$, giving $\dot{\Delta}_1 \widehat{f} = 2\pi i e^{-u}(1 + \partial_u)\widehat{f}$ and $\Delta_m \widehat{f} = 0$ for all $m \ge 2$. Since $\Gamma(2 - \xi)$ is regular at $\xi = 1$ and satisfies the commutation
+\[
+  \Gamma(2 + \partial_u)\bigl[e^{-u}(1 + \partial_u)\widehat{f}\bigr]
+  = e^{-u} \Gamma(1 + \partial_u)(1 + \partial_u)\widehat{f}
+  = e^{-u} \Gamma(2 + \partial_u)\widehat{f} = e^{-u}\widehat{h},
+\]
+the leading pointed alien derivative of $\widehat{h}$ is \emph{non-constant}: $\dot{\Delta}_1 \widehat{h} = 2\pi i\, e^{-u}\widehat{h}$. The following elementary control shows that this $m = 1$ structure cannot by itself obstruct D-algebraicity.
+
+\begin{example}[D-algebraic no-go control at $m = 1$]\label{ex:control}
+Let $y(u)$ solve $y' + y = 1/u$, so that $\widehat{y}(u) = \sum_{k=0}^\infty k!\, u^{-k-1}$ has $\dot{\Delta}_1 \widehat{y} = -2\pi i\, e^{-u}$ and $\Delta_m \widehat{y} = 0$ for all $m \ge 2$. For any $\tau \in \C$, define $g_\tau(u) := \exp(-\tau e^{-u} + y(u))$. Then $\dot{\Delta}_1 \widehat{g} = -2\pi i\, e^{-u}\widehat{g}$ and $\Delta_m \widehat{g} = 0$ for $m \ge 2$, matching $\widehat{h}$ at $m = 1$ (up to sign). Yet $g_\tau$ is D-algebraic for every $\tau \in \C$: putting $L := g_\tau'/g_\tau = u^{-1} - y + \tau e^{-u}$, we have $L' + L = -u^{-2}$ and $L'' + L' = 2 u^{-3}$, so
+\[
+  4(L' + L)^3 + (L'' + L')^2 = 0,
+\]
+a $\tau$-independent third-order autonomous polynomial ODE for $g_\tau$ after clearing powers of $g_\tau$.
+\end{example}
+
+\subsection{Higher alien derivatives (\texorpdfstring{$m \ge 2$}{m >= 2}) and two open hypotheses}
+Example~\ref{ex:control} proves that higher scales $m \ge 2$ are indispensable. Remarkably, at every integer $m \ge 2$, the single-valued factor $\Gamma(2 - \xi)$ in~\eqref{eq:log-factor} has a simple pole with residue $\frac{(-1)^{m-1}}{(m-2)!}$:
+\[
+  \Gamma(2 - \xi) = \frac{(-1)^{m-1}}{(m - 2)!(\xi - m)} + G_m(\xi) \qquad (G_m \text{ holomorphic at } \xi = m).
+\]
+For $m \ge 2$, let $\Phi_{f'-1,\epsilon}(\xi)$ ($\epsilon \in \{+,-\}^{m-1}$) denote the analytic continuation of $\phi_{f'-1}(\xi)$ from $(0,1)$ to a neighborhood of $\xi = m$ passing above ($+$) or below ($-$) each integer $1, \dots, m - 1$, and form \'Ecalle's weighted sheet average
+\[
+  \Psi_m(\xi) := \sum_{\epsilon \in \{+,-\}^{m-1}} \frac{p(\epsilon)!\, q(\epsilon)!}{m!}\, \Phi_{f'-1,\epsilon}(\xi),
+\]
+where $p(\epsilon)$ and $q(\epsilon) = m - 1 - p(\epsilon)$ count the $+$ and $-$ signs in $\epsilon$. Because $\Delta_m \widehat{f}' = 0$ for $m \ge 2$, $\Psi_m(\xi)$ is regular at $\xi = m$; because $\Gamma(2-\xi)$ is single-valued across all $2^{m-1}$ sheets, the weighted average of $\phi_{h'-1} = \Gamma(2-\xi)\phi_{f'-1}$ near $\xi = m$ is $\Gamma(2-\xi)\Psi_m(\xi)$, whose sole singularity is a simple pole of residue $\frac{(-1)^{m-1}}{(m-2)!}\Psi_m(m)$. This produces \emph{pure-constant} alien derivatives at every $m \ge 2$:
+\begin{equation}\label{eq:higher-alien}
+  \Delta_m \widehat{h}' = 2\pi i\,\frac{(-1)^{m-1}}{(m - 2)!}\,\Psi_m(m) \in \C, \qquad
+  \dot{\Delta}_m \widehat{h} = \frac{2\pi i\,(-1)^m}{m(m - 2)!}\,\Psi_m(m)\, e^{-mu} \qquad (m \ge 2).
+\end{equation}
+
+Closing the $n$-th prime half of Pak's Conjecture~2.5 via~\eqref{eq:higher-alien} reduces to two explicitly \textbf{open} analytic hypotheses:
+\begin{enumerate}[\textbf{(H1)}]
+  \item \emph{Endless continuability and alien derivation axioms:} $\phi_{f'-1}(\xi)$ continues endlessly along all paths in $\{\Re\xi > 0\} \setminus \Z_{\ge 1}$, and \'Ecalle's pointed alien operators $\dot{\Delta}_m$ ($m \ge 2$) act as derivations commuting with $\partial_u$ on the $\C$-algebra generated by $\widehat{h}, \widehat{h}', \dots$ (so that $P(\widehat{h}, \dots, \widehat{h}^{(r)}) = 0$ implies $\dot{\Delta}_m[P(\widehat{h}, \dots, \widehat{h}^{(r)})] = 0$ in $\cL$).
+  \item \emph{Infinite non-vanishing of sheet averages:} $\#\{m \ge 2 : \Psi_m(m) \neq 0\} = \infty$.
+\end{enumerate}
+
+\begin{proposition}[Conditional reduction for $P_{\mathrm{prime}}$]\label{prop:pprime-cond}
+Under the open hypotheses \textbf{(H1)} and \textbf{(H2)}, the $n$-th prime generating function $P_{\mathrm{prime}}(q) = \sum_{n=1}^\infty p_n q^n$ is differentially transcendental over $\C(q)$.
+\end{proposition}
+
+\begin{proof}
+Suppose $P \in \C[X_0, \dots, X_r] \setminus \{0\}$ has minimal total degree $D \ge 1$ among polynomials vanishing on $(\widehat{h}, \dots, \widehat{h}^{(r)})$ in $\cL$. For any $m \ge 2$ with $\Psi_m(m) \neq 0$, put $\kappa_m := \frac{2\pi i(-1)^m}{m(m-2)!}\Psi_m(m) \neq 0$. By~\textbf{(H1)} and~\eqref{eq:higher-alien}, $\dot{\Delta}_m(\widehat{h}^{(j)}) = \kappa_m (-m)^j e^{-mu}$, so applying $\dot{\Delta}_m$ to $P(\widehat{h}, \dots, \widehat{h}^{(r)}) = 0$ yields
+\[
+  0 = \kappa_m e^{-mu} \sum_{j=0}^r (-m)^j \frac{\partial P}{\partial X_j}\bigl(\widehat{h}, \dots, \widehat{h}^{(r)}\bigr)
+  = \kappa_m e^{-mu} (D_m P)\bigl(\widehat{h}, \dots, \widehat{h}^{(r)}\bigr).
+\]
+Since $\kappa_m \neq 0$ and $\deg(D_m P) \le D - 1$, minimality of $D$ forces $D_m P \equiv 0$ identically in $\C[X_0, \dots, X_r]$. Choosing $r + 1$ distinct integers $m \ge 2$ with $\Psi_m(m) \neq 0$ via~\textbf{(H2)} and inverting the resulting $(r+1)\times(r+1)$ Vandermonde matrix forces $\partial_{X_j} P \equiv 0$ for all $j$, contradicting $D \ge 1$.
+\end{proof}
+
+We emphasize that both \textbf{(H1)} and \textbf{(H2)} remain genuinely open. Tilted-Bromwich numerical experiments for $\Psi_2(\xi)$ near $\xi = 1.85$ (giving $\Psi_2(1.85) \approx -2.24$) are only suggestive evidence at $m = 2$, whereas controlling $\Psi_m(m)$ for $m \ge 3$ requires tracking averages over $2^{m-1}$ Riemann sheets of the nonlinear inverse-$\Ei$ function.
+
+% ============================================================================
+\section*{Acknowledgments}
+% ============================================================================
+
+The author gratefully acknowledges the assistance of AI systems---specifically Google Gemini, OpenAI Codex, and Anthropic Claude---for mathematical exploration, adversarial auditing of intermediate arguments, drafting assistance, and Lean~4 formalization. All mathematical proofs and formal statements were audited and verified by the author, and all Lean~4 theorems are independently checked by the Lean~4 kernel.
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}
