@@ -18,7 +18,7 @@ The direct theorem `primeCounting_and_indicator_no_rationalADE` accepts any orde
 
 The version 1.0.1 manuscript gives the analytic argument and records the formalization as it stood at that release. The Lean prime theorem then took `PNTAllOrders` as a hypothesis. This is the estimate $\pi(x)-\int_2^x dt/\log t=O_M(x/(\log x)^M)$ for every natural $M$. The original manuscript and source remain available in that archive. [Manuscript](paper/main.pdf) · [Version 1.0.1](https://doi.org/10.5281/zenodo.24500832)
 
-Version 1.1.0 proves `PNTAllOrders` inside Lean. The PNT+ theorem `MediumPNT` bounds the error for Chebyshev’s ψ by $O(x\exp(-c(\log x)^{1/10}))$ for some $c>0$. A bound for the prime-power contribution transfers the estimate to θ. Abel summation then transfers it to π. Splitting the integral at $\sqrt x$ gives the required bound for every $M$. The earlier theorem `pak_conjecture_2_5b_of_pnt` applies to this proved estimate. Another development proves a stretched-exponential remainder for π on Lean 4.28. [Transfer proof](PNTIntegration/PrimeCountingFromPsi.lean) · [PNT+ source and attribution](vendor/README.md) · [Erdős 768 proof](https://github.com/ericlisg/erdos768-lean/blob/e46ab245f1e5eb2d1f0b184874c4e32e02ad16c9/RequestProject/PNT.lean#L321-L324)
+Version 1.1.0 proves `PNTAllOrders` inside Lean by building directly on the `MediumPNT` theorem of the **PrimeNumberTheoremAnd (PNT+)** project led by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors**. `MediumPNT` bounds the error for Chebyshev’s $\psi$ by $O(x\exp(-c(\log x)^{1/10}))$ for some $c>0$. A bound for the prime-power contribution transfers the estimate to $\theta$. Abel summation then transfers it to $\pi$. Splitting the integral at $\sqrt x$ gives the required bound for every $M$. The earlier theorem `pak_conjecture_2_5b_of_pnt` applies to this proved estimate. Another development proves a stretched-exponential remainder for $\pi$ on Lean 4.28. [Transfer proof](PNTIntegration/PrimeCountingFromPsi.lean) · [PNT+ repository](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd) · [PNT+ source and attribution](vendor/README.md) · [Erdős 768 proof](https://github.com/ericlisg/erdos768-lean/blob/e46ab245f1e5eb2d1f0b184874c4e32e02ad16c9/RequestProject/PNT.lean#L321-L324)
 
 ## Other results in the development
 
@@ -34,10 +34,14 @@ Use Lean 4.36.0. The Lake manifest pins Mathlib to `fc4f59e577feb1a4956671bc04ac
 lake exe cache get
 lake build
 lake env lean Verify.lean
+lake env leanchecker --fresh PNTIntegration.PrimeCountingFromPsi
+lake env leanchecker --fresh PNTIntegration.Final
+lake env leanchecker --fresh PNTIntegration.ExplicitADE
+lake env leanchecker --fresh PNTIntegration.ExplicitRat
 lake env leanchecker --fresh PakPrimes
 ```
 
-On macOS run the last command with a larger stack if necessary, using `(ulimit -s 65520 && lake env leanchecker --fresh PakPrimes)`. The expected axiom line is
+On macOS run the `leanchecker` commands with a larger stack if necessary, using `(ulimit -s 65520 && lake env leanchecker --fresh ...)`. The expected axiom line is
 
 ```text
 'PakPrimes.Main.primeCounting_and_indicator_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -45,4 +49,4 @@ On macOS run the last command with a larger stack if necessary, using `(ulimit -
 
 ## Credits and license
 
-Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the mathematical investigation, auditing, drafting, and Lean formalization. The Lean development incorporates work from the PNT+ and LeanArchitect projects. Independent specialist review is welcome. [License](LICENSE) · [Third-party credits and licenses](vendor/README.md)
+The unconditional prime-counting theorem relies centrally on the `MediumPNT` formalization from the **PrimeNumberTheoremAnd (PNT+)** project by **Alex Kontorovich, Terence Tao, and the PrimeNumberTheoremAnd contributors**, as well as **LeanArchitect**. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the mathematical investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome. [License](LICENSE) · [Third-party credits and licenses](vendor/README.md)

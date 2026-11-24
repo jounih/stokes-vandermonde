@@ -5,10 +5,10 @@
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of a meromorphic Borel–Stokes–Vandermonde criterion and its applications to differential transcendence. The prime-indicator series and the generating function of the prime-counting sequence each satisfy no algebraic differential equation over C(q), proving the prime-counting part of Pak’s Conjecture 2.5. Version 1.1.0 discharges the quantitative prime number theorem hypothesis using the PNT+ project’s MediumPNT theorem and a transfer to the prime-counting function. The theorem for the logarithmic reciprocal series sum over n ≥ 2 of q^n/log(n) is also included. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
+  "description": "Lean 4 formalization of a meromorphic Borel–Stokes–Vandermonde criterion and its applications to differential transcendence. The prime-indicator series and the generating function of the prime-counting sequence each satisfy no algebraic differential equation over C(q), proving the prime-counting part of Pak’s Conjecture 2.5. The quantitative prime number theorem input is discharged using the MediumPNT theorem from the PrimeNumberTheoremAnd (PNT+) project by Alex Kontorovich, Terence Tao, and contributors, together with a transfer to the prime-counting function. Version 1.1.1 adds explicit fresh leanchecker kernel replay for all PNTIntegration modules in CI and prominent PNT+ attribution. The theorem for the logarithmic reciprocal series sum over n ≥ 2 of q^n/log(n) is also included. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "keywords": [
     "Lean 4",
     "formal verification",

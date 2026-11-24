@@ -54,4 +54,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          lake env leanchecker --fresh PNTIntegration.PrimeCountingFromPsi
+          lake env leanchecker --fresh PNTIntegration.Final
+          lake env leanchecker --fresh PNTIntegration.ExplicitADE
+          lake env leanchecker --fresh PNTIntegration.ExplicitRat
           lake env leanchecker --fresh PakPrimes
