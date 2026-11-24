@@ -40,6 +40,8 @@ jobs:
               "MediumPNT",
               "PakPrimes.Main.pntAllOrders",
               "PakPrimes.Main.primeCounting_and_indicator_independent",
+              "PakPrimes.Main.primeCounting_and_indicator_no_polynomialADE",
+              "PakPrimes.Main.primeCounting_and_indicator_no_rationalADE",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"

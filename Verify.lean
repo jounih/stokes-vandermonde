@@ -25,3 +25,9 @@ import PakPrimes
 #print axioms MediumPNT
 #print axioms PakPrimes.Main.pntAllOrders
 #print axioms PakPrimes.Main.primeCounting_and_indicator_independent
+
+#check @PakPrimes.Main.primeCounting_and_indicator_no_polynomialADE
+#print axioms PakPrimes.Main.primeCounting_and_indicator_no_polynomialADE
+
+#check @PakPrimes.Main.primeCounting_and_indicator_no_rationalADE
+#print axioms PakPrimes.Main.primeCounting_and_indicator_no_rationalADE

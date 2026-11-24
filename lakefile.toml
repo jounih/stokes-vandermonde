@@ -13,7 +13,7 @@ roots = ["PakPrimes", "PakPrimes.BorelStokesVandermonde", "PakPrimes.AutonomousT
 
 [[lean_lib]]
 name = "PNTIntegration"
-roots = ["PNTIntegration.Final", "PNTIntegration.PrimeCountingFromPsi"]
+roots = ["PNTIntegration.Final", "PNTIntegration.PrimeCountingFromPsi", "PNTIntegration.ExplicitADE", "PNTIntegration.ExplicitRat"]
 
 [[lean_lib]]
 name = "Architect"
