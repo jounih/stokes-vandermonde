@@ -8,7 +8,7 @@
   "description": "Lean 4 formalization of the general meromorphic Borel–Stokes–Vandermonde criterion for differential transcendence, together with an unconditional proof that the logarithmic reciprocal series sum_{n>=2} q^n / log(n) satisfies no algebraic differential equation over C(q), and a machine-checked proof of the prime-counting half of Igor Pak's ICM 2018 Conjecture 2.5 (for both sum_{p prime} q^p and sum_{n>=0} pi(n) q^n) assuming only the classical all-orders error term of the prime number theorem (PNTAllOrders). Google Gemini, OpenAI Codex, and Anthropic Claude provided substantial assistance with the mathematical investigation, auditing, manuscript drafting, and Lean formalization. Independent specialist review is welcome.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "Lean 4",
     "formal verification",
