@@ -124,6 +124,38 @@ jobs:
               "Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms",
               "Statements.FishburnTorusKnots.torusKnot_kernel_euler_stronglyDTrans_over_meromorphicGerms",
               "Statements.FishburnTorusKnots.torusKnot_kernel_alternating_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FlajoletRichmond.frEGF_diff_eq",
+              "Statements.FlajoletRichmond.frEGF_init",
+              "Statements.FlajoletRichmond.frEGF_one",
+              "Statements.FlajoletRichmond.frEGF_one_not_dTrans",
+              "Statements.FlajoletRichmond.K_b_pos",
+              "Statements.FlajoletRichmond.frEGFSeries_dTrans_over_ratFunc",
+              "Statements.FlajoletRichmond.frEGFSeries_algebraicIndependent",
+              "Statements.FlajoletRichmond.frPoissonSeries_dTrans_over_ratFunc",
+              "Statements.FlajoletRichmond.frEGF_no_ade",
+              "Statements.VolterraVirial.sibuya_subGevrey_convergent",
+              "Statements.VolterraVirial.sibuya_subGevrey_convergent_euler",
+              "Statements.VolterraVirial.volterraMu_no_rat_ade",
+              "Statements.VolterraVirial.volterraNu_no_rat_ade",
+              "Statements.VolterraVirial.volterraNu_temp_no_rat_ade",
+              "Statements.VolterraVirial.fermiGas1D_virial3_no_rat_ade",
+              "Statements.VolterraVirial.fermiGas1D_virial3_temp_no_rat_ade",
+              "Statements.VolterraVirial.laplace_volterraNu",
+              "Statements.DistinctDensityPrimes.distinctDensity_branches_algebraicIndependent",
+              "Statements.DistinctDensityPrimes.distinctDensity_ogf_joint_algebraicIndependent",
+              "Statements.DistinctDensityPrimes.distinctDensity_dyadic_finite",
+              "Statements.DistinctDensityPrimes.distinctDensity_dyadic_countable",
+              "Statements.HigherOrderStrongAndRH.ogf_stronglyDTrans_of_higherOrderBorel",
+              "Statements.HigherOrderStrongAndRH.bernOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.tanOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.secPowOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.eulerGenocchiPowOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.trigammaOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.lambertOGF_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_dTrans",
+              "Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_stronglyDTrans",
+              "Statements.HigherOrderStrongAndRH.multiscale_filter_spectral_dominance",
+              "Statements.HigherOrderStrongAndRH.collatz_wielandt_rat_upper_bound",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -155,3 +187,8 @@ jobs:
           echo "=== leanchecker on remaining thin Statements ledgers ==="
           (ulimit -s 65520 && lake env leanchecker Statements.ThermalGasAndSpheres)
           (ulimit -s 65520 && lake env leanchecker Statements.MordellAndFalseThetaIntegrals)
+          echo "=== leanchecker --fresh Wave 5 (v3.2.0) Statements ledgers ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.FlajoletRichmond)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.VolterraVirial)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.DistinctDensityPrimes)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.HigherOrderStrongAndRH)

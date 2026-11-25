@@ -22,6 +22,10 @@ import Statements.MordellAndFalseThetaIntegrals
 import Statements.PrimesAndClassical
 import Statements.PakNthPrime
 import Statements.FishburnTorusKnots
+import Statements.FlajoletRichmond
+import Statements.VolterraVirial
+import Statements.DistinctDensityPrimes
+import Statements.HigherOrderStrongAndRH
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -144,3 +148,37 @@ import Statements.FishburnTorusKnots
 #print axioms Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms
 #print axioms Statements.FishburnTorusKnots.torusKnot_kernel_euler_stronglyDTrans_over_meromorphicGerms
 #print axioms Statements.FishburnTorusKnots.torusKnot_kernel_alternating_stronglyDTrans_over_meromorphicGerms
+
+-- Wave 5 (v3.2.0): Flajolet-Richmond (BDR §2.2.6 #3), Sibuya Sub-Gevrey & Volterra Virial, Distinct-Density Primes, Strong C({x}) Lift, Conditional RH -> G_Lambda, & Analytic Toolkit
+#print axioms Statements.FlajoletRichmond.frEGF_diff_eq
+#print axioms Statements.FlajoletRichmond.frEGF_init
+#print axioms Statements.FlajoletRichmond.frEGF_one
+#print axioms Statements.FlajoletRichmond.frEGF_one_not_dTrans
+#print axioms Statements.FlajoletRichmond.K_b_pos
+#print axioms Statements.FlajoletRichmond.frEGFSeries_dTrans_over_ratFunc
+#print axioms Statements.FlajoletRichmond.frEGFSeries_algebraicIndependent
+#print axioms Statements.FlajoletRichmond.frPoissonSeries_dTrans_over_ratFunc
+#print axioms Statements.FlajoletRichmond.frEGF_no_ade
+#print axioms Statements.VolterraVirial.sibuya_subGevrey_convergent
+#print axioms Statements.VolterraVirial.sibuya_subGevrey_convergent_euler
+#print axioms Statements.VolterraVirial.volterraMu_no_rat_ade
+#print axioms Statements.VolterraVirial.volterraNu_no_rat_ade
+#print axioms Statements.VolterraVirial.volterraNu_temp_no_rat_ade
+#print axioms Statements.VolterraVirial.fermiGas1D_virial3_no_rat_ade
+#print axioms Statements.VolterraVirial.fermiGas1D_virial3_temp_no_rat_ade
+#print axioms Statements.VolterraVirial.laplace_volterraNu
+#print axioms Statements.DistinctDensityPrimes.distinctDensity_branches_algebraicIndependent
+#print axioms Statements.DistinctDensityPrimes.distinctDensity_ogf_joint_algebraicIndependent
+#print axioms Statements.DistinctDensityPrimes.distinctDensity_dyadic_finite
+#print axioms Statements.DistinctDensityPrimes.distinctDensity_dyadic_countable
+#print axioms Statements.HigherOrderStrongAndRH.ogf_stronglyDTrans_of_higherOrderBorel
+#print axioms Statements.HigherOrderStrongAndRH.bernOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.tanOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.secPowOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.eulerGenocchiPowOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.trigammaOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.lambertOGF_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_dTrans
+#print axioms Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_stronglyDTrans
+#print axioms Statements.HigherOrderStrongAndRH.multiscale_filter_spectral_dominance
+#print axioms Statements.HigherOrderStrongAndRH.collatz_wielandt_rat_upper_bound

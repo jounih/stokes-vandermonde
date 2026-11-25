@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Formal Resurgence and Differential Transcendence in Lean 4 (stokes-vandermonde)"
+message: "If you use this software or its Lean 4 formalizations, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: Helminen
+    given-names: Jouni
+repository-code: "https://github.com/jounih/stokes-vandermonde"
+license: Apache-2.0
+version: "3.2.0"
+date-released: "2026-11-25"
+keywords:
+  - Lean 4
+  - formal verification
+  - differential transcendence
+  - Borel-Laplace summation
+  - Stokes phenomenon
+  - Pak Conjecture 2.5
+  - Fishburn numbers
+  - Flajolet-Richmond digital trees
+  - Bostan-Di Vizio-Raschel
+  - Sibuya sub-Gevrey theorem
+  - Volterra functions
+  - distinct-density primes
+  - Riemann Hypothesis

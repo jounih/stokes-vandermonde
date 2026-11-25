@@ -5,10 +5,10 @@
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and unconditional machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.1.0 adds: zero-hypothesis differential transcendence over C(x) of the n-th prime OGF ∑_{n>=1} p_n x^n via MediumPNT (completing Pak's Conjecture 2.5 alongside ∑ π(n) x^n; Pak's Conjecture 2.6 for ∑ x^{n^3} is proved separately in pak-cubic-theta, DOI 10.5281/zenodo.24492865); Zagier's 2001 formal identity (Theorem 3) from scratch; and unconditional differential transcendence over C(x) and strong differential transcendence over C({x}) (convergent meromorphic germs at 0) of the literal divergent Fishburn OGF ∑_{m>=0} ∏_{j=1}^m (1-(1-x)^j) (settling the open question in Bostan–Di Vizio–Raschel, AJM 2024, §2.2.6), Glaisher's T-number EGF, and the general torus-knot kernel series from sin(ps)sin(qs)/sin(pqs) for all p, q >= 2. All 94 audited declarations depend strictly on standard axioms ([propext, Classical.choice, Quot.sound]) and pass fresh leanchecker replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
+  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.2.0 adds six new kernel-verified modules (32,872 new lines): (1) unconditional differential transcendence over C(t) of the Flajolet–Richmond generalized digital tree EGF f_b(t) and Poisson transform e^{-t}f_b(t) for every b >= 2 (closing the open f half of Bostan–Di Vizio–Raschel, AJM 2024, §2.2.6 Example #3) plus the exact b = 1 collapse f_1(t) = t e^t; (2) Sibuya's Sub-Gevrey Convergence Theorem and unconditional D-transcendence of Volterra functions mu(t,beta,alpha) and nu(t) (2D Fermi gas 2nd virial shift and 1D 3-body 3rd virial shift, in t and T > 0) plus the exact Laplace transform of nu; (3) unconditional joint differential independence of finite and countably infinite distinct-density prime-asymptotic OGF towers (given quantitative density PNT); (4) universal lift of the arbitrary-pole-order rotated-ray HigherOrderStokes engine to strong D-transcendence over C({x}) (Bernoulli, tan, sec^p, Euler–Genocchi, trigamma, Lambert); (5) conditional implication showing RiemannHypothesis implies D-transcendence over C(x) and C({x}) of the von Mangoldt Borel-Laplace series G_Lambda; and (6) multi-scale Plancherel spectral-dominance and exact rational Collatz–Wielandt certification theorems. All 126 audited declarations depend strictly on standard axioms ([propext, Classical.choice, Quot.sound]) and pass independent leanchecker --fresh replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with exploration, auditing, drafting, and Lean formalization.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "keywords": [
     "Lean 4",
     "formal verification",
@@ -16,10 +16,12 @@
     "Borel-Laplace summation",
     "Stokes phenomenon",
     "Pak Conjecture 2.5",
-    "nth prime generating function",
     "Fishburn numbers",
+    "Flajolet-Richmond digital trees",
     "Bostan-Di Vizio-Raschel",
-    "Zagier identity",
-    "quasipolynomial Euler products"
+    "Sibuya sub-Gevrey theorem",
+    "Volterra functions",
+    "distinct-density primes",
+    "Riemann Hypothesis"
   ]
 }

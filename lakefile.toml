@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.1.0"
+version = "3.2.0"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
 
 [[require]]
@@ -46,7 +46,13 @@ roots = [
   "PakPrimes.PakNthPrimeEngine",
   "PakPrimes.PakNthPrimeStokes",
   "PakPrimes.PakNthPrimeClosure",
-  "PakPrimes.PakNthPrimeUnconditional"
+  "PakPrimes.PakNthPrimeUnconditional",
+  "PakPrimes.CogenticAnalyticToolkit",
+  "PakPrimes.RiemannHypothesisStokes",
+  "PakPrimes.HigherOrderStrongDTrans",
+  "PakPrimes.DistinctDensityPrimes",
+  "PakPrimes.VolterraVirialDTrans",
+  "PakPrimes.FlajoletRichmondDTrans"
 ]
 
 [[lean_lib]]
@@ -69,6 +75,10 @@ roots = [
   "Statements.PrimesAndClassical",
   "Statements.PakNthPrime",
   "Statements.FishburnTorusKnots",
+  "Statements.FlajoletRichmond",
+  "Statements.VolterraVirial",
+  "Statements.DistinctDensityPrimes",
+  "Statements.HigherOrderStrongAndRH",
   "Statements.All"
 ]
 
