@@ -100,6 +100,8 @@ import Statements.PrimesAndClassical
 #print axioms Statements.ThermalGasAndSpheres.ideal_gas_dimensional_parity
 #print axioms Statements.ThermalGasAndSpheres.bose_eos_3D_dTrans
 #print axioms Statements.ThermalGasAndSpheres.fermi_eos_3D_dTrans
+#print axioms Statements.ThermalGasAndSpheres.casimir_2D_dAlgebraic
+#print axioms Statements.ThermalGasAndSpheres.casimir_1D_dTrans
 #print axioms Statements.ThermalGasAndSpheres.casimir_3D_dTrans
 #print axioms Statements.ThermalGasAndSpheres.conformalScalar_sphere_allDim_iff
 #print axioms PakPrimes.ThermalGasEOS.boseEOS1D_no_rat_ade

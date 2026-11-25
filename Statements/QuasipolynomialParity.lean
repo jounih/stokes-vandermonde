@@ -4,12 +4,21 @@ public import PakPrimes.QuasipolynomialEulerParity
 public import PakPrimes.QuasipolynomialIFF
 
 /-!
-# Statements Audit Spec: Quasipolynomial Euler-Product Parity Dichotomy
+# Statements Audit Ledger: Quasipolynomial Euler-Product Parity Dichotomy
 
-Self-contained statement ledger for `PakPrimes.QuasipolynomialEulerParity` and
-`PakPrimes.QuasipolynomialIFF`. Every declaration below is type-checked by the Lean 4 kernel
-as definitionally equal to its full proof in `PakPrimes/`, with strictly
+Thin statement ledger re-stating the flagship theorems from
+`PakPrimes.QuasipolynomialEulerParity` and `PakPrimes.QuasipolynomialIFF` using the
+project's definitions, each checked by the Lean 4 kernel with strictly
 `[propext, Classical.choice, Quot.sound]`.
+
+## Definitions used
+- `Quasipoly`, `Quasipoly.eval`, `Quasipoly.oddPart`: `PakPrimes/QuasipolynomialEulerParity.lean:79`
+- `lambertSeries`: `PakPrimes/QuasipolynomialEulerParity.lean:583`
+- `eulerProduct`: `PakPrimes/QuasipolynomialEulerParity.lean:626`
+- `PakPrimes.HarmonicTrap.bose`, `hasProd_bose`: `PakPrimes/HarmonicTrapShift.lean:130-142`
+- `seriesCoordinates`: `PakPrimes/AutonomousTransfer.lean:65`
+- `jointCoords`: `PakPrimes/QuasipolynomialIFF.lean:1447`
+- `conformalScalarPoly`, `conformalScalarSphereQP`: `PakPrimes/QuasipolynomialIFF.lean:9580,9685`
 
 See `docs/quasipolynomial-parity.md` for explicit scope boundaries (including what is
 and is not formalized in v3.0.0).
@@ -19,8 +28,40 @@ public section
 
 namespace Statements.QuasipolynomialParity
 
-open Filter PakPrimes.PrimeNome PakPrimes.QuasipolynomialEulerParity
+open scoped PowerSeries.WithPiTopology
+open Filter PowerSeries PakPrimes.PrimeNome PakPrimes.QuasipolynomialEulerParity
 open PakPrimes.QuasipolynomialIFF
+
+/-! ### Textbook-pinning checks on project definitions -/
+
+/-- `PakPrimes.HarmonicTrap.bose g` is the literal convergent infinite product
+`∏' i, ((1 - X^(i+1))⁻¹)^(g (i+1))` in `PowerSeries.WithPiTopology`. -/
+example (g : ℕ → ℕ) :
+    HasProd (fun i : ℕ => ((1 - (X : PowerSeries ℂ) ^ (i + 1))⁻¹) ^ (g (i + 1)))
+      (PakPrimes.HarmonicTrap.bose g) :=
+  PakPrimes.HarmonicTrap.hasProd_bose g
+
+/-- For `g : ℕ → ℕ`, the recurrence-defined `eulerProduct` equals the literal product `bose g`. -/
+example (g : ℕ → ℕ) :
+    eulerProduct (fun n => (g n : ℂ)) = PakPrimes.HarmonicTrap.bose g :=
+  eulerProduct_eq_bose g
+
+/-- The `n`-th coefficient of `lambertSeries w` is `∑_{d ∣ n} d · w(d)` for `n ≥ 1` (and `0` for `n = 0`). -/
+example (w : ℕ → ℂ) (n : ℕ) :
+    PowerSeries.coeff n (lambertSeries w) =
+      if n = 0 then 0 else ∑ d ∈ Nat.divisors n, (d : ℂ) * w d := by
+  simp [lambertSeries]
+
+/-- On `S²`, `conformalScalarPoly 2` evaluates to `j` (exact spherical harmonic multiplicity at `j = 2ℓ + 1`). -/
+example (j : ℂ) : (conformalScalarPoly 2).eval j = j := by
+  simp [conformalScalarPoly]
+
+/-- On `S³`, `conformalScalarPoly 3` evaluates to `j² / 4` (exact multiplicity `(ℓ + 1)²` at `j = 2ℓ + 2`). -/
+example (j : ℂ) : (conformalScalarPoly 3).eval j = j ^ 2 / 4 := by
+  simp [conformalScalarPoly]
+  ring
+
+/-! ### Flagship theorems -/
 
 /-- Master Theorem A: any pure quasipolynomial `P` with nonzero odd part `P⁻` has
 a D-transcendental Lambert series `H_P(q) = ∑_{n ≥ 1} P(n) q^n / (1 - q^n)` over `ℂ(q)`. -/
@@ -94,7 +135,8 @@ theorem macMahon_partsMod5One_partsMod5Two_joint_dIndep :
   macMahon_partsMod5One_partsMod5Two_euler_joint_algIndep
 
 /-- All-dimension conformal scalar parity theorem (`∀ s ≥ 2`): the thermal partition function
-`Z_{S^s}(q)` of a free conformal scalar on `S^s` is D-algebraic over `ℂ(q)` iff `Odd s`. -/
+`Z_{S^s}` (in the `j = 2E` variable `x = q^{1/2}`) of a free conformal scalar on `S^s` is
+D-algebraic over `ℂ(x)` iff `Odd s`. -/
 theorem conformalScalar_allDim_sphere_iff {s : ℕ} (hs : 2 ≤ s) :
     ¬ AlgebraicIndependent ℂ
         (seriesCoordinates (eulerProduct (fun n => (conformalScalarSphereQP s).eval (n : ℤ)))) ↔

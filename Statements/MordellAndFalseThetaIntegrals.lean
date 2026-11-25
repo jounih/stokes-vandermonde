@@ -4,10 +4,14 @@ public import PakPrimes.MockThetaAndHurwitz
 public import PakPrimes.FalseThetaDichotomy
 
 /-!
-# Statements Audit Spec: Mordell, Eichler, and Stieltjes Integrals over `ℂ(u)`
+# Statements Audit Ledger: Mordell, Eichler, and Stieltjes Integrals over `ℂ(u)`
 
-Self-contained statement ledger for `PakPrimes.MockThetaAndHurwitz` and
-`PakPrimes.FalseThetaDichotomy`.
+Thin statement ledger re-stating the flagship integral-transform theorems from
+`PakPrimes.MockThetaAndHurwitz` and `PakPrimes.FalseThetaDichotomy` using the project's
+definitions (`mockThetaFMordell`, `mockThetaOmegaMordell`, `eichlerIntegral jacobiThetaCoeff`,
+`falseThetaSinhMordell`, `kontsevichFalseMordell`, `rogersFalseThetaStieltjes`,
+`fiveMockFalseMordell` — defined in `PakPrimes/MockThetaAndHurwitz.lean` and
+`PakPrimes/FalseThetaDichotomy.lean`).
 
 **Explicit Scope Notice:** The theorems in this file prove differential transcendence
 over `ℂ(u)` for the **Mordell integrals, split Eichler integrals, and Stieltjes transforms**

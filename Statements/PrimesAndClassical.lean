@@ -10,10 +10,12 @@ public import PakPrimes.PartitionsIntoPrimes
 public import PNTIntegration.PrimePartitions
 
 /-!
-# Statements Audit Spec: Wave 1–2 Primes, MacMahon, Hölder, and Ostrowski
+# Statements Audit Ledger: Wave 1–2 Primes, MacMahon, Hölder, and Ostrowski
 
-Self-contained statement ledger for the Wave 1–2 core theorems carried forward from
-`v1.0.0`–`v2.0.0`, all depending strictly on `[propext, Classical.choice, Quot.sound]`.
+Thin statement ledger re-stating the Wave 1–2 flagship theorems carried forward from
+`v1.0.0`–`v2.0.0` (`indicatorCoordinates`, `piCoordinates`, `seriesCoordinates` from
+`PakPrimes/AutonomousTransfer.lean`; Mathlib's `Complex.Gamma` and `riemannZeta`), all
+depending strictly on `[propext, Classical.choice, Quot.sound]`.
 -/
 
 public section
@@ -23,8 +25,9 @@ namespace Statements.PrimesAndClassical
 open scoped PowerSeries.WithPiTopology
 open PowerSeries PakPrimes.PrimeNome PakPrimes.HigherOrderStokes
 
-/-- Unconditional Pak Conjecture 2.5b (`∑_{p prime} q^p` and `∑ π(n) q^n` are D-transcendental
-over `ℂ(q)`), using `MediumPNT` from `PrimeNumberTheoremAnd` (`PNT+`). -/
+/-- Unconditional differential transcendence over `ℂ(q)` of the prime indicator series
+`∑_{p prime} q^p` and the prime-counting series `∑ π(n) q^n` in Pak's Conjecture 2.5,
+using `MediumPNT` from `PrimeNumberTheoremAnd` (`PNT+`). -/
 theorem primeCounting_and_indicator_dTrans :
     AlgebraicIndependent ℂ indicatorCoordinates ∧
       AlgebraicIndependent ℂ piCoordinates :=
