@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean PNTIntegration/ vendor/PrimeNumberTheoremAnd/; then
+          if grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ vendor/PrimeNumberTheoremAnd/; then
             echo "Forbidden escape hatch found"
             exit 1
           fi
@@ -75,31 +75,72 @@ jobs:
               "PakPrimes.MockModularWeightOne.eichlerWeightOne_integral_no_rat_ade",
               "PakPrimes.MockModularWeightOne.kryEisenstein_no_rat_ade",
               "PakPrimes.MockModularWeightOne.cuspG23_no_rat_ade",
+              "Statements.QuasipolynomialParity.quasipoly_lambert_pure_dTrans",
+              "Statements.QuasipolynomialParity.quasipoly_lambert_eventually_dTrans",
+              "Statements.QuasipolynomialParity.quasipoly_eulerProduct_eventually_dTrans",
+              "Statements.QuasipolynomialParity.quasipoly_bose_eventually_dTrans",
+              "Statements.QuasipolynomialParity.partsMod5One_dTrans",
+              "Statements.QuasipolynomialParity.period1_lambert_iff",
+              "Statements.QuasipolynomialParity.period1_eulerProduct_iff",
+              "Statements.QuasipolynomialParity.period2_lambert_iff",
+              "Statements.QuasipolynomialParity.period2_eulerProduct_iff",
+              "Statements.QuasipolynomialParity.macMahon_partsMod5One_partsMod5Two_joint_dIndep",
+              "Statements.QuasipolynomialParity.conformalScalar_allDim_sphere_iff",
+              "Statements.ThermalGasAndSpheres.ideal_gas_dimensional_parity",
+              "Statements.ThermalGasAndSpheres.bose_eos_3D_dTrans",
+              "Statements.ThermalGasAndSpheres.fermi_eos_3D_dTrans",
+              "Statements.ThermalGasAndSpheres.casimir_3D_dTrans",
+              "Statements.ThermalGasAndSpheres.conformalScalar_sphere_allDim_iff",
+              "PakPrimes.ThermalGasEOS.boseEOS1D_no_rat_ade",
+              "PakPrimes.ThermalGasEOS.fermiEOS1D_no_rat_ade",
+              "PakPrimes.ThermalGasEOS.casimirForce2D_dAlgebraic",
+              "PakPrimes.ThermalGasEOS.casimirEnergy2D_dAlgebraic",
+              "PakPrimes.ThermalGasEOS.casimir1D_no_rat_ade",
+              "PakPrimes.ThermalGasEOS.conformalScalar_sphere_parity",
+              "Statements.MordellAndFalseThetaIntegrals.mockThetaF_mordell_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.mockThetaOmega_mordell_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.hurwitz_eichler_shadow_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.falseThetaSinh_mordell_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.kontsevich_mordell_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.rogers_stieltjes_dTrans",
+              "Statements.MordellAndFalseThetaIntegrals.five_mordell_joint_dIndep",
+              "Statements.PrimesAndClassical.primeCounting_and_indicator_dTrans",
+              "Statements.PrimesAndClassical.partitionPrimes_eulerProduct_dTrans",
+              "Statements.PrimesAndClassical.distinctPrimes_eulerProduct_dTrans",
+              "Statements.PrimesAndClassical.macmahon_eulerProduct_dTrans",
+              "Statements.PrimesAndClassical.holder_gamma_dTrans",
+              "Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
               assert needle in flat, f"Missing exact axiom line: {needle}"
+          # Purely algebraic Chazy ODE uses zero axioms
+          chazy_line = "'Statements.MordellAndFalseThetaIntegrals.chazy_ode_from_ramanujan' does not depend on any axioms"
+          assert chazy_line in flat or "'Statements.MordellAndFalseThetaIntegrals.chazy_ode_from_ramanujan' depends on axioms: [propext, Classical.choice, Quot.sound]" in flat, "Missing Chazy ODE axiom line"
           for bad in ("sorryAx", "Lean.ofReduceBool", "Lean.trustCompiler"):
               assert bad not in text, f"Forbidden axiom present: {bad}"
-          print(f"Verified all {len(expected)} theorems with strictly [propext, Classical.choice, Quot.sound].")
+          print(f"Verified all {len(expected) + 1} declarations with strictly standard axioms.")
           PY
       - name: Independent kernel check (leanchecker)
         shell: bash
         run: |
           set -euo pipefail
           ulimit -s 65520
-          lake env leanchecker --fresh PNTIntegration.PrimeCountingFromPsi
-          lake env leanchecker --fresh PNTIntegration.Final
-          lake env leanchecker --fresh PNTIntegration.ExplicitADE
-          lake env leanchecker --fresh PNTIntegration.ExplicitRat
-          lake env leanchecker --fresh PNTIntegration.PrimePartitions
-          lake env leanchecker --fresh PakPrimes
-          lake env leanchecker --fresh PakPrimes.HigherOrderStokes
-          lake env leanchecker --fresh PakPrimes.HolderGamma
-          lake env leanchecker --fresh PakPrimes.OstrowskiZeta
-          lake env leanchecker --fresh PakPrimes.DivisorAndMacMahon
-          lake env leanchecker --fresh PakPrimes.MacMahonEulerProduct
-          lake env leanchecker --fresh PakPrimes.PakYeliussizovEGF
-          lake env leanchecker --fresh PakPrimes.PartitionsIntoPrimes
-          lake env leanchecker --fresh PakPrimes.PrimeEulerProduct
-          lake env leanchecker --fresh PakPrimes.MockModularWeightOne
+          # Full fresh replay of the entire v3.0.0 transitive closure (PNT+, PakPrimes, Statements)
+          lake env leanchecker --fresh Statements.All
+          # Direct module checks on every v3.0.0 statement spec and proof root
+          for mod in \
+            PNTIntegration.PrimeCountingFromPsi PNTIntegration.Final PNTIntegration.ExplicitADE \
+            PNTIntegration.ExplicitRat PNTIntegration.PrimePartitions PakPrimes \
+            PakPrimes.HigherOrderStokes PakPrimes.HolderGamma PakPrimes.OstrowskiZeta \
+            PakPrimes.DivisorAndMacMahon PakPrimes.MacMahonEulerProduct \
+            PakPrimes.PakYeliussizovEGF PakPrimes.PartitionsIntoPrimes \
+            PakPrimes.PrimeEulerProduct PakPrimes.MockModularWeightOne \
+            PakPrimes.HarmonicTrapShift PakPrimes.QuasipolynomialEulerParity \
+            PakPrimes.ThermalGasParity PakPrimes.ThermalGasEOS \
+            PakPrimes.MockThetaAndHurwitz PakPrimes.FalseThetaDichotomy \
+            PakPrimes.QuasipolynomialIFF \
+            Statements.QuasipolynomialParity Statements.ThermalGasAndSpheres \
+            Statements.MordellAndFalseThetaIntegrals Statements.PrimesAndClassical; do
+            lake env leanchecker "$mod"
+          done

@@ -8,7 +8,18 @@ import PakPrimes.PakYeliussizovEGF
 import PakPrimes.PartitionsIntoPrimes
 import PakPrimes.PrimeEulerProduct
 import PakPrimes.MockModularWeightOne
+import PakPrimes.HarmonicTrapShift
+import PakPrimes.QuasipolynomialEulerParity
+import PakPrimes.ThermalGasParity
+import PakPrimes.ThermalGasEOS
+import PakPrimes.MockThetaAndHurwitz
+import PakPrimes.FalseThetaDichotomy
+import PakPrimes.QuasipolynomialIFF
 import PNTIntegration.PrimePartitions
+import Statements.QuasipolynomialParity
+import Statements.ThermalGasAndSpheres
+import Statements.MordellAndFalseThetaIntegrals
+import Statements.PrimesAndClassical
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -40,59 +51,25 @@ import PNTIntegration.PrimePartitions
 #print axioms PakPrimes.HigherOrderStokes.higher_order_stokes_vandermonde_no_rat_ade
 #print axioms PakPrimes.HigherOrderStokes.no_rat_ade_of_higher_order_borel
 
--- Wave 2: Hölder's Theorem (1887) on Complex.Gamma & Real.Gamma
-#check @PakPrimes.HolderGamma.trigamma_no_rat_ade
-#check @PakPrimes.HolderGamma.holder_gamma_no_ade
-#check @PakPrimes.HolderGamma.holder_gamma_no_rat_ade
-#check @PakPrimes.HolderGamma.holder_realGamma_no_ade
+-- Wave 2: Hölder (1887), Ostrowski (1920), Divisor/MacMahon, EGF->OGF, Prime Partitions, Weight-1
 #print axioms PakPrimes.HolderGamma.trigamma_no_rat_ade
 #print axioms PakPrimes.HolderGamma.holder_gamma_no_ade
 #print axioms PakPrimes.HolderGamma.holder_gamma_no_rat_ade
 #print axioms PakPrimes.HolderGamma.holder_realGamma_no_ade
-
--- Wave 2: Hilbert (1900) / Ostrowski's Theorem (1920) on riemannZeta
-#check @PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_complex_ade
-#check @PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_ade
-#check @PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_rat_ade
 #print axioms PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_complex_ade
 #print axioms PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_ade
 #print axioms PakPrimes.OstrowskiZeta.ostrowski_riemannZeta_no_rat_ade
-
--- Wave 2: Even Divisor Sums L_{2m}(q), L_0(q), & Literal MacMahon Euler Product M(q)
-#check @PakPrimes.DivisorAndMacMahon.sigmaEvenSeries_algebraicIndependent
-#check @PakPrimes.DivisorAndMacMahon.divisorSeries_algebraicIndependent
-#check @PakPrimes.DivisorAndMacMahon.macmahonSeries_algebraicIndependent
-#check @PakPrimes.DivisorAndMacMahon.hasProd_macmahonEulerProduct
-#check @PakPrimes.DivisorAndMacMahon.macmahonEulerProduct_algebraicIndependent
 #print axioms PakPrimes.DivisorAndMacMahon.sigmaEvenSeries_algebraicIndependent
 #print axioms PakPrimes.DivisorAndMacMahon.divisorSeries_algebraicIndependent
 #print axioms PakPrimes.DivisorAndMacMahon.macmahonSeries_algebraicIndependent
 #print axioms PakPrimes.DivisorAndMacMahon.hasProd_macmahonEulerProduct
 #print axioms PakPrimes.DivisorAndMacMahon.macmahonEulerProduct_algebraicIndependent
-
--- Wave 2: Meromorphic EGF -> OGF (Pak–Yeliussizov families)
-#check @PakPrimes.PakYeliussizovEGF.ogf_algebraicIndependent_of_higherOrderBorel
-#check @PakPrimes.PakYeliussizovEGF.bernOGF_algebraicIndependent
-#check @PakPrimes.PakYeliussizovEGF.tanOGF_algebraicIndependent
-#check @PakPrimes.PakYeliussizovEGF.secOGF_algebraicIndependent
-#check @PakPrimes.PakYeliussizovEGF.sec2OGF_algebraicIndependent
-#check @PakPrimes.PakYeliussizovEGF.ratExpOGF_algebraicIndependent
 #print axioms PakPrimes.PakYeliussizovEGF.ogf_algebraicIndependent_of_higherOrderBorel
 #print axioms PakPrimes.PakYeliussizovEGF.bernOGF_algebraicIndependent
 #print axioms PakPrimes.PakYeliussizovEGF.tanOGF_algebraicIndependent
 #print axioms PakPrimes.PakYeliussizovEGF.secOGF_algebraicIndependent
 #print axioms PakPrimes.PakYeliussizovEGF.sec2OGF_algebraicIndependent
 #print axioms PakPrimes.PakYeliussizovEGF.ratExpOGF_algebraicIndependent
-
--- Wave 2: Unconditional Partitions into Primes (A000607) & Distinct-Prime Partitions (A000586)
-#check @PakPrimes.PartitionsIntoPrimes.hasProd_partitionPrimesEulerProduct
-#check @PakPrimes.PartitionsIntoPrimes.hasProd_distinctPrimesEulerProduct
-#check @PakPrimes.PartitionsIntoPrimes.partLogDeriv_algebraicIndependent
-#check @PakPrimes.PartitionsIntoPrimes.partitionPrimes_algebraicIndependent
-#check @PakPrimes.PartitionsIntoPrimes.partitionPrimesEulerProduct_algebraicIndependent
-#check @PakPrimes.PartitionsIntoPrimes.distinctLogDeriv_algebraicIndependent
-#check @PakPrimes.PartitionsIntoPrimes.distinctPrimes_algebraicIndependent
-#check @PakPrimes.PartitionsIntoPrimes.distinctPrimesEulerProduct_algebraicIndependent
 #print axioms PakPrimes.PartitionsIntoPrimes.hasProd_partitionPrimesEulerProduct
 #print axioms PakPrimes.PartitionsIntoPrimes.hasProd_distinctPrimesEulerProduct
 #print axioms PakPrimes.PartitionsIntoPrimes.partLogDeriv_algebraicIndependent
@@ -101,13 +78,51 @@ import PNTIntegration.PrimePartitions
 #print axioms PakPrimes.PartitionsIntoPrimes.distinctLogDeriv_algebraicIndependent
 #print axioms PakPrimes.PartitionsIntoPrimes.distinctPrimes_algebraicIndependent
 #print axioms PakPrimes.PartitionsIntoPrimes.distinctPrimesEulerProduct_algebraicIndependent
-
--- Wave 2: Weight-1 Mock Modular / Eichler Integrals over ℂ(u)
-#check @PakPrimes.MockModularWeightOne.eichlerWeightOne_no_rat_ade
-#check @PakPrimes.MockModularWeightOne.eichlerWeightOne_integral_no_rat_ade
-#check @PakPrimes.MockModularWeightOne.kryEisenstein_no_rat_ade
-#check @PakPrimes.MockModularWeightOne.cuspG23_no_rat_ade
 #print axioms PakPrimes.MockModularWeightOne.eichlerWeightOne_no_rat_ade
 #print axioms PakPrimes.MockModularWeightOne.eichlerWeightOne_integral_no_rat_ade
 #print axioms PakPrimes.MockModularWeightOne.kryEisenstein_no_rat_ade
 #print axioms PakPrimes.MockModularWeightOne.cuspG23_no_rat_ade
+
+-- Wave 3 (v3.0.0): Quasipolynomial Euler-Product Parity Dichotomy, Converse (M=1,2), Joint Independence, & All-Dimension S^s
+#print axioms Statements.QuasipolynomialParity.quasipoly_lambert_pure_dTrans
+#print axioms Statements.QuasipolynomialParity.quasipoly_lambert_eventually_dTrans
+#print axioms Statements.QuasipolynomialParity.quasipoly_eulerProduct_eventually_dTrans
+#print axioms Statements.QuasipolynomialParity.quasipoly_bose_eventually_dTrans
+#print axioms Statements.QuasipolynomialParity.partsMod5One_dTrans
+#print axioms Statements.QuasipolynomialParity.period1_lambert_iff
+#print axioms Statements.QuasipolynomialParity.period1_eulerProduct_iff
+#print axioms Statements.QuasipolynomialParity.period2_lambert_iff
+#print axioms Statements.QuasipolynomialParity.period2_eulerProduct_iff
+#print axioms Statements.QuasipolynomialParity.macMahon_partsMod5One_partsMod5Two_joint_dIndep
+#print axioms Statements.QuasipolynomialParity.conformalScalar_allDim_sphere_iff
+
+-- Wave 3 (v3.0.0): Relativistic Ideal Gas Parity, Unconditional Bose/Fermi EOS, Casimir, & Spheres
+#print axioms Statements.ThermalGasAndSpheres.ideal_gas_dimensional_parity
+#print axioms Statements.ThermalGasAndSpheres.bose_eos_3D_dTrans
+#print axioms Statements.ThermalGasAndSpheres.fermi_eos_3D_dTrans
+#print axioms Statements.ThermalGasAndSpheres.casimir_3D_dTrans
+#print axioms Statements.ThermalGasAndSpheres.conformalScalar_sphere_allDim_iff
+#print axioms PakPrimes.ThermalGasEOS.boseEOS1D_no_rat_ade
+#print axioms PakPrimes.ThermalGasEOS.fermiEOS1D_no_rat_ade
+#print axioms PakPrimes.ThermalGasEOS.casimirForce2D_dAlgebraic
+#print axioms PakPrimes.ThermalGasEOS.casimirEnergy2D_dAlgebraic
+#print axioms PakPrimes.ThermalGasEOS.casimir1D_no_rat_ade
+#print axioms PakPrimes.ThermalGasEOS.conformalScalar_sphere_parity
+
+-- Wave 3 (v3.0.0): Mordell, Eichler, and Stieltjes Integrals over ℂ(u)
+#print axioms Statements.MordellAndFalseThetaIntegrals.mockThetaF_mordell_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.mockThetaOmega_mordell_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.hurwitz_eichler_shadow_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.falseThetaSinh_mordell_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.kontsevich_mordell_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.rogers_stieltjes_dTrans
+#print axioms Statements.MordellAndFalseThetaIntegrals.five_mordell_joint_dIndep
+#print axioms Statements.MordellAndFalseThetaIntegrals.chazy_ode_from_ramanujan
+
+-- Wave 1-2 Statement Specs
+#print axioms Statements.PrimesAndClassical.primeCounting_and_indicator_dTrans
+#print axioms Statements.PrimesAndClassical.partitionPrimes_eulerProduct_dTrans
+#print axioms Statements.PrimesAndClassical.distinctPrimes_eulerProduct_dTrans
+#print axioms Statements.PrimesAndClassical.macmahon_eulerProduct_dTrans
+#print axioms Statements.PrimesAndClassical.holder_gamma_dTrans
+#print axioms Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans

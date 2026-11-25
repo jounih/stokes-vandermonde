@@ -1,6 +1,6 @@
 name = "pak_primes_2_5b"
-version = "2.0.0"
-defaultTargets = ["PakPrimes", "PNTIntegration"]
+version = "3.0.0"
+defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
 
 [[require]]
 name = "mathlib"
@@ -25,7 +25,14 @@ roots = [
   "PakPrimes.PakYeliussizovEGF",
   "PakPrimes.PartitionsIntoPrimes",
   "PakPrimes.PrimeEulerProduct",
-  "PakPrimes.MockModularWeightOne"
+  "PakPrimes.MockModularWeightOne",
+  "PakPrimes.HarmonicTrapShift",
+  "PakPrimes.QuasipolynomialEulerParity",
+  "PakPrimes.ThermalGasParity",
+  "PakPrimes.ThermalGasEOS",
+  "PakPrimes.MockThetaAndHurwitz",
+  "PakPrimes.FalseThetaDichotomy",
+  "PakPrimes.QuasipolynomialIFF"
 ]
 
 [[lean_lib]]
@@ -36,6 +43,16 @@ roots = [
   "PNTIntegration.ExplicitADE",
   "PNTIntegration.ExplicitRat",
   "PNTIntegration.PrimePartitions"
+]
+
+[[lean_lib]]
+name = "Statements"
+roots = [
+  "Statements.QuasipolynomialParity",
+  "Statements.ThermalGasAndSpheres",
+  "Statements.MordellAndFalseThetaIntegrals",
+  "Statements.PrimesAndClassical",
+  "Statements.All"
 ]
 
 [[lean_lib]]
