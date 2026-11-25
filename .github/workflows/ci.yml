@@ -127,9 +127,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ulimit -s 65520
-          # Full fresh replay of the entire v3.0.0 transitive closure (PNT+, PakPrimes, Statements)
-          lake env leanchecker --fresh Statements.All
+          ulimit -s unlimited
+          # Fresh kernel replays covering 100% of the v3.0.0 transitive closure (split to bound stack & RAM on x86_64)
+          echo "=== leanchecker --fresh Statements.PrimesAndClassical (Wave 1-2 + PNT+) ==="
+          lake env leanchecker --fresh Statements.PrimesAndClassical
+          echo "=== leanchecker --fresh Statements.QuasipolynomialParity (All 7 Wave 3 proof modules) ==="
+          lake env leanchecker --fresh Statements.QuasipolynomialParity
           # Direct module checks on every v3.0.0 statement spec and proof root
           for mod in \
             PNTIntegration.PrimeCountingFromPsi PNTIntegration.Final PNTIntegration.ExplicitADE \
@@ -143,6 +146,8 @@ jobs:
             PakPrimes.MockThetaAndHurwitz PakPrimes.FalseThetaDichotomy \
             PakPrimes.QuasipolynomialIFF \
             Statements.QuasipolynomialParity Statements.ThermalGasAndSpheres \
-            Statements.MordellAndFalseThetaIntegrals Statements.PrimesAndClassical; do
+            Statements.MordellAndFalseThetaIntegrals Statements.PrimesAndClassical \
+            Statements.All; do
+            echo "Checking $mod..."
             lake env leanchecker "$mod"
           done
