@@ -4,6 +4,8 @@ public import Statements.QuasipolynomialParity
 public import Statements.ThermalGasAndSpheres
 public import Statements.MordellAndFalseThetaIntegrals
 public import Statements.PrimesAndClassical
+public import Statements.PakNthPrime
+public import Statements.FishburnTorusKnots
 
 /-!
 # Statements Umbrella Module (`v3.0.0`)

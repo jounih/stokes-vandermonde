@@ -1,22 +1,26 @@
 # Formal Resurgence and Differential Transcendence in Lean 4 (`stokes-vandermonde`)
 
-This Lean 4 library (`v3.0.0`) formalizes the **Borel–Stokes–Vandermonde criterion** for differential transcendence—both autonomous and non-autonomous over $\mathbb{C}(u)$ with rotated Stokes rays and arbitrary finite pole orders—and applies it to prove **unconditional, machine-checked differential transcendence** and parity dichotomies across combinatorics, analytic number theory, special functions, and mathematical physics.
+This Lean 4 library (`v3.1.0-rc`) formalizes the **Borel–Stokes–Vandermonde criterion** for differential transcendence—autonomous, non-autonomous over $\mathbb{C}(u)$ with rotated Stokes rays and arbitrary finite pole orders, half-integer Abel branch-point resurgence over $\mathbb{C}(x)$ and convergent meromorphic germs $\mathbb{C}(\{x\})$, and sectorial Gevrey-1 balanced-residue resurgence—and applies it to prove **unconditional, machine-checked differential transcendence** and parity dichotomies across combinatorics, analytic number theory, special functions, and mathematical physics.
 
-All **82 audited declarations** depend strictly on the standard Lean axioms (`[propext, Classical.choice, Quot.sound]`, or zero axioms for purely algebraic identities), with zero `sorry`, zero custom axioms, zero `native_decide`, and independent kernel replay via `lake env leanchecker --fresh`.
+All **94 audited declarations** depend strictly on the standard Lean axioms (`[propext, Classical.choice, Quot.sound]`, or zero axioms for purely algebraic identities), with zero `sorry`, zero custom axioms, zero `native_decide`, and independent kernel replay via `lake env leanchecker --fresh`.
 
 ## Quick Audit: Thin Statement Ledgers & Scope Notes
 
 To make statement verification independent of proof length, every flagship theorem is re-stated with its exact type signature in a short audit ledger under [`Statements/`](Statements/) (listing the project definitions used with file/line pointers and textbook-pinning `example` checks, verified by the Lean 4 kernel against the full proofs) and paired with an explicit scope note under [`docs/`](docs/) stating what is and is not formalized:
 
+- **Pak Conjecture 2.5 (`∑ p_n x^n`) & Complete Pak 2.5–2.6 Closure (`v3.1.0-rc`):** [Spec](Statements/PakNthPrime.lean) · [Scope note](docs/pak-nth-prime.md)
+- **Fishburn Series (Bostan–Di Vizio–Raschel §2.2.6) & All Torus Knots $T(p,q)$ over $\mathbb{C}(x)$ and $\mathbb{C}(\{x\})$ (`v3.1.0-rc`):** [Spec](Statements/FishburnTorusKnots.lean) · [Scope note](docs/fishburn-and-torus-knots.md)
 - **Quasipolynomial Euler-Product Parity Dichotomy:** [Spec](Statements/QuasipolynomialParity.lean) · [Scope note](docs/quasipolynomial-parity.md)
 - **Relativistic Ideal Gases, Equations of State, Casimir, & Spheres $S^s$:** [Spec](Statements/ThermalGasAndSpheres.lean) · [Scope note](docs/thermal-gas-and-spheres.md)
 - **Mordell, Eichler, & Stieltjes Integrals over $\mathbb{C}(u)$:** [Spec](Statements/MordellAndFalseThetaIntegrals.lean) · [Scope note](docs/mordell-and-false-theta-integrals.md)
 - **Wave 1–2 Primes, MacMahon, Hölder, & Ostrowski:** [Spec](Statements/PrimesAndClassical.lean)
 
-## Summary of Kernel-Verified Theorems (`v3.0.0`)
+## Summary of Kernel-Verified Theorems (`v3.1.0-rc`)
 
 | Area | Mathematical Result | Main Lean 4 Declarations | Spec / Module |
 | :--- | :--- | :--- | :--- |
+| **Pak Conjecture 2.5 (`∑ p_n x^n`) & Full Pak 2.5–2.6 (`v3.1`)** | Zero-hypothesis D-transcendence over $\mathbb{C}(x)$ of the $n$-th prime OGF $\sum_{n \ge 1} p_n x^n = 2x + 3x^2 + 5x^3 + \cdots$ via `MediumPNT` (`PNT+`), completing Pak's Conjectures 2.5 and 2.6 together with $\sum_p x^p$, $\sum \pi(n) x^n$, and $\prod_p (1-x^p)^{-1}$ | `pak_2_5a`, `pak_conjectures_2_5_and_2_6_complete` | [PakNthPrime.lean](Statements/PakNthPrime.lean) |
+| **Fishburn Series & All Torus Knots $T(p,q)$ (`v3.1`)** | Unconditional Zagier (2001, Thm. 3) from scratch; D-transcendence over $\mathbb{C}(x)$ **and strong D-transcendence over $\mathbb{C}(\{x\})$** (meromorphic germs at $0$) of the literal divergent Fishburn OGF $\sum_{m \ge 0} \prod_{j=1}^m (1-(1-x)^j)$ (settling Bostan–Di Vizio–Raschel, *Amer. J. Math.* 2024, §2.2.6), Glaisher's $T$-number EGF, and all torus knot $T(p,q)$ ($p,q \ge 2$) Euler and perturbative WRT series | `zagier_2001_thm3`, `fishburn_ogf_dTrans_over_ratFunc`, `fishburn_ogf_stronglyDTrans_over_meromorphicGerms`, `torusKnot_wrt_stronglyDTrans_over_meromorphicGerms` | [FishburnTorusKnots.lean](Statements/FishburnTorusKnots.lean) |
 | **Quasipolynomial Parity (`v3.0`)** | For any period-$M$ quasipolynomial $P$ with nonzero odd part $P^-$, both $H_w(q)$ and literal Bose–Euler products $\prod (1-q^n)^{-w(n)}$ (allowing finite perturbations) are D-transcendental over $\mathbb{C}(q)$; complete `IFF` converse proved for periods $M=1, 2$ via formal Ramanujan ODEs (even $P$ makes the logarithmic derivative $H_P$ quasimodular and hence $G_P$ D-algebraic, though for degree $D \ge 2$ the product $G_P$ is Liouvillian over modular forms rather than modular) | `quasipoly_bose_eventually_dTrans`, `period1_eulerProduct_iff`, `period2_eulerProduct_iff`, `partsMod5One_dTrans` | [QuasipolynomialParity.lean](Statements/QuasipolynomialParity.lean) |
 | **Joint Independence (`v3.0`)** | Unconditional 3-tuple joint differential independence over $\mathbb{C}(q)$ of MacMahon's $M(q)$, parts $\equiv 1 \bmod 5$, and parts $\equiv 2 \bmod 5$ | `macMahon_partsMod5One_partsMod5Two_joint_dIndep` | [QuasipolynomialParity.lean](Statements/QuasipolynomialParity.lean) |
 | **All-Dimension Conformal Scalar on $S^s$ (`v3.0`)** | For every spatial dimension $s \ge 2$, the thermal partition function $Z_{S^s}(q)$ of a free conformal scalar on $S^s$ is D-algebraic over $\mathbb{C}(q)$ **if and only if $s$ is odd** | `conformalScalar_allDim_sphere_iff` | [ThermalGasAndSpheres.lean](Statements/ThermalGasAndSpheres.lean) |

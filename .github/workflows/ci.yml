@@ -112,6 +112,18 @@ jobs:
               "Statements.PrimesAndClassical.macmahon_eulerProduct_dTrans",
               "Statements.PrimesAndClassical.holder_gamma_dTrans",
               "Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans",
+              "Statements.PakNthPrime.pak_2_5a",
+              "Statements.PakNthPrime.pak_conjectures_2_5_and_2_6_complete",
+              "Statements.FishburnTorusKnots.zagier_2001_thm3",
+              "Statements.FishburnTorusKnots.fishburn_ogf_dTrans_over_ratFunc",
+              "Statements.FishburnTorusKnots.glaisher_T_egf_dTrans_over_ratFunc",
+              "Statements.FishburnTorusKnots.torusKnot_euler_dTrans_over_ratFunc",
+              "Statements.FishburnTorusKnots.torusKnot_wrt_dTrans_over_ratFunc",
+              "PakPrimes.FishburnStrongDTrans.isConvergentPS_iff_exists_analyticAt",
+              "Statements.FishburnTorusKnots.fishburn_ogf_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FishburnTorusKnots.torusKnot_euler_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FishburnTorusKnots.torusKnot_wrt_stronglyDTrans_over_meromorphicGerms",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -136,6 +148,10 @@ jobs:
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.PrimesAndClassical)
           echo "=== leanchecker --fresh Statements.QuasipolynomialParity (All 7 Wave 3 proof modules) ==="
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.QuasipolynomialParity)
+          echo "=== leanchecker --fresh Statements.PakNthPrime (Unconditional Pak 2.5a + PNT+) ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.PakNthPrime)
+          echo "=== leanchecker --fresh Statements.FishburnTorusKnots (Fishburn + All Torus Knots) ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.FishburnTorusKnots)
           echo "=== leanchecker on remaining thin Statements ledgers ==="
           (ulimit -s 65520 && lake env leanchecker Statements.ThermalGasAndSpheres)
           (ulimit -s 65520 && lake env leanchecker Statements.MordellAndFalseThetaIntegrals)

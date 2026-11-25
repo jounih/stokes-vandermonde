@@ -20,6 +20,8 @@ import Statements.QuasipolynomialParity
 import Statements.ThermalGasAndSpheres
 import Statements.MordellAndFalseThetaIntegrals
 import Statements.PrimesAndClassical
+import Statements.PakNthPrime
+import Statements.FishburnTorusKnots
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -128,3 +130,17 @@ import Statements.PrimesAndClassical
 #print axioms Statements.PrimesAndClassical.macmahon_eulerProduct_dTrans
 #print axioms Statements.PrimesAndClassical.holder_gamma_dTrans
 #print axioms Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans
+
+-- Wave 4 (v3.1.0-rc): Unconditional Pak 2.5a (∑ p_n x^n) & Fishburn / Torus Knots T(p, q)
+#print axioms Statements.PakNthPrime.pak_2_5a
+#print axioms Statements.PakNthPrime.pak_conjectures_2_5_and_2_6_complete
+#print axioms Statements.FishburnTorusKnots.zagier_2001_thm3
+#print axioms Statements.FishburnTorusKnots.fishburn_ogf_dTrans_over_ratFunc
+#print axioms Statements.FishburnTorusKnots.glaisher_T_egf_dTrans_over_ratFunc
+#print axioms Statements.FishburnTorusKnots.torusKnot_euler_dTrans_over_ratFunc
+#print axioms Statements.FishburnTorusKnots.torusKnot_wrt_dTrans_over_ratFunc
+#print axioms PakPrimes.FishburnStrongDTrans.isConvergentPS_iff_exists_analyticAt
+#print axioms Statements.FishburnTorusKnots.fishburn_ogf_stronglyDTrans_over_meromorphicGerms
+#print axioms Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms
+#print axioms Statements.FishburnTorusKnots.torusKnot_euler_stronglyDTrans_over_meromorphicGerms
+#print axioms Statements.FishburnTorusKnots.torusKnot_wrt_stronglyDTrans_over_meromorphicGerms

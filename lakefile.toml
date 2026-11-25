@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.0.0"
+version = "3.1.0-rc"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
 
 [[require]]
@@ -32,7 +32,21 @@ roots = [
   "PakPrimes.ThermalGasEOS",
   "PakPrimes.MockThetaAndHurwitz",
   "PakPrimes.FalseThetaDichotomy",
-  "PakPrimes.QuasipolynomialIFF"
+  "PakPrimes.QuasipolynomialIFF",
+  "PakPrimes.BranchPointStokes",
+  "PakPrimes.FishburnTorusKnots",
+  "PakPrimes.FishburnStrongDTrans",
+  "PakPrimes.NthPrimeNomeTransfer",
+  "PakPrimes.NthPrimeCriterion",
+  "PakPrimes.NthPrimeAsymptotics",
+  "PakPrimes.NthPrimeAbelError",
+  "PakPrimes.PrimePencilMoment",
+  "PakPrimes.PrimePencilEone",
+  "PakPrimes.PrimePencilHalfPlane",
+  "PakPrimes.PakNthPrimeEngine",
+  "PakPrimes.PakNthPrimeStokes",
+  "PakPrimes.PakNthPrimeClosure",
+  "PakPrimes.PakNthPrimeUnconditional"
 ]
 
 [[lean_lib]]
@@ -42,7 +56,8 @@ roots = [
   "PNTIntegration.PrimeCountingFromPsi",
   "PNTIntegration.ExplicitADE",
   "PNTIntegration.ExplicitRat",
-  "PNTIntegration.PrimePartitions"
+  "PNTIntegration.PrimePartitions",
+  "PNTIntegration.NthPrime"
 ]
 
 [[lean_lib]]
@@ -52,6 +67,8 @@ roots = [
   "Statements.ThermalGasAndSpheres",
   "Statements.MordellAndFalseThetaIntegrals",
   "Statements.PrimesAndClassical",
+  "Statements.PakNthPrime",
+  "Statements.FishburnTorusKnots",
   "Statements.All"
 ]
 
