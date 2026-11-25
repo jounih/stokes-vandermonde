@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.1.0-rc"
+version = "3.1.0"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
 
 [[require]]

@@ -11,10 +11,13 @@ Composes `PakPrimes.PakNthPrimeUnconditional.pak_2_5a_of_pnt` with
 yielding zero-hypothesis differential transcendence over `ℂ(x)` for the `n`-th prime
 ordinary generating function `PakPrimes.NthPrime.series = ∑_{n ≥ 1} p_n x^n`.
 
-Combined with `PakPrimes.Main.primeCounting_and_indicator_independent` and
-`PakPrimes.PartitionsIntoPrimes.partitionPrimesEulerProduct_algebraicIndependent`,
-this settles Pak's Conjectures 2.5 (all three prime series) and 2.6 unconditionally
-in Lean 4 against strictly `[propext, Classical.choice, Quot.sound]`.
+Together with `PakPrimes.Main.primeCounting_and_indicator_independent` (giving `∑ π(n) x^n`
+and `∑_{p prime} x^p`) and `PakPrimes.PartitionsIntoPrimes.partitionPrimesEulerProduct_algebraicIndependent`
+(giving `∏_{p prime} (1 - x^p)⁻¹`), this settles Pak's Conjecture 2.5 (both `∑ p_n x^n` and
+`∑ π(n) x^n`) plus two prime generating-function corollaries unconditionally in Lean 4 against
+strictly `[propext, Classical.choice, Quot.sound]`.
+(Pak's Conjecture 2.6, for the cubic theta series `∑ x^{n^3}`, is formalized separately in
+the companion repository `pak-cubic-theta`, DOI `10.5281/zenodo.24492865`.)
 -/
 
 public section
@@ -31,13 +34,13 @@ theorem pak_2_5a :
     AlgebraicIndependent ℂ (seriesCoordinates series) :=
   PakPrimes.PakNthPrimeUnconditional.pak_2_5a_of_pnt PakPrimes.Main.pntAllOrders
 
-/-- **Combined Unconditional Resolution of Pak's Conjectures 2.5 and 2.6**:
+/-- **Pak's Conjecture 2.5 (both series) and Prime Generating-Function Corollaries**:
 1. `∑_{p prime} x^p` (prime indicator series),
-2. `∑_{n ≥ 0} π(n) x^n` (prime-counting series),
-3. `∑_{n ≥ 1} p_n x^n` (`n`-th prime series), and
+2. `∑_{n ≥ 0} π(n) x^n` (prime-counting series — Pak Conjecture 2.5),
+3. `∑_{n ≥ 1} p_n x^n` (`n`-th prime series — Pak Conjecture 2.5), and
 4. `∏_{p prime} (1 - x^p)⁻¹` (partitions into primes, OEIS A000607)
 are each unconditionally differentially transcendental over `ℂ(x)`. -/
-theorem pak_conjectures_2_5_and_2_6_complete :
+theorem pak_conjecture_2_5_and_prime_corollaries :
     AlgebraicIndependent ℂ indicatorCoordinates ∧
     AlgebraicIndependent ℂ piCoordinates ∧
     AlgebraicIndependent ℂ (seriesCoordinates series) ∧

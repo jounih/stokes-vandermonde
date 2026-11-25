@@ -5,20 +5,21 @@
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and unconditional machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.0.0 adds: the quasipolynomial Euler-product parity theorem for arbitrary period M >= 1 (nonzero odd part implies D-transcendence over C(q) for both Lambert series and literal infinite Bose–Euler products); the complete IFF converse for periods M = 1 and M = 2 via formal Ramanujan ODEs; unconditional 3-tuple joint differential independence over C(q) of MacMahon's M(q), parts ≡ 1 mod 5, and parts ≡ 2 mod 5; the all-dimension free conformal scalar parity theorem on S^s for every s >= 2 (D-algebraic iff s is odd); relativistic ideal gas dimensional parity, unconditional 1D/3D Bose and Fermi equations of state P(ε) and squared sound speeds c_s^2(ε), and massive Casimir parity; Mordell, Eichler, and Stieltjes integral D-transcendence (and 5-tuple joint independence) over C(u); and a standalone Statements/ audit specification directory with per-family scope notes. All 82 audited declarations depend strictly on standard axioms ([propext, Classical.choice, Quot.sound]) and pass fresh leanchecker replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
+  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and unconditional machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.1.0 adds: zero-hypothesis differential transcendence over C(x) of the n-th prime OGF ∑_{n>=1} p_n x^n via MediumPNT (completing Pak's Conjecture 2.5 alongside ∑ π(n) x^n; Pak's Conjecture 2.6 for ∑ x^{n^3} is proved separately in pak-cubic-theta, DOI 10.5281/zenodo.24492865); Zagier's 2001 formal identity (Theorem 3) from scratch; and unconditional differential transcendence over C(x) and strong differential transcendence over C({x}) (convergent meromorphic germs at 0) of the literal divergent Fishburn OGF ∑_{m>=0} ∏_{j=1}^m (1-(1-x)^j) (settling the open question in Bostan–Di Vizio–Raschel, AJM 2024, §2.2.6), Glaisher's T-number EGF, and the general torus-knot kernel series from sin(ps)sin(qs)/sin(pqs) for all p, q >= 2. All 94 audited declarations depend strictly on standard axioms ([propext, Classical.choice, Quot.sound]) and pass fresh leanchecker replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with the investigation, auditing, drafting, and Lean formalization. Independent specialist review is welcome.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "keywords": [
     "Lean 4",
     "formal verification",
     "differential transcendence",
     "Borel-Laplace summation",
     "Stokes phenomenon",
-    "quasipolynomial Euler products",
-    "MacMahon plane partitions",
-    "prime partitions",
-    "relativistic ideal gas",
-    "conformal scalar sphere"
+    "Pak Conjecture 2.5",
+    "nth prime generating function",
+    "Fishburn numbers",
+    "Bostan-Di Vizio-Raschel",
+    "Zagier identity",
+    "quasipolynomial Euler products"
   ]
 }

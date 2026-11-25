@@ -3,13 +3,16 @@ module
 public import PNTIntegration.NthPrime
 
 /-!
-# Statements Audit Ledger: Pak's Conjecture 2.5 (`∑ p_n x^n`) & Complete Pak 2.5–2.6 Closure
+# Statements Audit Ledger: Pak's Conjecture 2.5 (`∑ p_n x^n` & `∑ π(n) x^n`) and Prime Corollaries
 
 Thin statement ledger re-stating the unconditional (zero-hypothesis) differential transcendence
 over `ℂ(x)` of the `n`-th prime ordinary generating function
-`∑_{n ≥ 1} p_n x^n = 2x + 3x^2 + 5x^3 + 7x^4 + ⋯` (Pak's Conjecture 2.5), together with
-its combination with the prime indicator, prime-counting, and prime-partition series
-(completing Pak's Conjectures 2.5 and 2.6).
+`∑_{n ≥ 1} p_n x^n = 2x + 3x^2 + 5x^3 + 7x^4 + ⋯` (completing Pak's Conjecture 2.5 together
+with `∑ π(n) x^n`), bundled with the prime indicator series `∑_{p prime} x^p` and the
+prime-partition Euler product `∏_{p prime} (1 - x^p)⁻¹` (OEIS A000607).
+
+(Pak's Conjecture 2.6, for the cubic theta series `∑ x^{n^3}`, is proved in the separate
+companion repository `pak-cubic-theta`, DOI `10.5281/zenodo.24492865`.)
 
 All declarations are checked by the Lean 4 kernel strictly against
 `[propext, Classical.choice, Quot.sound]`, discharging `PNTAllOrders` via `MediumPNT`
@@ -60,19 +63,18 @@ theorem pak_2_5a :
     AlgebraicIndependent ℂ (seriesCoordinates PakPrimes.NthPrime.series) :=
   PakPrimes.NthPrime.pak_2_5a
 
-/-- **Complete Resolution of Pak's Conjectures 2.5 and 2.6** (all four prime series,
-zero external hypotheses):
-1. Prime indicator `∑_{p prime} x^p`,
-2. Prime-counting OGF `∑_{n ≥ 0} π(n) x^n`,
-3. `n`-th prime OGF `∑_{n ≥ 1} p_n x^n`,
-4. Partitions into primes `∏_{p prime} (1 - x^p)⁻¹` (OEIS A000607). -/
-theorem pak_conjectures_2_5_and_2_6_complete :
+/-- **Pak's Conjecture 2.5 (both series) and Prime Corollaries** (zero external hypotheses):
+1. Prime indicator `∑_{p prime} x^p` (corollary),
+2. Prime-counting OGF `∑_{n ≥ 0} π(n) x^n` (Pak Conjecture 2.5),
+3. `n`-th prime OGF `∑_{n ≥ 1} p_n x^n` (Pak Conjecture 2.5),
+4. Partitions into primes `∏_{p prime} (1 - x^p)⁻¹` (OEIS A000607, corollary). -/
+theorem pak_conjecture_2_5_and_prime_corollaries :
     AlgebraicIndependent ℂ indicatorCoordinates ∧
     AlgebraicIndependent ℂ piCoordinates ∧
     AlgebraicIndependent ℂ (seriesCoordinates PakPrimes.NthPrime.series) ∧
     AlgebraicIndependent ℂ (seriesCoordinates
       (∏' p : Nat.Primes, (1 - (X : PowerSeries ℂ) ^ (p : ℕ))⁻¹)) :=
-  PakPrimes.NthPrime.pak_conjectures_2_5_and_2_6_complete
+  PakPrimes.NthPrime.pak_conjecture_2_5_and_prime_corollaries
 
 end Statements.PakNthPrime
 

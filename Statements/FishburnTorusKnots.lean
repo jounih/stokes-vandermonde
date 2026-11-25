@@ -4,7 +4,7 @@ public import PakPrimes.FishburnTorusKnots
 public import PakPrimes.FishburnStrongDTrans
 
 /-!
-# Statements Audit Ledger: Fishburn Series (Bostan–Di Vizio–Raschel §2.2.6) & All Torus Knots `T(p, q)`
+# Statements Audit Ledger: Fishburn Series (Bostan–Di Vizio–Raschel §2.2.6) & Torus-Knot Kernel Series `T(p, q)`
 
 Thin statement ledger re-stating the flagship 100% unconditional (zero-hypothesis) theorems
 from `PakPrimes.FishburnTorusKnots` (over `ℂ(x)`) and `PakPrimes.FishburnStrongDTrans`
@@ -20,8 +20,11 @@ germs at `0`):
 3. Differential transcendence over `ℂ(t)` and strong differential transcendence over `ℂ({t})` of
    Glaisher's `T`-number EGF `∑_{k ≥ 0} (T_k / k!) t^k`,
 4. Differential transcendence over `ℂ(t)` and strong differential transcendence over `ℂ({t})` of
-   the Euler and Lawrence–Zagier / Hikami perturbative WRT formal power series for all torus knots
-   `T(p, q)` (`p, q ≥ 2`).
+   the general torus-knot kernel series `∑_{k ≥ 0} ((±1)^k T_k^{(p,q)} / k!) t^k` defined from
+   `sin(p s) sin(q s) / sin(p q s)` for all integers `p, q ≥ 2` (for coprime `(p, q)`, this is the
+   odd-character trigonometric kernel governing the Lawrence–Zagier 1999 / Hikami 2004 asymptotic
+   expansions; the link to the literal knot invariant is formalized directly in Lean for the
+   trefoil `(2, 3)` via Zagier's formal identity above).
 
 ## Definitions used
 - `seriesCoordinates F`: `PakPrimes/AutonomousTransfer.lean:65` (`0 ↦ X`, `k + 1 ↦ derivative^[k] F`)
@@ -29,7 +32,7 @@ germs at `0`):
 - `fishburnSeries`: `PakPrimes/FishburnTorusKnots.lean:4766` (formal sum `∑_{m ≥ 0} fishburnTerm m`)
 - `zagierSubst`: `PakPrimes/FishburnTorusKnots.lean:4806` (`1 - exp(-24 t)`)
 - `torusKnotBorel p q`: `PakPrimes/FishburnTorusKnots.lean:3800` (removable-cleared `sin(p s) sin(q s) / (s sin(p q s))` at `z = s^2`)
-- `torusKnotCoeff p q k`: `PakPrimes/FishburnTorusKnots.lean:4324` (`(2k+1)`-st Taylor coeff of `sin(p s) sin(q s) / sin(p q s)`)
+- `torusKnotCoeff p q k`: `PakPrimes/FishburnTorusKnots.lean:4324` (`(2k+1)`-st derivative of `sin(p s) sin(q s) / sin(p q s)` at `s = 0`, matching `torusKnotCoeff_eq_iteratedDeriv`)
 - `torusKnotEulerSeries p q`: `PakPrimes/FishburnTorusKnots.lean:4329` (`∑_{k ≥ 0} (T_k^{(p,q)} / k!) t^k`)
 - `torusKnotPerturbativeSeries p q`: `PakPrimes/FishburnTorusKnots.lean:4334` (`∑_{k ≥ 0} ((-1)^k T_k^{(p,q)} / k!) t^k`)
 - `fishburnEulerSeries`: `PakPrimes/FishburnTorusKnots.lean:4339` (`torusKnotEulerSeries 2 3`)
@@ -95,16 +98,16 @@ theorem glaisher_T_egf_dTrans_over_ratFunc :
     AlgebraicIndependent ℂ (seriesCoordinates fishburnEulerSeries) :=
   fishburnEulerSeries_algebraicIndependent
 
-/-- For all integers `p, q ≥ 2`, the torus knot `T(p, q)` formal Euler series
-`∑_{k ≥ 0} (T_k^{(p,q)} / k!) t^k` is unconditionally differentially transcendental over `ℂ(t)`. -/
-theorem torusKnot_euler_dTrans_over_ratFunc {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
+/-- For all integers `p, q ≥ 2`, the torus-knot kernel Euler series
+`∑_{k ≥ 0} (T_k^{(p,q)} / k!) t^k` (where `T_k^{(p,q)}` is the `(2k+1)`-st derivative of
+`sin(p s) sin(q s) / sin(p q s)` at `0`) is unconditionally differentially transcendental over `ℂ(t)`. -/
+theorem torusKnot_kernel_euler_dTrans_over_ratFunc {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
     AlgebraicIndependent ℂ (seriesCoordinates (torusKnotEulerSeries p q)) :=
   torusKnotEulerSeries_algebraicIndependent hp hq
 
-/-- For all integers `p, q ≥ 2`, the alternating Lawrence–Zagier / Hikami perturbative WRT
-formal power series `∑_{k ≥ 0} ((-1)^k T_k^{(p,q)} / k!) t^k` is unconditionally
-differentially transcendental over `ℂ(t)`. -/
-theorem torusKnot_wrt_dTrans_over_ratFunc {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
+/-- For all integers `p, q ≥ 2`, the alternating torus-knot kernel series
+`∑_{k ≥ 0} ((-1)^k T_k^{(p,q)} / k!) t^k` is unconditionally differentially transcendental over `ℂ(t)`. -/
+theorem torusKnot_kernel_alternating_dTrans_over_ratFunc {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
     AlgebraicIndependent ℂ (seriesCoordinates (torusKnotPerturbativeSeries p q)) :=
   torusKnotPerturbativeSeries_algebraicIndependent hp hq
 
@@ -124,15 +127,15 @@ theorem glaisher_T_egf_stronglyDTrans_over_meromorphicGerms :
     StronglyDTransOverMeromorphicGerms fishburnEulerSeries :=
   fishburnEulerSeries_stronglyDTrans
 
-/-- For all integers `p, q ≥ 2`, the torus knot `T(p, q)` formal Euler series is unconditionally
+/-- For all integers `p, q ≥ 2`, the torus-knot kernel Euler series is unconditionally
 **strongly** differentially transcendental over `ℂ({t})`. -/
-theorem torusKnot_euler_stronglyDTrans_over_meromorphicGerms {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
+theorem torusKnot_kernel_euler_stronglyDTrans_over_meromorphicGerms {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
     StronglyDTransOverMeromorphicGerms (torusKnotEulerSeries p q) :=
   torusKnotEulerSeries_stronglyDTrans hp hq
 
-/-- For all integers `p, q ≥ 2`, the alternating Lawrence–Zagier / Hikami perturbative WRT
-formal power series is unconditionally **strongly** differentially transcendental over `ℂ({t})`. -/
-theorem torusKnot_wrt_stronglyDTrans_over_meromorphicGerms {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
+/-- For all integers `p, q ≥ 2`, the alternating torus-knot kernel series is unconditionally
+**strongly** differentially transcendental over `ℂ({t})`. -/
+theorem torusKnot_kernel_alternating_stronglyDTrans_over_meromorphicGerms {p q : ℕ} (hp : 2 ≤ p) (hq : 2 ≤ q) :
     StronglyDTransOverMeromorphicGerms (torusKnotPerturbativeSeries p q) :=
   torusKnotPerturbativeSeries_stronglyDTrans hp hq
 

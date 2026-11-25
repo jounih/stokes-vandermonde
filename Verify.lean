@@ -131,16 +131,16 @@ import Statements.FishburnTorusKnots
 #print axioms Statements.PrimesAndClassical.holder_gamma_dTrans
 #print axioms Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans
 
--- Wave 4 (v3.1.0-rc): Unconditional Pak 2.5a (∑ p_n x^n) & Fishburn / Torus Knots T(p, q)
+-- Wave 4 (v3.1.0): Unconditional Pak 2.5 (∑ p_n x^n) & Fishburn / Torus-Knot Kernel Series
 #print axioms Statements.PakNthPrime.pak_2_5a
-#print axioms Statements.PakNthPrime.pak_conjectures_2_5_and_2_6_complete
+#print axioms Statements.PakNthPrime.pak_conjecture_2_5_and_prime_corollaries
 #print axioms Statements.FishburnTorusKnots.zagier_2001_thm3
 #print axioms Statements.FishburnTorusKnots.fishburn_ogf_dTrans_over_ratFunc
 #print axioms Statements.FishburnTorusKnots.glaisher_T_egf_dTrans_over_ratFunc
-#print axioms Statements.FishburnTorusKnots.torusKnot_euler_dTrans_over_ratFunc
-#print axioms Statements.FishburnTorusKnots.torusKnot_wrt_dTrans_over_ratFunc
+#print axioms Statements.FishburnTorusKnots.torusKnot_kernel_euler_dTrans_over_ratFunc
+#print axioms Statements.FishburnTorusKnots.torusKnot_kernel_alternating_dTrans_over_ratFunc
 #print axioms PakPrimes.FishburnStrongDTrans.isConvergentPS_iff_exists_analyticAt
 #print axioms Statements.FishburnTorusKnots.fishburn_ogf_stronglyDTrans_over_meromorphicGerms
 #print axioms Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms
-#print axioms Statements.FishburnTorusKnots.torusKnot_euler_stronglyDTrans_over_meromorphicGerms
-#print axioms Statements.FishburnTorusKnots.torusKnot_wrt_stronglyDTrans_over_meromorphicGerms
+#print axioms Statements.FishburnTorusKnots.torusKnot_kernel_euler_stronglyDTrans_over_meromorphicGerms
+#print axioms Statements.FishburnTorusKnots.torusKnot_kernel_alternating_stronglyDTrans_over_meromorphicGerms

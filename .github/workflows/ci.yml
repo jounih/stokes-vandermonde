@@ -113,17 +113,17 @@ jobs:
               "Statements.PrimesAndClassical.holder_gamma_dTrans",
               "Statements.PrimesAndClassical.ostrowski_riemannZeta_dTrans",
               "Statements.PakNthPrime.pak_2_5a",
-              "Statements.PakNthPrime.pak_conjectures_2_5_and_2_6_complete",
+              "Statements.PakNthPrime.pak_conjecture_2_5_and_prime_corollaries",
               "Statements.FishburnTorusKnots.zagier_2001_thm3",
               "Statements.FishburnTorusKnots.fishburn_ogf_dTrans_over_ratFunc",
               "Statements.FishburnTorusKnots.glaisher_T_egf_dTrans_over_ratFunc",
-              "Statements.FishburnTorusKnots.torusKnot_euler_dTrans_over_ratFunc",
-              "Statements.FishburnTorusKnots.torusKnot_wrt_dTrans_over_ratFunc",
+              "Statements.FishburnTorusKnots.torusKnot_kernel_euler_dTrans_over_ratFunc",
+              "Statements.FishburnTorusKnots.torusKnot_kernel_alternating_dTrans_over_ratFunc",
               "PakPrimes.FishburnStrongDTrans.isConvergentPS_iff_exists_analyticAt",
               "Statements.FishburnTorusKnots.fishburn_ogf_stronglyDTrans_over_meromorphicGerms",
               "Statements.FishburnTorusKnots.glaisher_T_egf_stronglyDTrans_over_meromorphicGerms",
-              "Statements.FishburnTorusKnots.torusKnot_euler_stronglyDTrans_over_meromorphicGerms",
-              "Statements.FishburnTorusKnots.torusKnot_wrt_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FishburnTorusKnots.torusKnot_kernel_euler_stronglyDTrans_over_meromorphicGerms",
+              "Statements.FishburnTorusKnots.torusKnot_kernel_alternating_stronglyDTrans_over_meromorphicGerms",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
