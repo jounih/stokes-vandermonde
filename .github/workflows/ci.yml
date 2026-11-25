@@ -127,27 +127,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ulimit -s unlimited
-          # Fresh kernel replays covering 100% of the v3.0.0 transitive closure (split to bound stack & RAM on x86_64)
+          # Fresh kernel replays covering 100% of the v3.0.0 proof transitive closure
+          # (Statements.PrimesAndClassical covers all Wave 1-2 + PNT+;
+          #  Statements.QuasipolynomialParity imports QuasipolynomialIFF which covers all 7 Wave 3 proof modules).
+          # Use unlimited main-thread stack for single-threaded --fresh replays, and a finite 64 MiB stack
+          # for multi-threaded non-fresh checks (glibc falls back to 2 MiB pthread stacks under RLIM_INFINITY).
           echo "=== leanchecker --fresh Statements.PrimesAndClassical (Wave 1-2 + PNT+) ==="
-          lake env leanchecker --fresh Statements.PrimesAndClassical
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.PrimesAndClassical)
           echo "=== leanchecker --fresh Statements.QuasipolynomialParity (All 7 Wave 3 proof modules) ==="
-          lake env leanchecker --fresh Statements.QuasipolynomialParity
-          # Direct module checks on every v3.0.0 statement spec and proof root
-          for mod in \
-            PNTIntegration.PrimeCountingFromPsi PNTIntegration.Final PNTIntegration.ExplicitADE \
-            PNTIntegration.ExplicitRat PNTIntegration.PrimePartitions PakPrimes \
-            PakPrimes.HigherOrderStokes PakPrimes.HolderGamma PakPrimes.OstrowskiZeta \
-            PakPrimes.DivisorAndMacMahon PakPrimes.MacMahonEulerProduct \
-            PakPrimes.PakYeliussizovEGF PakPrimes.PartitionsIntoPrimes \
-            PakPrimes.PrimeEulerProduct PakPrimes.MockModularWeightOne \
-            PakPrimes.HarmonicTrapShift PakPrimes.QuasipolynomialEulerParity \
-            PakPrimes.ThermalGasParity PakPrimes.ThermalGasEOS \
-            PakPrimes.MockThetaAndHurwitz PakPrimes.FalseThetaDichotomy \
-            PakPrimes.QuasipolynomialIFF \
-            Statements.QuasipolynomialParity Statements.ThermalGasAndSpheres \
-            Statements.MordellAndFalseThetaIntegrals Statements.PrimesAndClassical \
-            Statements.All; do
-            echo "Checking $mod..."
-            lake env leanchecker "$mod"
-          done
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.QuasipolynomialParity)
+          echo "=== leanchecker on remaining thin Statements ledgers ==="
+          (ulimit -s 65520 && lake env leanchecker Statements.ThermalGasAndSpheres)
+          (ulimit -s 65520 && lake env leanchecker Statements.MordellAndFalseThetaIntegrals)
