@@ -28,10 +28,10 @@ This guide maps the repository into two clean layers—the **Core Resurgence Eng
 
 ## Layer 2: Flagship Theorems by Release Wave
 
-- **Wave 6 (`v3.3.0`) — Hyperbolic Geometry, All-CROSS Spectral Parity & Heat Traces, and Elementary RH-Independent Primes:**
-  - **3D & 2D Compact Hyperbolic Selberg:** [`Statements/SelbergHyperbolic.lean`](Statements/SelbergHyperbolic.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
-  - **All-CROSS Cartan Classification, Wave-EGF, ADE 3-Manifolds, & Unconditional Heat Traces:** [`Statements/RankOneSymmetric.lean`](Statements/RankOneSymmetric.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
-  - **Elementary RH-Independent Prime Von Mangoldt Moments ($s_0 = 2$ & $s_0 = 1/2$):** [`Statements/UnconditionalPrimes.lean`](Statements/UnconditionalPrimes.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
+- **Wave 6 (`v3.3.0`) — Hyperbolic Selberg Packages, All-CROSS Spectral Parity & Heat Traces, and Elementary RH-Independent Primes:**
+  - **3D & 2D Compact Hyperbolic Selberg** *(given `CompactHyperbolic3DSelbergData` / `CompactHyperbolicSelbergData`; zero simplicity or spacing assumptions; no concrete manifold instantiated in Lean yet)*: [`Statements/SelbergHyperbolic.lean`](Statements/SelbergHyperbolic.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
+  - **All-CROSS Bosonic Euler-Product Odd-Sphere Uniqueness over $\mathbb{C}(q)$, Wave-EGF Strong $\mathbb{C}(\{t\})$ D-Transcendence, ADE 3-Manifold Molien Parity, & Unconditional $\mathbb{C}(t)$ Heat-Trace D-Transcendence** *(on standard closed-form spectral-multiplicity quasipolynomials and heat sums)*: [`Statements/RankOneSymmetric.lean`](Statements/RankOneSymmetric.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
+  - **Elementary RH-Independent Prime Von Mangoldt Moments ($s_0 = 2$ & $s_0 = 1/2$, driven by trivial zeros of `riemannZeta`):** [`Statements/UnconditionalPrimes.lean`](Statements/UnconditionalPrimes.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
 - **Wave 5 (`v3.2.0`) — Digital Trees, Volterra Virial, Distinct-Density Primes, & Universal $\mathbb{C}(\{x\})$ Lift:**
   - **Flajolet–Richmond Digital Trees (BDR §2.2.6 #3):** [`Statements/FlajoletRichmond.lean`](Statements/FlajoletRichmond.lean) · [`docs/flajolet-richmond.md`](docs/flajolet-richmond.md)
   - **Sibuya Sub-Gevrey & Volterra Virial $\mu, \nu$:** [`Statements/VolterraVirial.lean`](Statements/VolterraVirial.lean) · [`docs/volterra-virial-and-sibuya.md`](docs/volterra-virial-and-sibuya.md)

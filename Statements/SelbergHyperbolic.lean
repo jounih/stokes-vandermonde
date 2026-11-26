@@ -9,20 +9,24 @@ public import PakPrimes.SelbergHyperbolicDTrans
 Thin statement ledger re-stating the headline theorems from:
 
 1. `PakPrimes.SelbergHyperbolic3DDTrans` — **3D compact orientable hyperbolic manifolds
-   `M = ℍ³ / Γ`**: given the analytic Selberg zeta package `CompactHyperbolic3DSelbergData`
-   (entire `Z`, self-adjoint 3D Selberg RH on `Re s = 1`, Weyl infinitude, right-half-plane bound,
-   and pure-polynomial reflection law `Z'(1-ξ)/Z(1-ξ) + Z'(1+ξ)/Z(1+ξ) = (Vol(M)/π) ξ²`, with
-   zero trivial zeros anywhere in `ℂ`), proves strong differential transcendence over convergent
-   meromorphic germs `ℂ({t})` of the geodesic von Mangoldt OGF and formal Borel–Laplace series,
-   together with `ℂ{1/u}` and `ℂ(u)` analytic ADE obstructions for the regularized real-axis
-   Laplace integral;
+   `M = ℍ³ / Γ`**: **given the analytic Selberg input package `CompactHyperbolic3DSelbergData`**
+   (entire `Z`, self-adjoint 3D Selberg RH on `Re s = 1`, finite real zeros in `[0, 2]` with zero
+   trivial zeros anywhere in `ℂ`, Weyl infinitude, right-half-plane bound, and pure-polynomial
+   reflection law `Z'(1-ξ)/Z(1-ξ) + Z'(1+ξ)/Z(1+ξ) = (Vol(M)/π) ξ²`), proves strong differential
+   transcendence over convergent meromorphic germs `ℂ({t})` of the geodesic von Mangoldt OGF and
+   formal Borel–Laplace series, together with `ℂ{1/u}` and `ℂ(u)` analytic ADE obstructions for
+   the regularized real-axis Laplace integral, requiring zero eigenvalue-simplicity or additional
+   spectral-spacing assumptions;
 2. `PakPrimes.SelbergHyperbolicDTrans` — **2D compact hyperbolic surfaces `M = ℍ² / Γ`** of
-   genus `g ≥ 2`: given `CompactHyperbolicSelbergData`, proves the critical-line shifted
-   functional equation `(2g - 2) · 2πξ tan(πξ)` and the analogous strong `ℂ({t})`, `ℂ{1/u}`, and
-   `ℂ(u)` differential transcendence theorems.
+   genus `g ≥ 2`: **given the analytic Selberg input package `CompactHyperbolicSelbergData`**,
+   proves the critical-line shifted functional equation `(2g - 2) · 2πξ tan(πξ)` and the analogous
+   strong `ℂ({t})`, `ℂ{1/u}`, and `ℂ(u)` differential transcendence theorems, again requiring zero
+   eigenvalue-simplicity or additional spectral-spacing assumptions.
 
-See `docs/geometry-and-unconditional-primes.md` for explicit scope notes on the analytic input
-packages.
+**Scope note:** Both modules prove the resurgence pipeline conditional on the explicit analytic
+input structures `CompactHyperbolic3DSelbergData` / `CompactHyperbolicSelbergData`; no concrete
+hyperbolic manifold is instantiated via the Selberg trace formula inside Lean yet. See
+`docs/geometry-and-unconditional-primes.md` for full scope details.
 -/
 
 public section

@@ -7,22 +7,28 @@ public import PakPrimes.RankOneSymmetricParity
 
 Thin statement ledger re-stating the unconditional theorems from `PakPrimes.RankOneSymmetricParity`:
 
-1. **Complete Cartan CROSS Bosonic Euler-Product Parity Classification**
-   (`cross_simplyConnected_dAlg_iff`, `cross_all_dAlg_iff`): across every compact rank-1 symmetric
-   space (`Sˢ`, `ℝℙˢ`, `ℂℙⁿ`, `ℍℙⁿ`, `𝕆ℙ²`), the conformal bosonic Euler product is D-algebraic
-   over `ℂ(q)` if and only if `dim_ℝ M` is odd (and among simply connected CROSS, uniquely for odd
-   spheres `S^{2r+1}`);
+1. **Bosonic Euler-Product Odd-Sphere / Odd-Dimension Uniqueness over `ℂ(q)`**
+   (`cross_simplyConnected_dAlg_iff`, `cross_all_dAlg_iff`): across the Cartan CROSS multiplicity
+   quasipolynomials (`Sˢ`, `ℝℙˢ`, `ℂℙⁿ`, `ℍℙⁿ`, `𝕆ℙ²`), the formal conformal bosonic Euler product
+   is D-algebraic over `ℂ(q)` if and only if `dim_ℝ M` is odd (and among simply connected CROSS,
+   uniquely for odd spheres `S^{2r+1}`);
 2. **Unconditional Strong `ℂ({t})` Wave-EGF D-Transcendence** across all four even-dimensional
    simply connected CROSS families (`S^{2r}`, `ℂℙⁿ`, `ℍℙⁿ`, `𝕆ℙ²`);
 3. **ADE Spherical 3-Manifold (`S³ / I*`, `S³ / O*`, `S³ / T*`, `S³ / D_m*`) Molien Reciprocity &
    Even Parity**: exact formal `PowerSeries ℂ` Molien identities together with identical vanishing
    of `oddPart` and odd-parity Borel Stokes amplitudes `borelAmp`;
-4. **Unconditional All-CROSS Heat-Trace D-Transcendence over `ℂ(t)`**: unconditional `ℂ(t)`
-   differential transcendence of `baseHeatInt`, `baseHeatHalf`, and the shifted spectral heat trace
-   on every even-dimensional simply connected CROSS (`S^{2r}`, `ℂℙⁿ`, `ℍℙⁿ`, `𝕆ℙ²`) via
-   constant-coefficient differential-operator reduction `P(-∂_t)`.
+4. **Unconditional `ℂ(t)`-D-Transcendence of All Even-Dimensional Simply Connected CROSS Heat
+   Traces** (`baseHeatInt_no_rat_ade`, `baseHeatHalf_no_rat_ade`, `evenCROSS_heatTrace_no_rat_ade`,
+   and the family corollaries for `S^{2d}`, `ℂℙⁿ`, `ℍℙⁿ`, `𝕆ℙ²`): proved over `ℂ(t)` as `t → 0+`
+   via constant-coefficient differential-operator reduction `P(-∂_t)` to `baseHeatInt` and
+   `baseHeatHalf` (distinct from the `ℂ(q)` bosonic Euler-product classification in Item 1).
 
-See `docs/geometry-and-unconditional-primes.md` for explicit scope notes.
+**Scope note:** The Cartan CROSS multiplicity quasipolynomials (`conformalScalarSphereQP`, `rpsQP`,
+`cpnQP`, `hpnQP`, `op2QP`), ADE Molien series, and shifted spectral heat sums (`evenCROSSHeatTrace`,
+`evenSphereHeatTrace`, `cpnHeatTrace`, `hpnHeatTrace`, `op2HeatTrace`) are defined directly from
+the standard closed-form spectral-multiplicity formulas (not derived from Riemannian manifolds or
+`L²(M)` harmonic analysis inside Lean). See `docs/geometry-and-unconditional-primes.md` for full
+scope details.
 -/
 
 public section

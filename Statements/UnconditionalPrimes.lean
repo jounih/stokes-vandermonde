@@ -5,9 +5,10 @@ public import PakPrimes.UnconditionalPrimeDTrans
 /-!
 # Statements Audit Ledger: Elementary RH-Independent Prime Von Mangoldt Strong D-Transcendence
 
-Thin statement ledger re-stating the completely unconditional, elementary theorems from
-`PakPrimes.UnconditionalPrimeDTrans` (zero `RiemannHypothesis`, zero Hardy infinitude, zero
-numerical zero tables):
+Thin statement ledger re-stating the elementary, RH-independent theorems from
+`PakPrimes.UnconditionalPrimeDTrans`, driven by the simple **trivial zeros of `riemannZeta`**
+along the negative real Stokes ray `θ₀ = π` (zero `RiemannHypothesis`, zero Hardy infinitude,
+zero numerical zero tables):
 
 1. **Asymmetric Basepoint `s₀ = 2` (Literal Convergent Von Mangoldt Moments)**:
    `phiLambdaAtTwo w = -ζ'(2 + w) / ζ(2 + w)` equals the literal convergent Dirichlet `L`-series
@@ -15,12 +16,12 @@ numerical zero tables):
    literally `(-1)^n ∑_{m ≥ 2} Λ(m) (log m)^n / m²`, and central reflection does not cancel
    `-ζ'/ζ`). Proves unconditional strong `ℂ({t})` D-transcendence of `ogfOfEGF phiLambdaAtTwo`
    and `formalSeries phiLambdaAtTwo`, plus `ℂ{1/u}` and `ℂ(u)` analytic ADE obstructions for
-   `G_Lambda_atTwo_laplace`;
+   `G_Lambda_atTwo_laplace`, driven by the pole at `s = 1` and the trivial zeros `s = -2(m + 1)`;
 2. **Critical-Line Basepoint `s₀ = 1/2`**:
-   Proves the same unconditional strong `ℂ({t})`, `ℂ{1/u}`, and `ℂ(u)` D-transcendence results
-   for `phiLambda`, `G_Lambda = formalSeries phiLambda`, and `G_Lambda_laplace` via the elementary
-   Euler-accelerated Dirichlet eta nonvanishing certificate on `[0, 1] × [-1/2, 1/2]` and the
-   negative-real-axis trivial-zero Stokes ray `θ₀ = π`.
+   Proves the same elementary, RH-independent strong `ℂ({t})`, `ℂ{1/u}`, and `ℂ(u)`
+   D-transcendence results for `phiLambda`, `G_Lambda = formalSeries phiLambda`, and
+   `G_Lambda_laplace`, driven by the trivial zeros of `riemannZeta` along `θ₀ = π` together with
+   an elementary Euler-accelerated Dirichlet eta nonvanishing certificate on `[0, 1] × [-1/2, 1/2]`.
 
 See `docs/geometry-and-unconditional-primes.md` for explicit scope notes.
 -/
