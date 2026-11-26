@@ -7,14 +7,18 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.2.0"
-date-released: "2026-11-25"
+version: "3.3.0"
+date-released: "2026-11-26"
 keywords:
   - Lean 4
   - formal verification
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - Selberg zeta function
+  - compact rank-1 symmetric spaces
+  - heat trace
+  - von Mangoldt function
   - Pak Conjecture 2.5
   - Fishburn numbers
   - Flajolet-Richmond digital trees

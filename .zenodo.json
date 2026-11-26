@@ -5,16 +5,20 @@
       "name": "Helminen, Jouni"
     }
   ],
-  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and machine-checked proofs of differential transcendence across analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.2.0 adds six new kernel-verified modules (32,872 new lines): (1) unconditional differential transcendence over C(t) of the Flajolet–Richmond generalized digital tree EGF f_b(t) and Poisson transform e^{-t}f_b(t) for every b >= 2 (closing the open f half of Bostan–Di Vizio–Raschel, AJM 2024, §2.2.6 Example #3) plus the exact b = 1 collapse f_1(t) = t e^t; (2) Sibuya's Sub-Gevrey Convergence Theorem and unconditional D-transcendence of Volterra functions mu(t,beta,alpha) and nu(t) (2D Fermi gas 2nd virial shift and 1D 3-body 3rd virial shift, in t and T > 0) plus the exact Laplace transform of nu; (3) unconditional joint differential independence of finite and countably infinite distinct-density prime-asymptotic OGF towers (given quantitative density PNT); (4) universal lift of the arbitrary-pole-order rotated-ray HigherOrderStokes engine to strong D-transcendence over C({x}) (Bernoulli, tan, sec^p, Euler–Genocchi, trigamma, Lambert); (5) conditional implication showing RiemannHypothesis implies D-transcendence over C(x) and C({x}) of the von Mangoldt Borel-Laplace series G_Lambda; and (6) multi-scale Plancherel spectral-dominance and exact rational Collatz–Wielandt certification theorems. All 126 audited declarations depend strictly on standard axioms ([propext, Classical.choice, Quot.sound]) and pass independent leanchecker --fresh replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with exploration, auditing, drafting, and Lean formalization.",
+  "description": "Lean 4 formalization of the Borel–Stokes–Vandermonde criterion and machine-checked proofs of differential transcendence across spectral geometry, analytic number theory, combinatorics, special functions, and mathematical physics. Version 3.3.0 adds four new kernel-verified modules (12,380 new lines) and three standalone audit ledgers: (1) 3D and 2D compact hyperbolic Selberg–Stokes–Vandermonde theorems proving strong C({t}) differential transcendence of geodesic von Mangoldt OGFs and formal Borel–Laplace series plus C{1/u} and C(u) Laplace ADE obstructions from CompactHyperbolic3DSelbergData (pure-polynomial reflection +(Vol/pi) xi^2 with zero trivial zeros) and CompactHyperbolicSelbergData; (2) complete Cartan compact rank-1 symmetric space (CROSS) bosonic Euler-product classification (D-algebraic over C(q) iff odd sphere / odd real dimension), strong C({t}) wave-EGF D-transcendence across S^{2r}, CP^n, HP^n, OP^2, ADE spherical 3-manifold (S^3/I*, O*, T*, D*_m) formal Molien reciprocity and even parity (oddPart = 0, borelAmp = 0), and unconditional C(t) heat-trace D-transcendence for every even-dimensional simply connected CROSS via P(-d/dt) reduction to baseHeatInt and baseHeatHalf; and (3) elementary RH/GRH-independent strong C({t}) differential transcendence and Laplace ADE obstructions for prime von Mangoldt moment series at both asymmetric s_0 = 2 (literal convergent Dirichlet moments (-1)^n sum Lambda(m)(log m)^n / m^2) and s_0 = 1/2 (G_Lambda). All 169 audited declarations depend strictly on standard Lean axioms ([propext, Classical.choice, Quot.sound] or subsets thereof) and pass independent leanchecker --fresh replay. Prime-number-theorem inputs use MediumPNT from PrimeNumberTheoremAnd (PNT+) by Alex Kontorovich, Terence Tao, and contributors. Google Gemini, OpenAI Codex, and Anthropic Claude assisted with exploration, auditing, drafting, and Lean formalization.",
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "keywords": [
     "Lean 4",
     "formal verification",
     "differential transcendence",
     "Borel-Laplace summation",
     "Stokes phenomenon",
+    "Selberg zeta function",
+    "compact rank-1 symmetric spaces",
+    "heat trace",
+    "von Mangoldt function",
     "Pak Conjecture 2.5",
     "Fishburn numbers",
     "Flajolet-Richmond digital trees",

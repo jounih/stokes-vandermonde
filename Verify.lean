@@ -26,6 +26,9 @@ import Statements.FlajoletRichmond
 import Statements.VolterraVirial
 import Statements.DistinctDensityPrimes
 import Statements.HigherOrderStrongAndRH
+import Statements.SelbergHyperbolic
+import Statements.RankOneSymmetric
+import Statements.UnconditionalPrimes
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -182,3 +185,48 @@ import Statements.HigherOrderStrongAndRH
 #print axioms Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_stronglyDTrans
 #print axioms Statements.HigherOrderStrongAndRH.multiscale_filter_spectral_dominance
 #print axioms Statements.HigherOrderStrongAndRH.collatz_wielandt_rat_upper_bound
+
+-- Wave 6 (v3.3.0): 3D/2D Hyperbolic Selberg, All-CROSS Parity & Heat Traces, & Elementary RH-Independent Primes
+#print axioms Statements.SelbergHyperbolic.selberg3D_func_eq_critical_shift
+#print axioms Statements.SelbergHyperbolic.selberg3D_ogf_stronglyDTrans
+#print axioms Statements.SelbergHyperbolic.selberg3D_formalSeries_stronglyDTrans
+#print axioms Statements.SelbergHyperbolic.selberg3D_laplace_no_conv_ade
+#print axioms Statements.SelbergHyperbolic.selberg3D_laplace_no_rat_ade
+#print axioms Statements.SelbergHyperbolic.func_eq_critical_shift
+#print axioms Statements.SelbergHyperbolic.selberg_ogf_stronglyDTrans
+#print axioms Statements.SelbergHyperbolic.selberg_formalSeries_stronglyDTrans
+#print axioms Statements.SelbergHyperbolic.selberg_laplace_no_conv_ade
+#print axioms Statements.SelbergHyperbolic.selberg_laplace_no_rat_ade
+#print axioms Statements.RankOneSymmetric.cross_simplyConnected_dAlg_iff
+#print axioms Statements.RankOneSymmetric.cross_all_dAlg_iff
+#print axioms Statements.RankOneSymmetric.evenSphere_waveEGF_ogf_stronglyDTrans
+#print axioms Statements.RankOneSymmetric.cpn_waveEGF_ogf_stronglyDTrans
+#print axioms Statements.RankOneSymmetric.hpn_waveEGF_ogf_stronglyDTrans
+#print axioms Statements.RankOneSymmetric.op2_waveEGF_ogf_stronglyDTrans
+#print axioms Statements.RankOneSymmetric.adeSphere3QP_oddPart_eq_zero
+#print axioms Statements.RankOneSymmetric.adeSphere3QP_borelAmp_eq_zero
+#print axioms Statements.RankOneSymmetric.poincareSphere_molien_identity
+#print axioms Statements.RankOneSymmetric.poincareSphereQP_oddPart_eq_zero
+#print axioms Statements.RankOneSymmetric.poincareSphereQP_borelAmp_eq_zero
+#print axioms Statements.RankOneSymmetric.octahedralSphere_molien_identity
+#print axioms Statements.RankOneSymmetric.octahedralSphereQP_oddPart_eq_zero
+#print axioms Statements.RankOneSymmetric.tetrahedralSphere_molien_identity
+#print axioms Statements.RankOneSymmetric.tetrahedralSphereQP_oddPart_eq_zero
+#print axioms Statements.RankOneSymmetric.binaryDihedralSphere_molien_identity
+#print axioms Statements.RankOneSymmetric.binaryDihedralSphereQP_oddPart_eq_zero
+#print axioms Statements.RankOneSymmetric.baseHeatInt_no_rat_ade
+#print axioms Statements.RankOneSymmetric.baseHeatHalf_no_rat_ade
+#print axioms Statements.RankOneSymmetric.evenCROSS_heatTrace_no_rat_ade
+#print axioms Statements.RankOneSymmetric.evenSphere_heatTrace_no_rat_ade
+#print axioms Statements.RankOneSymmetric.cpn_heatTrace_no_rat_ade
+#print axioms Statements.RankOneSymmetric.hpn_heatTrace_no_rat_ade
+#print axioms Statements.RankOneSymmetric.op2_heatTrace_no_rat_ade
+#print axioms Statements.UnconditionalPrimes.phiLambdaAtTwo_eq_LSeries_vonMangoldt
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_ogf_stronglyDTrans
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_formalSeries_stronglyDTrans
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_laplace_no_conv_ade
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_laplace_no_rat_ade
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_ogf_stronglyDTrans
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_formalSeries_stronglyDTrans
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_conv_ade
+#print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_rat_ade

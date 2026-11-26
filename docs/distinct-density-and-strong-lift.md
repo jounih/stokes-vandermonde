@@ -16,4 +16,4 @@
 
 ## What Is NOT Formalized Here
 - Quantitative Dirichlet PNT (`HasDensityPNT` for arithmetic progressions `p ≡ 1 mod 2^k`) is taken as an explicit hypothesis in `DistinctDensityPrimes.lean` (unlike `PakNthPrime.lean`, which discharges standard PNT from `MediumPNT`).
-- Unconditional D-transcendence of `G_Λ` without RH remains open.
+- *(Updated in `v3.3.0`)*: Elementary RH-independent strong $\mathbb{C}(\{t\})$ D-transcendence of `G_Λ` (at both `s₀ = 2` and `s₀ = 1/2`) is now proved unconditionally via the negative-real-axis trivial-zero ray in [`Statements/UnconditionalPrimes.lean`](../Statements/UnconditionalPrimes.lean) (see [`docs/geometry-and-unconditional-primes.md`](geometry-and-unconditional-primes.md)).

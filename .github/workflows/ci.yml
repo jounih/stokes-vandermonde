@@ -156,6 +156,49 @@ jobs:
               "Statements.HigherOrderStrongAndRH.riemannHypothesis_implies_G_Lambda_stronglyDTrans",
               "Statements.HigherOrderStrongAndRH.multiscale_filter_spectral_dominance",
               "Statements.HigherOrderStrongAndRH.collatz_wielandt_rat_upper_bound",
+              "Statements.SelbergHyperbolic.selberg3D_func_eq_critical_shift",
+              "Statements.SelbergHyperbolic.selberg3D_ogf_stronglyDTrans",
+              "Statements.SelbergHyperbolic.selberg3D_formalSeries_stronglyDTrans",
+              "Statements.SelbergHyperbolic.selberg3D_laplace_no_conv_ade",
+              "Statements.SelbergHyperbolic.selberg3D_laplace_no_rat_ade",
+              "Statements.SelbergHyperbolic.func_eq_critical_shift",
+              "Statements.SelbergHyperbolic.selberg_ogf_stronglyDTrans",
+              "Statements.SelbergHyperbolic.selberg_formalSeries_stronglyDTrans",
+              "Statements.SelbergHyperbolic.selberg_laplace_no_conv_ade",
+              "Statements.SelbergHyperbolic.selberg_laplace_no_rat_ade",
+              "Statements.RankOneSymmetric.cross_simplyConnected_dAlg_iff",
+              "Statements.RankOneSymmetric.cross_all_dAlg_iff",
+              "Statements.RankOneSymmetric.evenSphere_waveEGF_ogf_stronglyDTrans",
+              "Statements.RankOneSymmetric.cpn_waveEGF_ogf_stronglyDTrans",
+              "Statements.RankOneSymmetric.hpn_waveEGF_ogf_stronglyDTrans",
+              "Statements.RankOneSymmetric.op2_waveEGF_ogf_stronglyDTrans",
+              "Statements.RankOneSymmetric.adeSphere3QP_oddPart_eq_zero",
+              "Statements.RankOneSymmetric.adeSphere3QP_borelAmp_eq_zero",
+              "Statements.RankOneSymmetric.poincareSphere_molien_identity",
+              "Statements.RankOneSymmetric.poincareSphereQP_oddPart_eq_zero",
+              "Statements.RankOneSymmetric.poincareSphereQP_borelAmp_eq_zero",
+              "Statements.RankOneSymmetric.octahedralSphere_molien_identity",
+              "Statements.RankOneSymmetric.octahedralSphereQP_oddPart_eq_zero",
+              "Statements.RankOneSymmetric.tetrahedralSphere_molien_identity",
+              "Statements.RankOneSymmetric.tetrahedralSphereQP_oddPart_eq_zero",
+              "Statements.RankOneSymmetric.binaryDihedralSphere_molien_identity",
+              "Statements.RankOneSymmetric.binaryDihedralSphereQP_oddPart_eq_zero",
+              "Statements.RankOneSymmetric.baseHeatInt_no_rat_ade",
+              "Statements.RankOneSymmetric.baseHeatHalf_no_rat_ade",
+              "Statements.RankOneSymmetric.evenCROSS_heatTrace_no_rat_ade",
+              "Statements.RankOneSymmetric.evenSphere_heatTrace_no_rat_ade",
+              "Statements.RankOneSymmetric.cpn_heatTrace_no_rat_ade",
+              "Statements.RankOneSymmetric.hpn_heatTrace_no_rat_ade",
+              "Statements.RankOneSymmetric.op2_heatTrace_no_rat_ade",
+              "Statements.UnconditionalPrimes.phiLambdaAtTwo_eq_LSeries_vonMangoldt",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_ogf_stronglyDTrans",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_formalSeries_stronglyDTrans",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_laplace_no_conv_ade",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_atTwo_laplace_no_rat_ade",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_ogf_stronglyDTrans",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_formalSeries_stronglyDTrans",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_conv_ade",
+              "Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_rat_ade",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -192,3 +235,7 @@ jobs:
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.VolterraVirial)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.DistinctDensityPrimes)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.HigherOrderStrongAndRH)
+          echo "=== leanchecker --fresh Wave 6 (v3.3.0) Statements ledgers ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.SelbergHyperbolic)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.RankOneSymmetric)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.UnconditionalPrimes)
