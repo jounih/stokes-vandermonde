@@ -7,7 +7,7 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.3.0"
+version: "3.4.0"
 date-released: "2026-11-26"
 keywords:
   - Lean 4
@@ -15,6 +15,10 @@ keywords:
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - completed Riemann xi function
+  - finite-contour resurgence
+  - spectral positivity
+  - Hankel matrices
   - Selberg zeta function
   - compact rank-1 symmetric spaces
   - heat trace

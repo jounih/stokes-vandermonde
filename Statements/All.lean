@@ -13,12 +13,14 @@ public import Statements.HigherOrderStrongAndRH
 public import Statements.SelbergHyperbolic
 public import Statements.RankOneSymmetric
 public import Statements.UnconditionalPrimes
+public import Statements.CompletedXi
+public import Statements.SpectralPositivity
 
 /-!
-# Statements Umbrella Module (`v3.3.0`)
+# Statements Umbrella Module (`v3.4.0`)
 
-Single root module transitively importing every proof module, `PNTIntegration`, and all thirteen
+Single root module transitively importing every proof module, `PNTIntegration`, and all fifteen
 standalone audit specification files in `Statements/`. Running
 `ulimit -s 65520 && lake env leanchecker --fresh Statements.All` replays the entire
-`v3.3.0` dependency graph from scratch in an independent Lean 4 kernel.
+`v3.4.0` dependency graph from scratch in an independent Lean 4 kernel.
 -/

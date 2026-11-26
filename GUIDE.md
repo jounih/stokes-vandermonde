@@ -1,4 +1,4 @@
-# Reader & Auditor Guide (`stokes-vandermonde` `v3.3.0`)
+# Reader & Auditor Guide (`stokes-vandermonde` `v3.4.0`)
 
 This guide maps the repository into two clean layers—the **Core Resurgence Engine** and the **Flagship Theorems by Release Wave**—and gives exact commands to audit every claim from scratch.
 
@@ -19,6 +19,8 @@ This guide maps the repository into two clean layers—the **Core Resurgence Eng
 | [`BorelStokesVandermonde.lean`](PakPrimes/BorelStokesVandermonde.lean) · [`AutonomousTransfer.lean`](PakPrimes/AutonomousTransfer.lean) · [`GeneralTheorem2.lean`](PakPrimes/GeneralTheorem2.lean) | Autonomous Borel–Stokes–Vandermonde criterion for meromorphic Borel transforms | $\mathbb{C}$ |
 | [`HigherOrderStokes.lean`](PakPrimes/HigherOrderStokes.lean) | Non-autonomous rotated-ray ($\theta_0 \in \mathbb{R}$) Stokes–Vandermonde engine for arbitrary finite pole orders (`HigherOrderBorelData`) | $\mathbb{C}(u)$ |
 | [`FishburnStrongDTrans.lean`](PakPrimes/FishburnStrongDTrans.lean) · [`HigherOrderStrongDTrans.lean`](PakPrimes/HigherOrderStrongDTrans.lean) | Universal strong differential transcendence lift over convergent meromorphic germs (`StronglyDTransOverMeromorphicGerms`) | $\mathbb{C}(\{t\})$ |
+| [`FiniteContourStokes.lean`](PakPrimes/FiniteContourStokes.lean) | Growth-free finite-contour simple-pole transfer engine (scalar, joint multi-series, & universal entire `-E'/E`; zero growth at $\infty$, zero wedge, zero collinearity) | $\mathbb{C}(\{t\})$ |
+| [`SpectralPositivity.lean`](PakPrimes/SpectralPositivity.lean) | Two-range RH/GRH-free Cramér spectral positivity & unified positive-weight Hankel positive-definiteness engine | $\mathbb{R}$ |
 | [`BranchPointStokes.lean`](PakPrimes/BranchPointStokes.lean) | Half-integer Abel convolution & square-root branch-point Stokes–Vandermonde resurgence | $\mathbb{C}(u)$ |
 | [`QuasipolynomialEulerParity.lean`](PakPrimes/QuasipolynomialEulerParity.lean) · [`QuasipolynomialIFF.lean`](PakPrimes/QuasipolynomialIFF.lean) | Period-$M$ quasipolynomial parity dichotomy, Ramanujan $(E_2, E_4, E_6)$ converse ($M = 1, 2$), and joint differential independence | $\mathbb{C}(q)$ |
 | [`VolterraVirialDTrans.lean`](PakPrimes/VolterraVirialDTrans.lean) | Sibuya's Sub-Gevrey Convergence Theorem ($d/dx$ and Euler $x\,d/dx$) | $\mathbb{C}[x], \mathbb{C}(t)$ |
@@ -28,6 +30,9 @@ This guide maps the repository into two clean layers—the **Core Resurgence Eng
 
 ## Layer 2: Flagship Theorems by Release Wave
 
+- **Wave 7 (`v3.4.0`) — Unconditional Completed-$\xi$ Strong $\mathbb{C}(\{t\})$ D-Transcendence, Finite-Contour Engine, & RH/GRH-Free Spectral Positivity:**
+  - **100% Unconditional Completed $\xi$ & Finite-Contour Simple-Pole Engine** *(Mathlib plus this repository's proved modules, with no extra hypotheses; ZERO RH, ZERO external data structures, ZERO growth at $\infty$)*: infinitude of nontrivial zeros, strong $\mathbb{C}(\{t\})$ D-transcendence in $t = 1/u$ for the factorial-moment / formal-Laplace series of $-\xi'/\xi$ at every real center $c \in \mathbb{R}$ (NOT for $\zeta(s)$ in $s$), joint multi-center differential independence, and real-axis Laplace `B_xi c u` ADE obstruction over $\mathbb{C}\{1/u\}$: [`Statements/CompletedXi.lean`](Statements/CompletedXi.lean) · [`docs/completed-xi-and-positivity.md`](docs/completed-xi-and-positivity.md)
+  - **RH/GRH-Free Spectral Positivity & Strict Hankel Positive Definiteness** *(unconditional abstract core + explicitly parameterized `SpectralLowZeroData` with `γ_low : List ℝ` and arbitrary off-line critical-strip zeros $|\mathrm{Im}\,\gamma| < 1/2$ + parameterized `SubtractedHyperbolicSpectralData` for $d = 2, 3$; data structures are NOT connected in Lean to the zeros of `completedXi`, $L(s, \chi_{-4})$, $L(s, \Delta)$, or a concrete hyperbolic manifold's Laplace eigenvalues)*: [`Statements/SpectralPositivity.lean`](Statements/SpectralPositivity.lean) · [`docs/completed-xi-and-positivity.md`](docs/completed-xi-and-positivity.md)
 - **Wave 6 (`v3.3.0`) — Hyperbolic Selberg Packages, All-CROSS Spectral Parity & Heat Traces, and Elementary RH-Independent Primes:**
   - **3D & 2D Compact Hyperbolic Selberg** *(given `CompactHyperbolic3DSelbergData` / `CompactHyperbolicSelbergData`; zero simplicity or spacing assumptions; no concrete manifold instantiated in Lean yet)*: [`Statements/SelbergHyperbolic.lean`](Statements/SelbergHyperbolic.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
   - **All-CROSS Bosonic Euler-Product Odd-Sphere Uniqueness over $\mathbb{C}(q)$, Wave-EGF Strong $\mathbb{C}(\{t\})$ D-Transcendence, ADE 3-Manifold Molien Parity, & Unconditional $\mathbb{C}(t)$ Heat-Trace D-Transcendence** *(on standard closed-form spectral-multiplicity quasipolynomials and heat sums)*: [`Statements/RankOneSymmetric.lean`](Statements/RankOneSymmetric.lean) · [`docs/geometry-and-unconditional-primes.md`](docs/geometry-and-unconditional-primes.md)
@@ -61,11 +66,13 @@ lake build
 grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' \
   PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ vendor/PrimeNumberTheoremAnd/
 
-# 3. Print exact axioms for all 169 audited declarations
+# 3. Print exact axioms for all 207 audited declarations
 lake env lean Verify.lean
 
 # 4. Independent kernel replay from scratch via leanchecker
 ulimit -s 65520   # use `ulimit -s unlimited` on Linux for single-threaded --fresh replays
+lake env leanchecker --fresh Statements.CompletedXi
+lake env leanchecker --fresh Statements.SpectralPositivity
 lake env leanchecker --fresh Statements.SelbergHyperbolic
 lake env leanchecker --fresh Statements.RankOneSymmetric
 lake env leanchecker --fresh Statements.UnconditionalPrimes

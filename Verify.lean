@@ -29,6 +29,8 @@ import Statements.HigherOrderStrongAndRH
 import Statements.SelbergHyperbolic
 import Statements.RankOneSymmetric
 import Statements.UnconditionalPrimes
+import Statements.CompletedXi
+import Statements.SpectralPositivity
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -230,3 +232,43 @@ import Statements.UnconditionalPrimes
 #print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_formalSeries_stronglyDTrans
 #print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_conv_ade
 #print axioms Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_rat_ade
+
+-- Wave 7 (v3.4.0): Unconditional Completed-ξ Strong ℂ({t}) D-Transcendence, Finite-Contour Engine, & Spectral Positivity / Hankel Positive Definiteness
+#print axioms Statements.CompletedXi.completedXi_one_sub
+#print axioms Statements.CompletedXi.completedXi_ne_zero_of_abs_im_le_half
+#print axioms Statements.CompletedXi.completedXi_zero_mem_strip
+#print axioms Statements.CompletedXi.completedXi_zeros_infinite
+#print axioms Statements.CompletedXi.completedXi_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.completedXi_formalSeries_stronglyDTrans
+#print axioms Statements.CompletedXi.phiXi_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.phiXi_formalSeries_stronglyDTrans
+#print axioms Statements.CompletedXi.completedXi_joint_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.B_xi_hasAsympExp
+#print axioms Statements.CompletedXi.completedXi_laplace_no_conv_ade
+#print axioms Statements.CompletedXi.finite_contour_pole_count_bound
+#print axioms Statements.CompletedXi.finite_contour_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.finite_contour_formalSeries_stronglyDTrans
+#print axioms Statements.CompletedXi.finite_contour_joint_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.entireLogDeriv_ogf_stronglyDTrans
+#print axioms Statements.CompletedXi.entireLogDeriv_formalSeries_stronglyDTrans
+#print axioms Statements.SpectralPositivity.spectral_lower_from_estimates
+#print axioms Statements.SpectralPositivity.xi_lower_from_estimates
+#print axioms Statements.SpectralPositivity.dirichletBeta_lower_from_estimates
+#print axioms Statements.SpectralPositivity.ramanujanDelta_lower_from_estimates
+#print axioms Statements.SpectralPositivity.square_integral_pos
+#print axioms Statements.SpectralPositivity.hankel_form
+#print axioms Statements.SpectralPositivity.hankel_posDef_of_positive_weight
+#print axioms Statements.SpectralPositivity.hankel_det_pos_of_positive_weight
+#print axioms Statements.SpectralPositivity.xiDensity_pos
+#print axioms Statements.SpectralPositivity.xiHankel_posDef
+#print axioms Statements.SpectralPositivity.xiHankel_det_pos
+#print axioms Statements.SpectralPositivity.dirichletBetaDensity_pos
+#print axioms Statements.SpectralPositivity.dirichletBetaHankel_posDef
+#print axioms Statements.SpectralPositivity.dirichletBetaHankel_det_pos
+#print axioms Statements.SpectralPositivity.ramanujanDeltaDensity_pos
+#print axioms Statements.SpectralPositivity.ramanujanDeltaHankel_posDef
+#print axioms Statements.SpectralPositivity.ramanujanDeltaHankel_det_pos
+#print axioms Statements.SpectralPositivity.hyperbolicSpectralDensity_pos
+#print axioms Statements.SpectralPositivity.subtractedHyperbolicMoment_eq_tsum
+#print axioms Statements.SpectralPositivity.subtractedHyperbolicHankel_posDef
+#print axioms Statements.SpectralPositivity.subtractedHyperbolicHankel_det_pos

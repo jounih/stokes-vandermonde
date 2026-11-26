@@ -199,6 +199,44 @@ jobs:
               "Statements.UnconditionalPrimes.unconditional_G_Lambda_formalSeries_stronglyDTrans",
               "Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_conv_ade",
               "Statements.UnconditionalPrimes.unconditional_G_Lambda_laplace_no_rat_ade",
+              "Statements.CompletedXi.completedXi_one_sub",
+              "Statements.CompletedXi.completedXi_ne_zero_of_abs_im_le_half",
+              "Statements.CompletedXi.completedXi_zero_mem_strip",
+              "Statements.CompletedXi.completedXi_zeros_infinite",
+              "Statements.CompletedXi.completedXi_ogf_stronglyDTrans",
+              "Statements.CompletedXi.completedXi_formalSeries_stronglyDTrans",
+              "Statements.CompletedXi.phiXi_ogf_stronglyDTrans",
+              "Statements.CompletedXi.phiXi_formalSeries_stronglyDTrans",
+              "Statements.CompletedXi.completedXi_joint_ogf_stronglyDTrans",
+              "Statements.CompletedXi.B_xi_hasAsympExp",
+              "Statements.CompletedXi.completedXi_laplace_no_conv_ade",
+              "Statements.CompletedXi.finite_contour_pole_count_bound",
+              "Statements.CompletedXi.finite_contour_ogf_stronglyDTrans",
+              "Statements.CompletedXi.finite_contour_formalSeries_stronglyDTrans",
+              "Statements.CompletedXi.finite_contour_joint_ogf_stronglyDTrans",
+              "Statements.CompletedXi.entireLogDeriv_ogf_stronglyDTrans",
+              "Statements.CompletedXi.entireLogDeriv_formalSeries_stronglyDTrans",
+              "Statements.SpectralPositivity.spectral_lower_from_estimates",
+              "Statements.SpectralPositivity.xi_lower_from_estimates",
+              "Statements.SpectralPositivity.dirichletBeta_lower_from_estimates",
+              "Statements.SpectralPositivity.ramanujanDelta_lower_from_estimates",
+              "Statements.SpectralPositivity.square_integral_pos",
+              "Statements.SpectralPositivity.hankel_form",
+              "Statements.SpectralPositivity.hankel_posDef_of_positive_weight",
+              "Statements.SpectralPositivity.hankel_det_pos_of_positive_weight",
+              "Statements.SpectralPositivity.xiDensity_pos",
+              "Statements.SpectralPositivity.xiHankel_posDef",
+              "Statements.SpectralPositivity.xiHankel_det_pos",
+              "Statements.SpectralPositivity.dirichletBetaDensity_pos",
+              "Statements.SpectralPositivity.dirichletBetaHankel_posDef",
+              "Statements.SpectralPositivity.dirichletBetaHankel_det_pos",
+              "Statements.SpectralPositivity.ramanujanDeltaDensity_pos",
+              "Statements.SpectralPositivity.ramanujanDeltaHankel_posDef",
+              "Statements.SpectralPositivity.ramanujanDeltaHankel_det_pos",
+              "Statements.SpectralPositivity.hyperbolicSpectralDensity_pos",
+              "Statements.SpectralPositivity.subtractedHyperbolicMoment_eq_tsum",
+              "Statements.SpectralPositivity.subtractedHyperbolicHankel_posDef",
+              "Statements.SpectralPositivity.subtractedHyperbolicHankel_det_pos",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -239,3 +277,6 @@ jobs:
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.SelbergHyperbolic)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.RankOneSymmetric)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.UnconditionalPrimes)
+          echo "=== leanchecker --fresh Wave 7 (v3.4.0) Statements ledgers ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.CompletedXi)
+          (ulimit -s unlimited && lake env leanchecker --fresh Statements.SpectralPositivity)

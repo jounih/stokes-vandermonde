@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.3.0"
+version = "3.4.0"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
 
 [[require]]
@@ -56,7 +56,10 @@ roots = [
   "PakPrimes.SelbergHyperbolic3DDTrans",
   "PakPrimes.SelbergHyperbolicDTrans",
   "PakPrimes.RankOneSymmetricParity",
-  "PakPrimes.UnconditionalPrimeDTrans"
+  "PakPrimes.UnconditionalPrimeDTrans",
+  "PakPrimes.FiniteContourStokes",
+  "PakPrimes.SpectralPositivity",
+  "PakPrimes.CompletedXiDTrans"
 ]
 
 [[lean_lib]]
@@ -86,6 +89,8 @@ roots = [
   "Statements.SelbergHyperbolic",
   "Statements.RankOneSymmetric",
   "Statements.UnconditionalPrimes",
+  "Statements.CompletedXi",
+  "Statements.SpectralPositivity",
   "Statements.All"
 ]
 
