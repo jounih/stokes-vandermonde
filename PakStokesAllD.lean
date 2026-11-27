@@ -20,6 +20,10 @@ public import PakStokes.AllD.VafaWittenWitnesses
 public import PakStokes.AllD.SquarePartitionsModN
 public import PakStokes.AllD.MockModularRotatedRays
 public import PakStokes.AllD.MockModularCuspDescent
+public import PakStokes.AllD.UniqueSumAndJetIdealCore
+public import PakStokes.AllD.DepthThreeSliceRankCore
+public import PakStokes.AllD.HeckeRadiusPeelingAndBerndtEntry45
+public import PakStokes.AllD.ExponentMeasureAndPolyCauchyCore
 
 /-! # `PakStokesAllD`: All-`d` Marked-Wave Stokes Formalization (`d ≥ 2`, `d ≥ 3`)
 
@@ -188,4 +192,45 @@ Root aggregator re-exporting the entire strictly additive all-`d` formalization:
     polynomial relations and collision-free translation-invariance induction
     (`mvPoly_conv_lateral_simultaneous_annihilation`, `mockModular_translation_invariance_induction`),
     and the end-to-end Paper #10 assembly theorems (`mockModular_scalar_diff_trans_of_cuspSplit`,
-    `mockModular_joint_shadow_rank_of_cuspSplit`, `mockModular_joint_diff_indep_of_q1Expansion`). -/
+    `mockModular_joint_shadow_rank_of_cuspSplit`, `mockModular_joint_diff_indep_of_q1Expansion`).
+22. `PakStokes.AllD.UniqueSumAndJetIdealCore` (100% unconditional from Mathlib):
+    Unique-sum isolation trees for accumulating reciprocal singularities (`HasUniqueRep`,
+    `uniqueSum_extension_cofinite`, `uniqueSum_tree_exists`, `uniqueSum_no_lower_collision`,
+    `uniqueSum_perm_collisions`, `uniqueSum_symm_sum_eq_factorial_mul`), symmetric multilinear
+    polarization vanishing & Vandermonde tail-span (`polarization_vanish_of_cofinite_span`,
+    `homogPolarize`, `homogPoly_eq_zero_of_cofinite_tree_vanish`, `vandermonde_tail_span_complex`,
+    `reciprocal_accumulation_polarization_obstruction`), Stokes jet-rank ideal linearization
+    (`StokesJetSystem`, `stokes_jet_ideal_linearization`, `stokes_jet_ideal_linearization_field`),
+    and the single-singularity arbitrary-order-`d` family (`singleSingBeta_distinct_mod_int`,
+    `singleSingJetMatrixCast_rank`, `singleSingOrderDOp_annihilates_nonneg`,
+    `single_singularity_order_d_rank`).
+23. `PakStokes.AllD.DepthThreeSliceRankCore` (100% unconditional from Mathlib):
+    Depth-3 `S₃` Eulerian idempotents (`eulerianE1`, `eulerianE2`, `eulerianE3`,
+    `eulerian_sum_eq_id`, faithful invariants `lieInvariant`/`mixedBilinear`, regular dimensions
+    `6 = 2 + 3 + 1` in `eulerianReg_dim_decomposition_rat`), free depth-3 shuffle algebra
+    identities (`depth3_shuffle_identity`, `depth3_alternating_shuffle_identity`,
+    `depth3_e2_period_pairing`), exact cubic slice-rank = vanishing-on-codimension-`N`-subspace
+    equivalence (`cubic_sliceRank_le_iff_vanishes_on_codim_subspace`,
+    `symTensor_cubic_sliceRank_le_iff_vanishes_on_codim_subspace`), and Tao's diagonal cubic
+    slice-rank lower bound (`tao_diagonal_cubic_sliceRank_exact`,
+    `diag_cubic_symSliceRank_lower_bound`, `vCube_jet_poly_symSliceRank_lower_bound`).
+24. `PakStokes.AllD.HeckeRadiusPeelingAndBerndtEntry45` (100% unconditional from Mathlib):
+    Unconditional resolution of Bruce Berndt's open remark on Ramanujan's `Notebooks V Ch. 32
+    Entry 45` (`entry45Perturb_abs_lt_weight`, `entry45Perturb_moment_zero`,
+    `entry45_stieltjes_indeterminate`), exact `> 1.7×` Gross CM Hecke radius separation
+    (`eisensteinE4_norm_bounds`, `grossRadius_consecutive_ratio_gt`, `grossRadius_strictMono`,
+    `grossRadius_chain`), abstract multivariate natural-boundary radius peeling
+    (`exists_minimal_relation_nonzero_separant`, `radius_peeling_joint_diff_indep`,
+    `radius_peeling_over_baseField`, `grossCM_ten_series_radius_peeling`,
+    `universal_pair_radius_peeling`), and Ramanujan's Lost Notebook p. 343 hidden units in
+    `ℤ[⁵√2]^×` and `ℤ[⁷√2]^×` (`ln343_real_identity`, `ln343_unit_in_Z_adjoin_fifthRoot2`,
+    `ln343_block2_seventhRoot2_units`).
+25. `PakStokes.AllD.ExponentMeasureAndPolyCauchyCore` (100% unconditional from Mathlib):
+    Paper #12 Section 7 exponent-measure rank core (`poly_ae_zero_imp_zero_of_infinite_support`,
+    `poly_weight_rank_infinite_support`, `poly_weight_rank_complexMeasure_infinite_support`,
+    `poly_weight_rank_finite_support_le`), exponent-atom Laurent operator `T = x ∂ - 1/x` &
+    shift-band pushforward (`laurentT_add_smul_expAtom`, `finite_support_measure_annihilated`,
+    `shift_band_iter_identity`, `shift_band_measure_identity`), and Komatsu's poly-Cauchy
+    numbers of both kinds (`polyCauchy_log_density_moment`, `cauchy_first_second_kind_relation`,
+    `polyCauchy_densities_poly_indep_of_not_both_one`, `polyCauchy_densities_both_one_relation`,
+    `polyCauchy_jet_span_finrank`, `polyCauchy_nonpos_dfinite_poly`). -/

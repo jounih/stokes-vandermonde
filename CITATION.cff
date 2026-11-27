@@ -7,7 +7,7 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.8.0"
+version: "3.9.0"
 date-released: "2026-11-27"
 keywords:
   - Lean 4
@@ -15,6 +15,17 @@ keywords:
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - unique-sum trees
+  - Stokes jet rank
+  - Eulerian idempotents
+  - cubic slice rank
+  - Stieltjes moment problem
+  - Berndt Entry 45
+  - Gross CM Hecke series
+  - radius peeling
+  - Ramanujan Lost Notebook
+  - poly-Cauchy numbers
+  - exponent measures
   - mock modular forms
   - Eichler integrals
   - Hankel contour
