@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.5.0"
+version = "3.6.0"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements", "PakStokesAllD"]
 
 [[require]]
@@ -148,7 +148,10 @@ roots = [
   "PakStokes.AllD.AllDThetaDTrans",
   "PakStokes.AllD.SquaresPartitionAnalytic",
   "PakStokes.AllD.PowerPartitions",
-  "PakStokes.AllD.JumpPointMultivariate"
+  "PakStokes.AllD.JumpPointMultivariate",
+  "PakStokes.AllD.SquareQuotientsAndDivisors",
+  "PakStokes.AllD.Bec3DAnalytic",
+  "PakStokes.AllD.Bec3DDiffTrans"
 ]
 
 [[lean_lib]]

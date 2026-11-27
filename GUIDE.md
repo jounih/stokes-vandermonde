@@ -1,4 +1,4 @@
-# Reader & Auditor Guide (`stokes-vandermonde` `v3.5.0`)
+# Reader & Auditor Guide (`stokes-vandermonde` `v3.6.0`)
 
 This guide maps the repository into two clean layers—the **Core Resurgence Engine** and the **Flagship Theorems by Release Wave**—and gives exact commands to audit every claim from scratch.
 
@@ -26,12 +26,17 @@ This guide maps the repository into two clean layers—the **Core Resurgence Eng
 | [`VolterraVirialDTrans.lean`](PakPrimes/VolterraVirialDTrans.lean) | Sibuya's Sub-Gevrey Convergence Theorem ($d/dx$ and Euler $x\,d/dx$) | $\mathbb{C}[x], \mathbb{C}(t)$ |
 | [`PakNthPrimeEngine.lean`](PakPrimes/PakNthPrimeEngine.lean) · [`PakNthPrimeStokes.lean`](PakPrimes/PakNthPrimeStokes.lean) · [`PNTIntegration/`](PNTIntegration/) | Prime-pencil resurgence & `MediumPNT` (`PNT+`) bridge discharging `PNTAllOrders` | $\mathbb{C}(x)$ |
 | [`BesicovitchCore.lean`](PakStokes/AllD/BesicovitchCore.lean) · [`UniversalThimble.lean`](PakStokes/AllD/UniversalThimble.lean) · [`ExtremeRayProjection.lean`](PakStokes/AllD/ExtremeRayProjection.lean) · [`TrackedWaves.lean`](PakStokes/AllD/TrackedWaves.lean) | All-$d$ Besicovitch radical independence ($r \ge 2$), LHP critical-value exclusion, extreme-ray projection, & generalized domain Marked Jacobian | $\mathbb{C}(q)$ |
-| [`SquaresPartitionAnalytic.lean`](PakStokes/AllD/SquaresPartitionAnalytic.lean) · [`PowerPartitions.lean`](PakStokes/AllD/PowerPartitions.lean) | Zero-tilt constant-Vandermonde power-partition engine, Kolchin log-derivative transfer, & exact $d=2$ Poisson/cotangent identity | $\mathbb{C}(q)$ |
+| [`SquaresPartitionAnalytic.lean`](PakStokes/AllD/SquaresPartitionAnalytic.lean) · [`PowerPartitions.lean`](PakStokes/AllD/PowerPartitions.lean) · [`SquareQuotientsAndDivisors.lean`](PakStokes/AllD/SquareQuotientsAndDivisors.lean) | Zero-tilt constant-Vandermonde power-partition & unified `SqRayProfile` engine, Kolchin log-derivative & multiplicative quotient-rank / forest transfer, & exact $d=2$ Poisson identities | $\mathbb{C}(q)$ |
+| [`Bec3DAnalytic.lean`](PakStokes/AllD/Bec3DAnalytic.lean) · [`Bec3DDiffTrans.lean`](PakStokes/AllD/Bec3DDiffTrans.lean) | 3D iterated Poisson summation + elementary $K_{1/2}$ identity for $F_{\mathrm{BEC}}^{(3)}$, 3D Bose/Fermi quotient-rank transfer, & Dirichlet-AP ($7 \bmod 8$ vs. $1 \bmod 4$) $(2J)\times(2J)$ prime-block decoupling | $\mathbb{C}(q)$ |
 | [`JumpPointMultivariate.lean`](PakStokes/AllD/JumpPointMultivariate.lean) | Algebraic jump-point derivation engine (`monoidDeriv`, `hahnDeriv`), Wulff-ray infinite $\mathbb{Q}$-rank, & collision-immune Hahn transseries Vandermonde elimination | `AsympCoeff`, $\mathbb{C}[X]$ |
 
 ---
 
 ## Layer 2: Flagship Theorems by Release Wave
+
+- **Wave 11 (`v3.6.0`) — Unconditional 3D Ideal Bose–Einstein Condensate & 3D Fermi–Dirac Gas, Joint 1D+3D Quantum Gases, Square Divisors $L_{2,0}(q)$, & Quotient-Rank Forest:**
+  - **Square Quotients, 1D Fermi Gas, & Square Divisors (`SquareQuotientsAndDivisors.lean`)**: **100% unconditional from Mathlib**: full-row-rank Laurent-monomial transfer (`squarePart_monomial_family_diff_indep`), forest quotients (`squarePart_forest_quotients_diff_indep`), joint independence of distinct squares & overpartitions (`distinctSquares_overpartSquares_joint_diff_indep`), distinct-square & 1D Fermi–Dirac dilations (`distinctSquares_dilations_diff_indep`, `fermi1D_dilations_diff_indep`), unified `SqRayProfile` engine, and exact Poisson identity + non-ADE + dilations for $L_{2,0}(q) = \sum_{N \ge 1} d_\square(N) q^N$ (`squareDivisor_analytic_identity`, `squareDivisor_non_ade`, `squareDivisor_dilations_diff_indep`).
+  - **3D Ideal BEC, 3D Fermi–Dirac Gas, & Coupled 1D+3D Quantum Gases (`Bec3DAnalytic.lean` + `Bec3DDiffTrans.lean`)**: **100% unconditional from Mathlib** (periodic cubic boxes $\mathbb{T}^3$ & $\mathbb{T}^1$, unit fugacity $z = 1$): exact 3D iterated Poisson + $K_{1/2}$ identity (`bec3D_analytic_identity`), $Z_{\mathrm{BEC}}^{(3)}(q)$ non-ADE / nonzero integer powers / dilations, $Z_{\mathrm{FD}}^{(3)}(q)$ non-ADE / dilations, single-temperature $(Z_{\mathrm{BEC}}^{(3)}, Z_{\mathrm{FD}}^{(3)})$ joint independence, 3D Bose–Fermi quotient-rank & forest theorems, and Dirichlet-AP coupled 1D+3D joint differential independence including all four gases $(Z_{\mathrm{BEC}}^{(1)}, Z_{\mathrm{FD}}^{(1)}, Z_{\mathrm{BEC}}^{(3)}, Z_{\mathrm{FD}}^{(3)})$ (`bec1D_bec3D_dilations_diff_indep`, `quantumGases_1D_3D_bose_fermi_joint_diff_indep`, `bec1D_bec3D_joint_diff_indep`, `powerPart2_bec3D_joint_diff_indep`): [`PakStokesAllD.lean`](PakStokesAllD.lean) · [`docs/all-d-power-partitions-and-multivariate.md`](docs/all-d-power-partitions-and-multivariate.md)
 
 - **Waves 8–10 (`v3.5.0`) — All-$d$ Marked-Wave Cubic Waring/Dilations, Unconditional Partitions into Squares $P_2(q)$, & Algebraic Jump-Point Multivariate Engine:**
   - **Wave 8 (`PakStokesAllD` / `AllDThetaDTrans.lean`)**: Unconditional Besicovitch radical independence ($r \ge 2$), LHP critical-value exclusion, extreme-ray projection, **unconditional cubic Waring powers** $\Theta_3(q)^k$ ($k \ge 1$) and **joint differential independence of all finite distinct cubic dilations** $\{\Theta_3(q^{a_i})\}$, plus `AllDStokesProfile`-parameterized all-$d$ ($d \ge 3$) master theorems (non-vacuous via `stokesProfileThree` at $d=3$).
@@ -73,7 +78,7 @@ lake build
 grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' \
   PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ PakStokes/ PakStokesAllD.lean vendor/PrimeNumberTheoremAnd/ vendor/pak-cubic-theta/
 
-# 3. Print exact axioms for all 248 audited declarations
+# 3. Print exact axioms for all 288 audited declarations
 lake env lean Verify.lean
 
 # 4. Independent kernel replay from scratch via leanchecker

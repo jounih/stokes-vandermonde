@@ -281,6 +281,47 @@ jobs:
               "CubicTheta.AllD.diagForm_algebraic_dtrans",
               "CubicTheta.AllD.diagForm_transseries_non_ade",
               "CubicTheta.AllD.diagQuartic2D_non_ade",
+              # Wave 11 (v3.6.0): Unconditional 3D BEC, 3D Fermi-Dirac, Joint 1D+3D Quantum Gases, Square Divisors & Quotient-Rank Forest
+              "CubicTheta.AllD.monomial_family_diff_indep_of_logDeriv",
+              "CubicTheta.AllD.squarePart_monomial_family_diff_indep",
+              "CubicTheta.AllD.kRegularSquares_eq_eulerProd",
+              "CubicTheta.AllD.distinctSquaresPart_eq_eulerProd",
+              "CubicTheta.AllD.overpartSquares_eq_mul",
+              "CubicTheta.AllD.distinctSquares_overpartSquares_joint_diff_indep",
+              "CubicTheta.AllD.distinctSquares_non_ade",
+              "CubicTheta.AllD.overpartSquares_non_ade",
+              "CubicTheta.AllD.fermi1D_non_ade",
+              "CubicTheta.AllD.distinctSource_quotient_pow_diff_indep",
+              "CubicTheta.AllD.squarePart_forest_quotients_diff_indep",
+              "CubicTheta.AllD.kRegularSquares_dilations_diff_indep",
+              "CubicTheta.AllD.distinctSquares_dilations_diff_indep",
+              "CubicTheta.AllD.fermi1D_dilations_diff_indep",
+              "CubicTheta.AllD.sqRayProfile_dilations_diff_indep",
+              "CubicTheta.AllD.sqRayProfile_non_ade",
+              "CubicTheta.AllD.squareDivisor_analytic_identity",
+              "CubicTheta.AllD.squareDivisor_non_ade",
+              "CubicTheta.AllD.squareDivisor_dilations_diff_indep",
+              "CubicTheta.AllD.bec3D_analytic_identity",
+              "CubicTheta.AllD.X_mul_deriv_bec3DDilated",
+              "CubicTheta.AllD.X_mul_deriv_bec3DSeries",
+              "CubicTheta.AllD.X_mul_deriv_bec3DZPow",
+              "CubicTheta.AllD.fermi3DDilated_eq_eulerProd",
+              "CubicTheta.AllD.fermi3DSeries_eq_eulerProd",
+              "CubicTheta.AllD.logDerivBec3D_non_ade",
+              "CubicTheta.AllD.logDerivBec3D_dilations_diff_indep",
+              "CubicTheta.AllD.bec3D_non_ade",
+              "CubicTheta.AllD.bec3D_zpow_non_ade",
+              "CubicTheta.AllD.bec3D_dilations_diff_indep",
+              "CubicTheta.AllD.bec3D_bose_fermi_quotient_rank",
+              "CubicTheta.AllD.bec3D_fermi3D_joint_diff_indep",
+              "CubicTheta.AllD.bec3D_forest_quotients_diff_indep",
+              "CubicTheta.AllD.fermi3D_dilations_diff_indep",
+              "CubicTheta.AllD.fermi3D_non_ade",
+              "CubicTheta.AllD.logDeriv_bec1D_bec3D_dilations_diff_indep",
+              "CubicTheta.AllD.bec1D_bec3D_dilations_diff_indep",
+              "CubicTheta.AllD.quantumGases_1D_3D_bose_fermi_joint_diff_indep",
+              "CubicTheta.AllD.bec1D_bec3D_joint_diff_indep",
+              "CubicTheta.AllD.powerPart2_bec3D_joint_diff_indep",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -324,5 +365,5 @@ jobs:
           echo "=== leanchecker --fresh Wave 7 (v3.4.0) Statements ledgers ==="
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.CompletedXi)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.SpectralPositivity)
-          echo "=== leanchecker --fresh Waves 8-10 (v3.5.0) PakStokesAllD ==="
+          echo "=== leanchecker --fresh Waves 8-11 (v3.6.0) PakStokesAllD ==="
           (ulimit -s unlimited && lake env leanchecker --fresh PakStokesAllD)

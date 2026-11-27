@@ -1,11 +1,12 @@
-# Scope Note: All-$d$ Marked-Wave Engine, Unconditional Partitions into Squares $P_2(q)$, & Jump-Point Multivariate Engine (`v3.5.0`)
+# Scope Note: All-$d$ Marked-Wave Engine, Unconditional Partitions into Squares $P_2(q)$, Jump-Point Multivariate Engine, & 3D/1D Ideal Quantum Gases (`v3.5.0`–`v3.6.0`)
 
 **Root module:** [`PakStokesAllD.lean`](../PakStokesAllD.lean)  
-**Full proofs (`14,643` lines across 10 modules):**
-- **Wave 8 (`6,257` lines):** [`BesicovitchCore.lean`](../PakStokes/AllD/BesicovitchCore.lean) (`688` lines) · [`UniversalThimble.lean`](../PakStokes/AllD/UniversalThimble.lean) (`691` lines) · [`ExtremeRayProjection.lean`](../PakStokes/AllD/ExtremeRayProjection.lean) (`953` lines) · [`AllDFormalTransfer.lean`](../PakStokes/AllD/AllDFormalTransfer.lean) (`1,138` lines) · [`TrackedWaves.lean`](../PakStokes/AllD/TrackedWaves.lean) (`981` lines) · [`AllDThetaDTrans.lean`](../PakStokes/AllD/AllDThetaDTrans.lean) (`1,806` lines)
-- **Wave 9 (`6,810` lines):** [`SquaresPartitionAnalytic.lean`](../PakStokes/AllD/SquaresPartitionAnalytic.lean) (`1,676` lines) · [`PowerPartitions.lean`](../PakStokes/AllD/PowerPartitions.lean) (`5,134` lines)
-- **Wave 10 (`1,516` lines):** [`JumpPointMultivariate.lean`](../PakStokes/AllD/JumpPointMultivariate.lean) (`1,516` lines)
-- **Root aggregator (`60` lines):** [`PakStokesAllD.lean`](../PakStokesAllD.lean)
+**Full proofs (`22,898` lines across 13 modules):**
+- **Wave 8 (`6,257` lines, `v3.5.0`):** [`BesicovitchCore.lean`](../PakStokes/AllD/BesicovitchCore.lean) (`688` lines) · [`UniversalThimble.lean`](../PakStokes/AllD/UniversalThimble.lean) (`691` lines) · [`ExtremeRayProjection.lean`](../PakStokes/AllD/ExtremeRayProjection.lean) (`953` lines) · [`AllDFormalTransfer.lean`](../PakStokes/AllD/AllDFormalTransfer.lean) (`1,138` lines) · [`TrackedWaves.lean`](../PakStokes/AllD/TrackedWaves.lean) (`981` lines) · [`AllDThetaDTrans.lean`](../PakStokes/AllD/AllDThetaDTrans.lean) (`1,806` lines)
+- **Wave 9 (`6,810` lines, `v3.5.0`):** [`SquaresPartitionAnalytic.lean`](../PakStokes/AllD/SquaresPartitionAnalytic.lean) (`1,676` lines) · [`PowerPartitions.lean`](../PakStokes/AllD/PowerPartitions.lean) (`5,134` lines)
+- **Wave 10 (`1,516` lines, `v3.5.0`):** [`JumpPointMultivariate.lean`](../PakStokes/AllD/JumpPointMultivariate.lean) (`1,516` lines)
+- **Wave 11 (`8,230` lines, `v3.6.0`):** [`SquareQuotientsAndDivisors.lean`](../PakStokes/AllD/SquareQuotientsAndDivisors.lean) (`3,079` lines) · [`Bec3DAnalytic.lean`](../PakStokes/AllD/Bec3DAnalytic.lean) (`3,003` lines) · [`Bec3DDiffTrans.lean`](../PakStokes/AllD/Bec3DDiffTrans.lean) (`2,148` lines)
+- **Root aggregator (`85` lines):** [`PakStokesAllD.lean`](../PakStokesAllD.lean)
 
 *(Transitive base cubic-theta infrastructure: 36 unmodified modules from [`jounih/pak-cubic-theta@6a1cfe5a`](https://github.com/jounih/pak-cubic-theta/tree/6a1cfe5adb4d4e533b7ca7703120cdea09ebe2fa) vendored under [`vendor/pak-cubic-theta/`](../vendor/pak-cubic-theta/), audited by CI and replayed from scratch by `leanchecker --fresh PakStokesAllD`.)*
 
@@ -67,4 +68,44 @@
 
 ### Explicit Scope Boundary for Wave 10
 - **Honesty boundary (Formal Transseries vs. Analytic Heat Trace):** Wave 10 is a **100% unconditional algebraic transseries engine**. It proves that the formal transseries $Y$ supported on a well-ordered positive dual action spectrum containing a Wulff ray with nonzero jump-point amplitudes satisfies no nontrivial ADE over `AsympCoeff` or $\mathbb{C}[X]$.
-- Connecting this formal transseries engine to a **specific analytic multivariate heat trace** (such as $\sum_{(x,y) \in \mathbb{Z}^2} e^{-t(x^4 + y^4)}$) requires proving the analytic resurgent/asymptotic representation (that a real/analytic ADE satisfied by the heat trace transfers to the formal transseries `diagFormTransSeries m d`, and that the dual saddle contributions match the positive-Hessian amplitudes), which is **not** formalized in Lean in `v3.5.0`.
+- Connecting this formal transseries engine to a **specific analytic multivariate heat trace** (such as $\sum_{(x,y) \in \mathbb{Z}^2} e^{-t(x^4 + y^4)}$) requires proving the analytic resurgent/asymptotic representation (that a real/analytic ADE satisfied by the heat trace transfers to the formal transseries `diagFormTransSeries m d`, and that the dual saddle contributions match the positive-Hessian amplitudes), which is **not** formalized in Lean in `v3.5.0`–`v3.6.0`.
+
+---
+
+## 4. Wave 11: 100% Unconditional 3D Bose–Einstein Condensate, 3D Fermi–Dirac Gas, Joint 1D+3D Quantum Gases, Square Divisors $L_{2,0}(q)$, & Quotient-Rank Forest (`v3.6.0`)
+
+All results in Wave 11 (`SquareQuotientsAndDivisors.lean`, `Bec3DAnalytic.lean`, `Bec3DDiffTrans.lean` — `8,230` lines total) are proved **100% unconditionally from Mathlib** (zero custom axioms, zero external analytic hypotheses, zero Bessel/Mellin/contour assumptions beyond Mathlib).
+
+### What Is Proved 100% Unconditionally from Mathlib
+1. **General Multiplicative Quotient-Rank Transfer & Square-Partition Forest (`SquareQuotientsAndDivisors.lean`):**
+   - `monomial_family_diff_indep_of_logDeriv` & `distinctSource_quotient_pow_diff_indep`: for any family of units $U_j \in \mathbb{C}[[q]]^\times$ whose log-derivatives $F_j$ are jointly differentially independent over $\mathbb{C}(q)$ and any integer matrix $M \in \mathbb{Z}^{r \times n}$ with $\mathbb{Q}$-linearly independent rows, the Laurent monomials $Y_i = \prod_j U_j^{M_{ij}}$ are jointly differentially independent over $\mathbb{C}(q)$.
+   - Applied unconditionally to Wave 9's square-partition dilations $\{P_2(q^a)\}$:
+     - `squarePart_monomial_family_diff_indep` (arbitrary full-row-rank integer matrix $M$ on $\{P_2(q^{a_j})\}$);
+     - `squarePart_forest_quotients_diff_indep` (any finite edge family $(u_i, v_i)$ with injective $u$ and $u_i < v_i$ gives jointly differentially independent quotients $\{P_2(q^{u_i})/P_2(q^{v_i})\}$);
+     - `distinctSquaresPart_eq_eulerProd` ($Q_2(q) = \prod_{n \ge 1}(1 + q^{n^2}) = P_2(q)/P_2(q^2)$), `kRegularSquares_eq_eulerProd`, `overpartSquares_eq_mul` ($\overline{P}_2(q) = P_2(q)^2/P_2(q^2)$);
+     - `distinctSquares_non_ade`, `overpartSquares_non_ade`, `distinctSquares_overpartSquares_joint_diff_indep` (joint independence of $(Q_2(q), \overline{P}_2(q))$ over $\mathbb{C}(q)$);
+     - `kRegularSquares_dilations_diff_indep`, `distinctSquares_dilations_diff_indep`, `fermi1D_non_ade`, and `fermi1D_dilations_diff_indep` for the 1D periodic-box ideal Fermi–Dirac gas $Z_{\mathrm{FD}}^{(1)}(q) = \prod_{n \in \mathbb{Z}\setminus\{0\}}(1 + q^{n^2}) = Q_2(q)^2$.
+2. **Unified `d = 2` Zero-Tilt Engine (`SqRayProfile`) & Square-Divisor Series $L_{2,0}(q)$ (`SquareQuotientsAndDivisors.lean`):**
+   - `sqRayProfile_dilations_diff_indep` & `sqRayProfile_non_ade`: reusable $d = 2$ zero-tilt wave-profile engine for any formal series $F \in \mathbb{C}[[q]]$ with polynomial coefficient growth and elementary Stokes waves along `{sqRay0, sqRay1}` having non-vanishing prime extreme-ray amplitudes.
+   - `squareDivisor_analytic_identity`: exact 1-term elementary Poisson-summation identity on $X > 0$ for $\sum_{n \ge 1} (e^{n^2/X^2} - 1)^{-1} = L_{2,0}(e^{-1/X^2})$.
+   - `squareDivisor_non_ade` & `squareDivisor_dilations_diff_indep`: the square-divisor generating function $L_{2,0}(q) = \sum_{N \ge 1} d_{\square}(N) q^N$ ($d_{\square}(N) = \#\{n \ge 1 : n^2 \mid N\}$) and every finite family of distinct positive-integer dilations $\{L_{2,0}(q^{a_i})\}$ are differentially transcendental / jointly differentially independent over $\mathbb{C}(q)$.
+3. **Physical 3D Ideal Bose–Einstein Condensate & 3D Ideal Fermi–Dirac Gas (`Bec3DAnalytic.lean`, `Bec3DDiffTrans.lean`):**
+   - Let $r_3(N) = \#\{(a,b,c) \in \mathbb{Z}^3 : a^2 + b^2 + c^2 = N\}$, $Z_{\mathrm{BEC}}^{(3)}(q) = \prod_{n \in \mathbb{Z}^3 \setminus \{0\}}(1 - q^{|n|^2})^{-1} = \prod_{N \ge 1}(1 - q^N)^{-r_3(N)}$, $F_{\mathrm{BEC}}^{(3)}(q) = q \frac{d}{dq} \log Z_{\mathrm{BEC}}^{(3)}(q)$, and $Z_{\mathrm{FD}}^{(3)}(q) = Z_{\mathrm{BEC}}^{(3)}(q)/Z_{\mathrm{BEC}}^{(3)}(q^2) = \prod_{n \in \mathbb{Z}^3 \setminus \{0\}}(1 + q^{|n|^2})$ (verified by `fermi3DSeries_eq_eulerProd`).
+   - `bec3D_analytic_identity`: exact closed-form 3D iterated Poisson summation + elementary $K_{1/2}$ Gaussian integral identity on $X > 0$:
+     $$\sum_{N=1}^{\infty} \frac{r_3(N)\,N}{e^{N/X^2} - 1} = C_{\mathrm{BEC}}^{(3)} X^5 - X^2 + X^4 \sum_{d=1}^{\infty}\sum_{j=1}^{\infty} \frac{r_3(d)\,j}{\sqrt{d}}\bigl(-2\pi^2 i\,e^{-A_0 \sqrt{dj}\,X} + 2\pi^2 i\,e^{-A_1 \sqrt{dj}\,X}\bigr).$$
+   - Unconditional differential transcendence & joint independence over $\mathbb{C}(q)$:
+     - `logDerivBec3D_non_ade`, `logDerivBec3D_dilations_diff_indep`;
+     - `bec3D_non_ade`, `bec3D_zpow_non_ade` (every $k \in \mathbb{Z} \setminus \{0\}$), `bec3D_dilations_diff_indep`;
+     - `fermi3D_non_ade`, `fermi3D_dilations_diff_indep`;
+     - `bec3D_fermi3D_joint_diff_indep` (single-temperature joint differential independence of $(Z_{\mathrm{BEC}}^{(3)}(q), Z_{\mathrm{FD}}^{(3)}(q))$);
+     - `bec3D_bose_fermi_quotient_rank` (arbitrary full-row-rank integer matrix $M$ on $\{Z_{\mathrm{BEC}}^{(3)}(q^{a_j})\}$) and `bec3D_forest_quotients_diff_indep`.
+4. **Coupled 1D + 3D Ideal Quantum Gases (`Bec3DDiffTrans.lean`):**
+   - Combining Legendre's three-square obstruction ($r_3(p) = 0$ for $p \equiv 7 \bmod 8$), Fermat's two-square theorem ($r_3(p) \ge 1$ for $p \equiv 1 \bmod 4$), and Mathlib's Dirichlet theorem on primes in arithmetic progressions (`Nat.forall_exists_prime_gt_and_modEq`), proves exact $(2J) \times (2J)$ prime-block determinant non-vanishing on ray `sqRay0`:
+     - `logDeriv_bec1D_bec3D_dilations_diff_indep` & `bec1D_bec3D_dilations_diff_indep`: for any finite injective family $a_1, \dots, a_s \in \mathbb{N}_+$, the $2s$ series $\{P_2(q^{a_i}), Z_{\mathrm{BEC}}^{(3)}(q^{a_i})\}$ are jointly differentially independent over $\mathbb{C}(q)$;
+     - `powerPart2_bec3D_joint_diff_indep`: $(P_2(q), Z_{\mathrm{BEC}}^{(3)}(q))$ are jointly differentially independent over $\mathbb{C}(q)$;
+     - `bec1D_bec3D_joint_diff_indep`: $(Z_{\mathrm{BEC}}^{(1)}(q), Z_{\mathrm{BEC}}^{(3)}(q))$ are jointly differentially independent over $\mathbb{C}(q)$;
+     - `quantumGases_1D_3D_bose_fermi_joint_diff_indep`: **all four** ideal quantum gas partition functions $(Z_{\mathrm{BEC}}^{(1)}(q), Z_{\mathrm{FD}}^{(1)}(q), Z_{\mathrm{BEC}}^{(3)}(q), Z_{\mathrm{FD}}^{(3)}(q))$ are simultaneously jointly differentially independent over $\mathbb{C}(q)$ at a single temperature variable $q$.
+
+### Explicit Scope Boundary for Wave 11
+- **What is formalized:** Non-relativistic ideal Bose–Einstein and Fermi–Dirac grand partition functions on periodic cubic boxes $\mathbb{T}^1$ (1D) and $\mathbb{T}^3$ (3D) with discrete quadratic spectrum $|n|^2$ ($n \in \mathbb{Z}^D \setminus \{0\}$) at **unit fugacity $z = 1$** (formal power series in $q = e^{-\beta}$ over $\mathbb{C}(q)$), together with the square-divisor series $L_{2,0}(q)$ and multiplicative Laurent-monomial / forest quotients.
+- **What is NOT formalized in Wave 11:** 2D or 4D ideal BEC/Fermi gases on $\mathbb{T}^2$ or $\mathbb{T}^4$, general complex fugacity $z \neq 1$, Dirichlet mod-$N$ character twists, mock theta functions, and analytic hyperbolic heat traces are **not** formalized in Wave 11. Likewise, $d \ge 4$ `AllDStokesProfile` (Wave 8) and $d \ge 3$ `PowerPartStokesProfile` (Wave 9) remain parameterized interfaces.

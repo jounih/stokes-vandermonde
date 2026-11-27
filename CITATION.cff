@@ -7,7 +7,7 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.5.0"
+version: "3.6.0"
 date-released: "2026-11-27"
 keywords:
   - Lean 4
@@ -15,7 +15,12 @@ keywords:
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - Bose-Einstein condensate
+  - Fermi-Dirac gas
+  - ideal quantum gases
+  - square divisors
   - partitions into squares
+  - overpartitions
   - power partitions
   - cubic theta series
   - Waring powers
