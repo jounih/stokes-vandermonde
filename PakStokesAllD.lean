@@ -15,6 +15,11 @@ public import PakStokes.AllD.BlackbodyPhotons3D
 public import PakStokes.AllD.MockModularAlgebraCore
 public import PakStokes.AllD.DysonShadowRank
 public import PakStokes.AllD.PrimeDilationIsolation
+public import PakStokes.AllD.DepthTwoCommutator
+public import PakStokes.AllD.VafaWittenWitnesses
+public import PakStokes.AllD.SquarePartitionsModN
+public import PakStokes.AllD.MockModularRotatedRays
+public import PakStokes.AllD.MockModularCuspDescent
 
 /-! # `PakStokesAllD`: All-`d` Marked-Wave Stokes Formalization (`d ≥ 2`, `d ≥ 3`)
 
@@ -135,4 +140,52 @@ Root aggregator re-exporting the entire strictly additive all-`d` formalization:
     jet Vandermonde nonsingularity (`prime_dilation_jet_det_ne_zero`,
     `prime_dilation_jet_eval_det_ne_zero`, `prime_dilation_weighted_jet_det_ne_zero`),
     descending block elimination (`prime_dilation_block_elimination`), and dual-ray mock/false-theta
-    joint elimination (`dual_ray_prime_dilation_elimination`, `dual_ray_prime_dilation_constant`). -/
+    joint elimination (`dual_ray_prime_dilation_elimination`, `dual_ray_prime_dilation_constant`).
+17. `PakStokes.AllD.DepthTwoCommutator` (100% unconditional from Mathlib):
+    Formal-grading triangular automorphism group commutator (`triSub`, `triSubInv`,
+    `triSub_commutator_lower`, `triSub_commutator_depth2`, `triSub_commutator_self_zero`,
+    `triSub_commutator_symmetric_product_zero`, `triCommutatorAlgHom_fixes_lower_poly`),
+    multi-sector triangular commutators, shifted & two-sector block Vandermonde determinants
+    (`shiftedVandermonde_det_ne_zero`, `twoSector_blockVandermonde_det_ne_zero`), and abstract
+    Wronskian / minimal-degree elimination (`minimal_degree_elimination_of_int_shifts`,
+    `minimal_degree_elimination_twoSector_vandermonde`, `minimal_degree_elimination_field_vandermonde`).
+18. `PakStokes.AllD.VafaWittenWitnesses` (100% unconditional from Mathlib):
+    Exact arithmetic theta-channel representation multiplicities and antisymmetric commutator
+    pairings (`vwPairing`) for rank-three Vafa–Witten flux sectors on `ℂℙ²`:
+    all-`n` witnesses (`vwPairing_flux1_witness`, `vwPairing_flux0_vanishes_on_flux1_witness`,
+    `vwPairing_flux0_witness`, `vwPairing_flux1_vanishes_on_flux0_witness`), `ν = -1` symmetry
+    (`vwPairing_flux_neg1_eq_flux1`), equal-total collision separation (`(1/3, 9)` vs `(16/3, 4)`),
+    all-order two-sector block Vandermonde nonsingularity (`vwWitness_blockMatrix_det_ne_zero`),
+    and two-sector minimal-degree elimination (`vwWitness_twoSector_minimal_degree_contradiction`).
+19. `PakStokes.AllD.SquarePartitionsModN` (100% unconditional from Mathlib):
+    Partitions into squares split by number of parts modulo `N` and periodic-weight rank law:
+    Dirichlet primes `p ≡ 1 (mod N)` (`exists_inf_primes_modN_one`), Besicovitch squarefree
+    two-ray coordinate ring (`TwoRayRing`, `eulerDeriv`, `rayDerivX`), strong induction on
+    `k ≥ 1` via `T_b ∂_{T_b}` (`squareModN_strong_induction`, `squareModN_wave_diff_indep`),
+    general Kolchin log-derivative transfer (`diffAlg_kolchin_logDeriv_indep`,
+    `squareModN_twistedProd_diff_indep`), invertible `N × N` DFT (`dftMatrix_det_ne_zero`,
+    `squareModN_parts_diff_indep`, `squareEvenOdd_joint_diff_indep`), full periodic-weight
+    full periodic-weight differential rank law (`squarePeriodicWeights_diff_rank_eq`), and the
+    countably many multiples-of-`d` corollary (`squareMultiplesOfD_diff_indep`).
+20. `PakStokes.AllD.MockModularRotatedRays` (100% unconditional from Mathlib):
+    Analytic rotated-ray continuation, uniform Gevrey-1 asymptotics, and exact Hankel keyhole jump:
+    bounded closed sector `sector34`, convergent germ subring `convergentSubring`, Gevrey-1 algebra
+    closure and Watson uniqueness (`gevrey1_zero_imp_exp_decay`, `watson_of_gevrey1_zero`), exact
+    `(1 + w)^{-α}` Taylor integral remainder (`cpow_taylor_integral_remainder`) and `PhiReal`
+    iterated-derivative Gevrey-1 asymptotics (`PhiReal_iteratedDeriv_hasGevrey1Asymp`), rotated
+    rays `gammaMinus`/`gammaPlus` and connected open sectors `UPlus`/`UMinus`, angle-invariance
+    (`ray_integral_const_on_Icc`, `ray_integral_eq_real`), simultaneous lateral annihilation
+    (`lateral_simultaneous_annihilation`), and exact single-mode/series Hankel reflection jump
+    with termwise differentiation (`hankel_single_mode_jump`, `hankel_series_jump`,
+    `hankel_series_jump_iteratedDeriv`).
+21. `PakStokes.AllD.MockModularCuspDescent` (100% unconditional from Mathlib):
+    Single-cusp `y = 1` Eichler integral split (`eichler_y1_split_cusp`, `eichler_y1_split_nonOne`,
+    `eichler_y1_split_one`, `FHol_differentiableOn_ball`), uniform Cauchy `q₁`-tail bound
+    (`cauchy_q1_tail_bound`), logarithmic/Puiseux scale separation & `q₁`-induction
+    (`log_puiseux_scale_separation`, `half_parity_scale_separation`, `q1_induction_kill`),
+    exact top-degree survival and minimal-total-degree descent into `ℂ{x}[Z]`
+    (`top_degree_survival`, `minimal_degree_descent`), lateral annihilation of convergent
+    polynomial relations and collision-free translation-invariance induction
+    (`mvPoly_conv_lateral_simultaneous_annihilation`, `mockModular_translation_invariance_induction`),
+    and the end-to-end Paper #10 assembly theorems (`mockModular_scalar_diff_trans_of_cuspSplit`,
+    `mockModular_joint_shadow_rank_of_cuspSplit`, `mockModular_joint_diff_indep_of_q1Expansion`). -/

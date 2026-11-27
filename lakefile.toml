@@ -1,5 +1,5 @@
 name = "pak_primes_2_5b"
-version = "3.7.0"
+version = "3.8.0"
 defaultTargets = ["PakPrimes", "PNTIntegration", "Statements", "PakStokesAllD"]
 
 [[require]]
@@ -155,7 +155,12 @@ roots = [
   "PakStokes.AllD.BlackbodyPhotons3D",
   "PakStokes.AllD.MockModularAlgebraCore",
   "PakStokes.AllD.DysonShadowRank",
-  "PakStokes.AllD.PrimeDilationIsolation"
+  "PakStokes.AllD.PrimeDilationIsolation",
+  "PakStokes.AllD.DepthTwoCommutator",
+  "PakStokes.AllD.VafaWittenWitnesses",
+  "PakStokes.AllD.SquarePartitionsModN",
+  "PakStokes.AllD.MockModularRotatedRays",
+  "PakStokes.AllD.MockModularCuspDescent"
 ]
 
 [[lean_lib]]

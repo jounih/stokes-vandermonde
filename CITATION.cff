@@ -7,7 +7,7 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.7.0"
+version: "3.8.0"
 date-released: "2026-11-27"
 keywords:
   - Lean 4
@@ -15,9 +15,16 @@ keywords:
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - mock modular forms
+  - Eichler integrals
+  - Hankel contour
+  - rotated rays
+  - Vafa-Witten invariants
+  - depth-2 mock modular forms
+  - mod-N square partitions
+  - periodic weight rank
   - blackbody radiation
   - photon gas
-  - mock modular forms
   - Dyson rank
   - Watson uniqueness lemma
   - prime dilation isolation
