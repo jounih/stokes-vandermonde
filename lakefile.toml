@@ -1,6 +1,6 @@
 name = "pak_primes_2_5b"
-version = "3.4.0"
-defaultTargets = ["PakPrimes", "PNTIntegration", "Statements"]
+version = "3.5.0"
+defaultTargets = ["PakPrimes", "PNTIntegration", "Statements", "PakStokesAllD"]
 
 [[require]]
 name = "mathlib"
@@ -92,6 +92,63 @@ roots = [
   "Statements.CompletedXi",
   "Statements.SpectralPositivity",
   "Statements.All"
+]
+
+[[lean_lib]]
+name = "PakStokesBase"
+srcDir = "vendor/pak-cubic-theta"
+roots = [
+  "ActionSeparation",
+  "CubicActions",
+  "DirectionalLaplace",
+  "KernelAnalytic",
+  "Laplace",
+  "LaplaceDerivative",
+  "LaplaceProduct",
+  "PakStokes.ActionCoordinates",
+  "PakStokes.AiryContourODE",
+  "PakStokes.AiryWronskian",
+  "PakStokes.BackgroundAnalytic",
+  "PakStokes.BackgroundContour",
+  "PakStokes.BackgroundInverse",
+  "PakStokes.BackgroundJets",
+  "PakStokes.BetaGammaTransport",
+  "PakStokes.CubicEulerKernel",
+  "PakStokes.CubicKummerJets",
+  "PakStokes.KummerEquation",
+  "PakStokes.LaplaceWaveJets",
+  "PakStokes.MarkedJacobian",
+  "PakStokes.MarkedSeries",
+  "PakStokes.OrdinaryPoint",
+  "PakStokes.PhysicalAiry",
+  "PakStokes.PhysicalBackground",
+  "PakStokes.PhysicalExpression",
+  "PakStokes.PhysicalJacobian",
+  "PakStokes.PhysicalKummer",
+  "PakStokes.PhysicalParity",
+  "PakStokes.PhysicalPhases",
+  "PakStokes.PhysicalSeries",
+  "PakStokes.PhysicalSpectrum",
+  "PakStokes.PolynomialFlow",
+  "PakStokes.RayAlgebra",
+  "PakStokes.RealRayExtension",
+  "PakStokes.RegularCube",
+  "PakStokes.WaveProducts"
+]
+
+[[lean_lib]]
+name = "PakStokesAllD"
+roots = [
+  "PakStokesAllD",
+  "PakStokes.AllD.BesicovitchCore",
+  "PakStokes.AllD.UniversalThimble",
+  "PakStokes.AllD.ExtremeRayProjection",
+  "PakStokes.AllD.AllDFormalTransfer",
+  "PakStokes.AllD.TrackedWaves",
+  "PakStokes.AllD.AllDThetaDTrans",
+  "PakStokes.AllD.SquaresPartitionAnalytic",
+  "PakStokes.AllD.PowerPartitions",
+  "PakStokes.AllD.JumpPointMultivariate"
 ]
 
 [[lean_lib]]

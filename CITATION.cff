@@ -7,14 +7,20 @@ authors:
     given-names: Jouni
 repository-code: "https://github.com/jounih/stokes-vandermonde"
 license: Apache-2.0
-version: "3.4.0"
-date-released: "2026-11-26"
+version: "3.5.0"
+date-released: "2026-11-27"
 keywords:
   - Lean 4
   - formal verification
   - differential transcendence
   - Borel-Laplace summation
   - Stokes phenomenon
+  - partitions into squares
+  - power partitions
+  - cubic theta series
+  - Waring powers
+  - Besicovitch theorem
+  - jump-point transseries
   - completed Riemann xi function
   - finite-contour resurgence
   - spectral positivity

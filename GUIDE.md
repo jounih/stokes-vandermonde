@@ -1,4 +1,4 @@
-# Reader & Auditor Guide (`stokes-vandermonde` `v3.4.0`)
+# Reader & Auditor Guide (`stokes-vandermonde` `v3.5.0`)
 
 This guide maps the repository into two clean layers—the **Core Resurgence Engine** and the **Flagship Theorems by Release Wave**—and gives exact commands to audit every claim from scratch.
 
@@ -25,11 +25,18 @@ This guide maps the repository into two clean layers—the **Core Resurgence Eng
 | [`QuasipolynomialEulerParity.lean`](PakPrimes/QuasipolynomialEulerParity.lean) · [`QuasipolynomialIFF.lean`](PakPrimes/QuasipolynomialIFF.lean) | Period-$M$ quasipolynomial parity dichotomy, Ramanujan $(E_2, E_4, E_6)$ converse ($M = 1, 2$), and joint differential independence | $\mathbb{C}(q)$ |
 | [`VolterraVirialDTrans.lean`](PakPrimes/VolterraVirialDTrans.lean) | Sibuya's Sub-Gevrey Convergence Theorem ($d/dx$ and Euler $x\,d/dx$) | $\mathbb{C}[x], \mathbb{C}(t)$ |
 | [`PakNthPrimeEngine.lean`](PakPrimes/PakNthPrimeEngine.lean) · [`PakNthPrimeStokes.lean`](PakPrimes/PakNthPrimeStokes.lean) · [`PNTIntegration/`](PNTIntegration/) | Prime-pencil resurgence & `MediumPNT` (`PNT+`) bridge discharging `PNTAllOrders` | $\mathbb{C}(x)$ |
+| [`BesicovitchCore.lean`](PakStokes/AllD/BesicovitchCore.lean) · [`UniversalThimble.lean`](PakStokes/AllD/UniversalThimble.lean) · [`ExtremeRayProjection.lean`](PakStokes/AllD/ExtremeRayProjection.lean) · [`TrackedWaves.lean`](PakStokes/AllD/TrackedWaves.lean) | All-$d$ Besicovitch radical independence ($r \ge 2$), LHP critical-value exclusion, extreme-ray projection, & generalized domain Marked Jacobian | $\mathbb{C}(q)$ |
+| [`SquaresPartitionAnalytic.lean`](PakStokes/AllD/SquaresPartitionAnalytic.lean) · [`PowerPartitions.lean`](PakStokes/AllD/PowerPartitions.lean) | Zero-tilt constant-Vandermonde power-partition engine, Kolchin log-derivative transfer, & exact $d=2$ Poisson/cotangent identity | $\mathbb{C}(q)$ |
+| [`JumpPointMultivariate.lean`](PakStokes/AllD/JumpPointMultivariate.lean) | Algebraic jump-point derivation engine (`monoidDeriv`, `hahnDeriv`), Wulff-ray infinite $\mathbb{Q}$-rank, & collision-immune Hahn transseries Vandermonde elimination | `AsympCoeff`, $\mathbb{C}[X]$ |
 
 ---
 
 ## Layer 2: Flagship Theorems by Release Wave
 
+- **Waves 8–10 (`v3.5.0`) — All-$d$ Marked-Wave Cubic Waring/Dilations, Unconditional Partitions into Squares $P_2(q)$, & Algebraic Jump-Point Multivariate Engine:**
+  - **Wave 8 (`PakStokesAllD` / `AllDThetaDTrans.lean`)**: Unconditional Besicovitch radical independence ($r \ge 2$), LHP critical-value exclusion, extreme-ray projection, **unconditional cubic Waring powers** $\Theta_3(q)^k$ ($k \ge 1$) and **joint differential independence of all finite distinct cubic dilations** $\{\Theta_3(q^{a_i})\}$, plus `AllDStokesProfile`-parameterized all-$d$ ($d \ge 3$) master theorems (non-vacuous via `stokesProfileThree` at $d=3$).
+  - **Wave 9 (`SquaresPartitionAnalytic.lean` + `PowerPartitions.lean`)**: **100% unconditional from Mathlib** closed-form Poisson/cotangent identity (`squares_partition_analytic_identity`), **partitions into squares** $P_2(q) = \prod_{n \ge 1}(1-q^{n^2})^{-1}$ non-ADE, every nonzero integer power $P_2(q)^k$ non-ADE, and joint differential independence of every finite family of distinct positive-integer dilations $\{P_2(q^{a_i})\}$; plus `PowerPartStokesProfile`-parameterized $d \ge 3$ master theorems.
+  - **Wave 10 (`JumpPointMultivariate.lean`)**: **100% unconditional algebraic transseries engine** (`jumpPoints_exist`, `monoidDeriv`, `hahnDeriv`, `jumpPoint_minimal_relation_vandermonde`, `wulffRay_infinite_qrank`, `multivariate_jumpPoint_non_ade_over_poly`, `diagForm_transseries_non_ade`, `diagQuartic2D_non_ade`; connecting formal transseries to a specific analytic heat trace still requires the analytic hypothesis): [`PakStokesAllD.lean`](PakStokesAllD.lean) · [`docs/all-d-power-partitions-and-multivariate.md`](docs/all-d-power-partitions-and-multivariate.md)
 - **Wave 7 (`v3.4.0`) — Unconditional Completed-$\xi$ Strong $\mathbb{C}(\{t\})$ D-Transcendence, Finite-Contour Engine, & RH/GRH-Free Spectral Positivity:**
   - **100% Unconditional Completed $\xi$ & Finite-Contour Simple-Pole Engine** *(Mathlib plus this repository's proved modules, with no extra hypotheses; ZERO RH, ZERO external data structures, ZERO growth at $\infty$)*: infinitude of nontrivial zeros, strong $\mathbb{C}(\{t\})$ D-transcendence in $t = 1/u$ for the factorial-moment / formal-Laplace series of $-\xi'/\xi$ at every real center $c \in \mathbb{R}$ (NOT for $\zeta(s)$ in $s$), joint multi-center differential independence, and real-axis Laplace `B_xi c u` ADE obstruction over $\mathbb{C}\{1/u\}$: [`Statements/CompletedXi.lean`](Statements/CompletedXi.lean) · [`docs/completed-xi-and-positivity.md`](docs/completed-xi-and-positivity.md)
   - **RH/GRH-Free Spectral Positivity & Strict Hankel Positive Definiteness** *(unconditional abstract core + explicitly parameterized `SpectralLowZeroData` with `γ_low : List ℝ` and arbitrary off-line critical-strip zeros $|\mathrm{Im}\,\gamma| < 1/2$ + parameterized `SubtractedHyperbolicSpectralData` for $d = 2, 3$; data structures are NOT connected in Lean to the zeros of `completedXi`, $L(s, \chi_{-4})$, $L(s, \Delta)$, or a concrete hyperbolic manifold's Laplace eigenvalues)*: [`Statements/SpectralPositivity.lean`](Statements/SpectralPositivity.lean) · [`docs/completed-xi-and-positivity.md`](docs/completed-xi-and-positivity.md)
@@ -64,13 +71,14 @@ lake build
 
 # 2. Check zero escape hatches (no sorry, custom axiom, native_decide, implemented_by, @[extern)
 grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' \
-  PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ vendor/PrimeNumberTheoremAnd/
+  PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ PakStokes/ PakStokesAllD.lean vendor/PrimeNumberTheoremAnd/ vendor/pak-cubic-theta/
 
-# 3. Print exact axioms for all 207 audited declarations
+# 3. Print exact axioms for all 248 audited declarations
 lake env lean Verify.lean
 
 # 4. Independent kernel replay from scratch via leanchecker
 ulimit -s 65520   # use `ulimit -s unlimited` on Linux for single-threaded --fresh replays
+lake env leanchecker --fresh PakStokesAllD
 lake env leanchecker --fresh Statements.CompletedXi
 lake env leanchecker --fresh Statements.SpectralPositivity
 lake env leanchecker --fresh Statements.SelbergHyperbolic

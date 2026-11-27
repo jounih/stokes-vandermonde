@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ vendor/PrimeNumberTheoremAnd/; then
+          if grep -rnE '\b(sorry|sorry_using|axiom|native_decide|implemented_by)\b|@\[extern' PakPrimes/ PakPrimes.lean PNTIntegration/ Statements/ PakStokes/ PakStokesAllD.lean vendor/PrimeNumberTheoremAnd/ vendor/pak-cubic-theta/; then
             echo "Forbidden escape hatch found"
             exit 1
           fi
@@ -237,6 +237,50 @@ jobs:
               "Statements.SpectralPositivity.subtractedHyperbolicMoment_eq_tsum",
               "Statements.SpectralPositivity.subtractedHyperbolicHankel_posDef",
               "Statements.SpectralPositivity.subtractedHyperbolicHankel_det_pos",
+              # Wave 8 (v3.5.0): All-d Marked-Wave Engine & Unconditional Cubic Waring/Dilations
+              "CubicTheta.AllD.besicovitch_rfree_linearIndependent",
+              "CubicTheta.AllD.universalPoly_no_nonzero_critValue_in_LHP",
+              "CubicTheta.AllD.extremeRay_face_iff",
+              "CubicTheta.AllD.independent_of_marked_jacobian_domain",
+              "CubicTheta.AllD.allD_formal_transfer",
+              "CubicTheta.AllD.waring_algebraicIndependent_of_base",
+              "CubicTheta.AllD.iterQDeriv_eq_sum",
+              "CubicTheta.AllD.theta_d_marked_wave_non_ade",
+              "CubicTheta.AllD.theta_d_waring_power_non_ade",
+              "CubicTheta.AllD.theta_d_dilations_diff_indep",
+              "CubicTheta.AllD.theta_d_dfree_dilations_diff_indep",
+              "CubicTheta.AllD.theta_3_non_ade_via_allD",
+              "CubicTheta.AllD.theta_3_waring_power_non_ade",
+              "CubicTheta.AllD.theta_3_dilations_diff_indep",
+              # Wave 9 (v3.5.0): 100% Unconditional Partitions into Squares P2(q) & All-d Power Partitions
+              "CubicTheta.AllD.squares_partition_analytic_identity",
+              "CubicTheta.AllD.powerPartMult_prime",
+              "CubicTheta.AllD.logDerivPowerPart_non_ade",
+              "CubicTheta.AllD.powerPart_non_ade",
+              "CubicTheta.AllD.powerPart_zpow_non_ade",
+              "CubicTheta.AllD.logDerivPowerPart_dilations_diff_indep",
+              "CubicTheta.AllD.powerPart_dilations_diff_indep",
+              "CubicTheta.AllD.logDerivPowerPart_2_non_ade",
+              "CubicTheta.AllD.powerPart_2_non_ade",
+              "CubicTheta.AllD.powerPart_2_zpow_non_ade",
+              "CubicTheta.AllD.logDerivPowerPart_2_dilations_diff_indep",
+              "CubicTheta.AllD.powerPart_2_dilations_diff_indep",
+              # Wave 10 (v3.5.0): Unconditional Algebraic Jump-Point Multivariate Transseries Engine
+              "CubicTheta.AllD.jumpPoints_exist",
+              "CubicTheta.AllD.jumpPoint_no_multi_pos_sum",
+              "CubicTheta.AllD.monoidDeriv_aeval",
+              "CubicTheta.AllD.hahnDeriv_aeval",
+              "CubicTheta.AllD.jumpPoint_minimal_relation_vandermonde",
+              "CubicTheta.AllD.jumpPoint_transseries_algebraicIndependent",
+              "CubicTheta.AllD.jumpPoint_transseries_no_poly_ade",
+              "CubicTheta.AllD.wulffRay_infinite_qrank",
+              "CubicTheta.AllD.multivariate_evenForm_algebraic_dtrans",
+              "CubicTheta.AllD.multivariate_jumpPoint_non_ade",
+              "CubicTheta.AllD.multivariate_jumpPoint_non_ade_over_poly",
+              "CubicTheta.AllD.diagQuartic2D_offray_collision",
+              "CubicTheta.AllD.diagForm_algebraic_dtrans",
+              "CubicTheta.AllD.diagForm_transseries_non_ade",
+              "CubicTheta.AllD.diagQuartic2D_non_ade",
           ]
           for thm in expected:
               needle = f"'{thm}' depends on axioms: [propext, Classical.choice, Quot.sound]"
@@ -280,3 +324,5 @@ jobs:
           echo "=== leanchecker --fresh Wave 7 (v3.4.0) Statements ledgers ==="
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.CompletedXi)
           (ulimit -s unlimited && lake env leanchecker --fresh Statements.SpectralPositivity)
+          echo "=== leanchecker --fresh Waves 8-10 (v3.5.0) PakStokesAllD ==="
+          (ulimit -s unlimited && lake env leanchecker --fresh PakStokesAllD)

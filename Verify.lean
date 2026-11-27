@@ -31,6 +31,7 @@ import Statements.RankOneSymmetric
 import Statements.UnconditionalPrimes
 import Statements.CompletedXi
 import Statements.SpectralPositivity
+import PakStokesAllD
 
 -- Wave 1: Autonomous Stokes–Vandermonde & Unconditional Prime Counting
 #check @PakPrimes.GeneralTheorem2.borel_stokes_vandermonde_no_autonomous_ade
@@ -272,3 +273,50 @@ import Statements.SpectralPositivity
 #print axioms Statements.SpectralPositivity.subtractedHyperbolicMoment_eq_tsum
 #print axioms Statements.SpectralPositivity.subtractedHyperbolicHankel_posDef
 #print axioms Statements.SpectralPositivity.subtractedHyperbolicHankel_det_pos
+
+-- Wave 8 (v3.5.0): All-d Marked-Wave Stokes Engine, Besicovitch Core, Universal Thimble, & Unconditional Cubic Waring/Dilations
+#print axioms CubicTheta.AllD.besicovitch_rfree_linearIndependent
+#print axioms CubicTheta.AllD.universalPoly_no_nonzero_critValue_in_LHP
+#print axioms CubicTheta.AllD.extremeRay_face_iff
+#print axioms CubicTheta.AllD.independent_of_marked_jacobian_domain
+#print axioms CubicTheta.AllD.allD_formal_transfer
+#print axioms CubicTheta.AllD.waring_algebraicIndependent_of_base
+#print axioms CubicTheta.AllD.iterQDeriv_eq_sum
+#print axioms CubicTheta.AllD.theta_d_marked_wave_non_ade
+#print axioms CubicTheta.AllD.theta_d_waring_power_non_ade
+#print axioms CubicTheta.AllD.theta_d_dilations_diff_indep
+#print axioms CubicTheta.AllD.theta_d_dfree_dilations_diff_indep
+#print axioms CubicTheta.AllD.theta_3_non_ade_via_allD
+#print axioms CubicTheta.AllD.theta_3_waring_power_non_ade
+#print axioms CubicTheta.AllD.theta_3_dilations_diff_indep
+
+-- Wave 9 (v3.5.0): 100% Unconditional Partitions into Squares P₂(q) & All-d Power Partitions
+#print axioms CubicTheta.AllD.squares_partition_analytic_identity
+#print axioms CubicTheta.AllD.powerPartMult_prime
+#print axioms CubicTheta.AllD.logDerivPowerPart_non_ade
+#print axioms CubicTheta.AllD.powerPart_non_ade
+#print axioms CubicTheta.AllD.powerPart_zpow_non_ade
+#print axioms CubicTheta.AllD.logDerivPowerPart_dilations_diff_indep
+#print axioms CubicTheta.AllD.powerPart_dilations_diff_indep
+#print axioms CubicTheta.AllD.logDerivPowerPart_2_non_ade
+#print axioms CubicTheta.AllD.powerPart_2_non_ade
+#print axioms CubicTheta.AllD.powerPart_2_zpow_non_ade
+#print axioms CubicTheta.AllD.logDerivPowerPart_2_dilations_diff_indep
+#print axioms CubicTheta.AllD.powerPart_2_dilations_diff_indep
+
+-- Wave 10 (v3.5.0): Unconditional Algebraic Jump-Point Derivation Engine & Multivariate Diagonal Witnesses
+#print axioms CubicTheta.AllD.jumpPoints_exist
+#print axioms CubicTheta.AllD.jumpPoint_no_multi_pos_sum
+#print axioms CubicTheta.AllD.monoidDeriv_aeval
+#print axioms CubicTheta.AllD.hahnDeriv_aeval
+#print axioms CubicTheta.AllD.jumpPoint_minimal_relation_vandermonde
+#print axioms CubicTheta.AllD.jumpPoint_transseries_algebraicIndependent
+#print axioms CubicTheta.AllD.jumpPoint_transseries_no_poly_ade
+#print axioms CubicTheta.AllD.wulffRay_infinite_qrank
+#print axioms CubicTheta.AllD.multivariate_evenForm_algebraic_dtrans
+#print axioms CubicTheta.AllD.multivariate_jumpPoint_non_ade
+#print axioms CubicTheta.AllD.multivariate_jumpPoint_non_ade_over_poly
+#print axioms CubicTheta.AllD.diagQuartic2D_offray_collision
+#print axioms CubicTheta.AllD.diagForm_algebraic_dtrans
+#print axioms CubicTheta.AllD.diagForm_transseries_non_ade
+#print axioms CubicTheta.AllD.diagQuartic2D_non_ade
